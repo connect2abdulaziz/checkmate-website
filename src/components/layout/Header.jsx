@@ -168,7 +168,7 @@ const Header = () => {
                     fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                   }}
                 >
-                  Checkmate
+                  Cypentra
                   <motion.span
                     style={{ color: 'var(--color-secondary)' }}
                     animate={{ opacity: [0.7, 1, 0.7] }}

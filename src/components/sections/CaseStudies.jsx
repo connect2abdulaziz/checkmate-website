@@ -48,7 +48,6 @@ const AIIcon = ({ size = 24, color = 'currentColor' }) => (
 
 const CaseStudies = () => {
   const [activeCase, setActiveCase] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const autoPlayTimerRef = useRef(null);
   const sectionRef = useRef(null);
@@ -167,7 +166,7 @@ const CaseStudies = () => {
     }
   ];
 
-  // Handle auto-play functionality
+  // Handle auto-play functionality - always active
   useEffect(() => {
     // Clear any existing interval first
     if (autoPlayTimerRef.current) {
@@ -175,14 +174,13 @@ const CaseStudies = () => {
       autoPlayTimerRef.current = null;
     }
 
-    if (isAutoPlaying) {
-      autoPlayTimerRef.current = setInterval(() => {
-        setActiveCase((prev) => {
-          const nextIndex = (prev + 1) % caseStudies.length;
-          return nextIndex;
-        });
-      }, 8000);
-    }
+    // Always auto-play
+    autoPlayTimerRef.current = setInterval(() => {
+      setActiveCase((prev) => {
+        const nextIndex = (prev + 1) % caseStudies.length;
+        return nextIndex;
+      });
+    }, 8000);
 
     return () => {
       if (autoPlayTimerRef.current) {
@@ -190,16 +188,12 @@ const CaseStudies = () => {
         autoPlayTimerRef.current = null;
       }
     };
-  }, [isAutoPlaying]);
+  }, []);
 
-  // Reset auto-play when user interacts with cases
+  // Handle case click - auto-play continues
   const handleCaseClick = (index) => {
     setActiveCase(index);
-    setIsAutoPlaying(false);
-
-    if (autoPlayTimerRef.current) {
-      clearInterval(autoPlayTimerRef.current);
-    }
+    // Auto-play will continue automatically
   };
 
   // Initialize animations
@@ -788,67 +782,6 @@ const CaseStudies = () => {
             ))}
           </div>
 
-          {/* Auto-play toggle */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: isMobile ? '1.5rem' : '2rem',
-          }}>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: isMobile ? '0.5rem 0.875rem' : '0.5rem 1rem',
-                background: 'transparent',
-                border: '1px solid rgba(15, 23, 42, 0.2)',
-                borderRadius: '50px',
-                color: 'var(--text-on-light-muted)',
-                fontSize: isMobile ? '0.8rem' : '0.9rem',
-                cursor: 'pointer',
-                fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-              }}
-            >
-              {isAutoPlaying ? (
-                <>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ marginRight: '0.5rem' }}
-                  >
-                    <rect x="6" y="4" width="4" height="16"></rect>
-                    <rect x="14" y="4" width="4" height="16"></rect>
-                  </svg>
-                  Pause Auto-play
-                </>
-              ) : (
-                <>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ marginRight: '0.5rem' }}
-                  >
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                  Resume Auto-play
-                </>
-              )}
-            </motion.button>
-          </div>
         </div>
       </div>
     </section>
