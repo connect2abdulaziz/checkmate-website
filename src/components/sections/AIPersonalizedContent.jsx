@@ -14,31 +14,70 @@ const EnhancedAIStrategyAnalyzer = () => {
   const [isMobile, setIsMobile] = useState(false);
   const analyzerRef = useRef(null);
   const progressRef = useRef(null);
-  const canvasRef = useRef(null);
-  const particlesRef = useRef([]);
 
-  // Define questions for business strategy analysis
+  // Professional SVG Icons Component
+  const QuestionIcon = ({ type }) => {
+    const icons = {
+      service: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+      ),
+      size: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      ),
+      goal: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="6"></circle>
+          <circle cx="12" cy="12" r="2"></circle>
+        </svg>
+      ),
+      challenge: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+      ),
+      timeframe: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      )
+    };
+    return icons[type] || icons.service;
+  };
+
+  // Define questions for technology needs analysis
   const questions = [
     {
-      id: 'industry',
-      question: 'What industry is your business in?',
-      icon: '🏢',
-      color: '#4D8DDA',
+      id: 'service',
+      question: 'What service do you need most?',
+      iconType: 'service',
+      color: 'var(--color-primary)',
       options: [
-        { value: 'technology', label: 'Technology & Software' },
-        { value: 'healthcare', label: 'Healthcare & Medical' },
-        { value: 'finance', label: 'Finance & Banking' },
-        { value: 'retail', label: 'Retail & E-commerce' },
-        { value: 'manufacturing', label: 'Manufacturing & Industrial' },
-        { value: 'education', label: 'Education & Training' },
-        { value: 'other', label: 'Other Industries' }
+        { value: 'fullstack', label: 'Full-Stack Development' },
+        { value: 'software', label: 'Software Engineering' },
+        { value: 'devops', label: 'DevOps & Cloud Security' },
+        { value: 'security', label: 'Data Security & Compliance' },
+        { value: 'ai', label: 'AI & Machine Learning' },
+        { value: 'automation', label: 'Process Automation' }
       ]
     },
     {
       id: 'size',
       question: 'What is the size of your organization?',
-      icon: '👥',
-      color: '#E5A244',
+      iconType: 'size',
+      color: 'var(--color-primary)',
       options: [
         { value: 'startup', label: 'Startup (1-10 employees)' },
         { value: 'small', label: 'Small Business (11-50 employees)' },
@@ -48,162 +87,193 @@ const EnhancedAIStrategyAnalyzer = () => {
     },
     {
       id: 'goal',
-      question: 'What is your primary business goal for the next year?',
-      icon: '🎯',
-      color: '#50AC8E',
+      question: 'What is your primary goal?',
+      iconType: 'goal',
+      color: 'var(--color-primary)',
       options: [
-        { value: 'growth', label: 'Accelerate Growth & Expansion' },
-        { value: 'efficiency', label: 'Improve Operational Efficiency' },
-        { value: 'innovation', label: 'Drive Innovation & Development' },
-        { value: 'expansion', label: 'Enter New Markets' },
-        { value: 'restructure', label: 'Organizational Restructuring' }
+        { value: 'launch', label: 'Launch New Product/Service' },
+        { value: 'scale', label: 'Scale Existing Platform' },
+        { value: 'security', label: 'Enhance Security & Compliance' },
+        { value: 'automate', label: 'Automate Processes' },
+        { value: 'migrate', label: 'Migrate to Cloud' }
       ]
     },
     {
       id: 'challenge',
-      question: 'What is your biggest current challenge?',
-      icon: '🧩',
-      color: '#D95D67',
+      question: 'What is your biggest technical challenge?',
+      iconType: 'challenge',
+      color: 'var(--color-primary)',
       options: [
-        { value: 'competition', label: 'Increasing Market Competition' },
-        { value: 'talent', label: 'Talent Acquisition & Retention' },
-        { value: 'digital', label: 'Digital Transformation Needs' },
-        { value: 'regulation', label: 'Regulatory & Compliance Issues' },
-        { value: 'funding', label: 'Securing Funding or Investment' },
-        { value: 'innovation', label: 'Keeping Pace with Innovation' }
+        { value: 'performance', label: 'Performance & Scalability' },
+        { value: 'security', label: 'Security Vulnerabilities' },
+        { value: 'integration', label: 'System Integration' },
+        { value: 'maintenance', label: 'Code Maintenance & Updates' },
+        { value: 'deployment', label: 'Deployment & DevOps' },
+        { value: 'compliance', label: 'Compliance Requirements' }
       ]
     },
     {
       id: 'timeframe',
-      question: 'What is your strategic planning timeframe?',
-      icon: '⏱️',
-      color: '#8B64C0',
+      question: 'What is your project timeframe?',
+      iconType: 'timeframe',
+      color: 'var(--color-primary)',
       options: [
-        { value: 'short', label: 'Short-term (0-1 year)' },
-        { value: 'medium', label: 'Medium-term (1-3 years)' },
-        { value: 'long', label: 'Long-term (3-5+ years)' }
+        { value: 'urgent', label: 'Urgent (0-3 months)' },
+        { value: 'short', label: 'Short-term (3-6 months)' },
+        { value: 'medium', label: 'Medium-term (6-12 months)' },
+        { value: 'long', label: 'Long-term (12+ months)' }
       ]
     }
   ];
 
-  // Default strategic recommendation
+  // Result Icon Component
+  const ResultIcon = () => (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+      <line x1="8" y1="21" x2="16" y2="21"></line>
+      <line x1="12" y1="17" x2="12" y2="21"></line>
+    </svg>
+  );
+
+  // Default service recommendation
   const defaultStrategy = {
-    name: "Flexible Repertoire Strategy",
-    chessIcon: "♟", // Pawn
-    color: "#8B64C0",
-    description: "An adaptable approach combining defensive positioning with opportunistic advances.",
+    name: "Comprehensive Development Package",
+    icon: <ResultIcon />,
+    color: "var(--color-primary)",
+    description: "A balanced approach combining full-stack development with cloud infrastructure and security best practices.",
     moves: [
-      "Conduct comprehensive market analysis",
-      "Identify key competitive advantages",
-      "Develop phased implementation plan",
-      "Create measurement framework for success"
+      "Assess current technology stack and infrastructure",
+      "Design scalable architecture for your needs",
+      "Implement secure development practices",
+      "Set up CI/CD pipeline and monitoring"
     ],
-    strengths: "Balanced approach; adaptable to changing conditions",
-    weaknesses: "May lack competitive edge in highly competitive markets",
-    timeframe: "12-18 months"
+    strengths: "Balanced approach; covers all essential aspects",
+    weaknesses: "May require phased implementation for complex projects",
+    timeframe: "3-6 months"
   };
 
-  // Chess-themed strategic recommendations based on answers
+  // Service-based recommendations based on answers
   const strategicRecommendations = {
-    // Technology industry strategies
-    technology: {
+    fullstack: {
       startup: {
-        growth: {
-          name: "Aggressive Queen's Gambit",
-          chessIcon: "♛", // Queen
-          color: "#4D8DDA",
-          description: "A bold strategy that sacrifices short-term resources for long-term market position advantage.",
+        launch: {
+          name: "Starter Build Package",
+          icon: <ResultIcon />,
+          color: "var(--color-primary)",
+          description: "Perfect for MVPs and small SaaS applications. Get your product to market quickly with a solid foundation.",
           moves: [
-            "Secure seed funding to fuel rapid development",
-            "Prioritize product-market fit over immediate profitability",
-            "Invest heavily in market share acquisition",
-            "Develop a unique value proposition that differentiates from competitors"
+            "Build responsive frontend with React/Next.js",
+            "Develop RESTful API backend",
+            "Set up basic database and authentication",
+            "Deploy to cloud with CI/CD pipeline"
           ],
-          strengths: "Establishes strong market presence quickly; positions for rapid scaling",
-          weaknesses: "Cash-intensive; requires significant investor confidence",
-          timeframe: "12-18 months"
+          strengths: "Fast time-to-market; cost-effective for startups",
+          weaknesses: "May need upgrades as you scale",
+          timeframe: "2-4 months"
         },
-        efficiency: {
-          name: "Nimzo-Indian Defense",
-          chessIcon: "♜", // Rook
-          color: "#D95D67",
-          description: "A solid defensive strategy focusing on internal optimization before expansion.",
+        scale: {
+          name: "Professional App Package",
+          icon: <ResultIcon />,
+          color: "var(--color-primary)",
+          description: "Scalable architecture for growing applications. Built to handle increased traffic and complexity.",
           moves: [
-            "Streamline operational processes",
-            "Implement lean methodology",
-            "Optimize technology stack for efficiency",
-            "Build scalable infrastructure before market expansion"
+            "Design scalable microservices architecture",
+            "Implement advanced caching and optimization",
+            "Set up monitoring and alerting systems",
+            "Create comprehensive testing suite"
           ],
-          strengths: "Creates sustainable foundation; maximizes limited resources",
-          weaknesses: "Slower growth trajectory; may miss market opportunities",
-          timeframe: "6-12 months"
-        },
-        innovation: {
-          name: "King's Indian Attack",
-          chessIcon: "♚", // King
-          color: "#E5A244",
-          description: "A flexible innovation strategy that allows for pivoting while maintaining core strengths.",
-          moves: [
-            "Invest in R&D for breakthrough solutions",
-            "Create innovation teams with dedicated resources",
-            "Develop IP strategy to protect innovations",
-            "Establish partnerships with research institutions"
-          ],
-          strengths: "Positions company as thought leader; creates future revenue streams",
-          weaknesses: "High uncertainty; requires tolerance for failure",
-          timeframe: "18-24 months"
+          strengths: "Handles growth well; professional-grade quality",
+          weaknesses: "Higher initial investment",
+          timeframe: "4-6 months"
         }
       },
       small: {
-        growth: {
-          name: "Sicilian Dragon Variation",
-          chessIcon: "♝", // Bishop
-          color: "#50AC8E",
-          description: "An aggressive market expansion strategy with concentrated force in new territories.",
+        launch: {
+          name: "Professional App Package",
+          icon: <ResultIcon />,
+          color: "var(--color-primary)",
+          description: "Custom UI/UX with secure authentication and robust backend systems.",
           moves: [
-            "Identify adjacent markets for expansion",
-            "Develop localization strategy for new markets",
-            "Create market entry teams with specialized knowledge",
-            "Allocate significant resources to penetrate new markets quickly"
+            "Custom UI/UX design and implementation",
+            "Secure authentication (JWT/OAuth)",
+            "API + database (Node, Python, PostgreSQL)",
+            "2 weeks post-launch support included"
           ],
-          strengths: "Creates diverse revenue streams; reduces market-specific risks",
-          weaknesses: "Stretches resources; challenges company culture",
-          timeframe: "12-24 months"
-        },
-        efficiency: {
-          name: "French Defense",
-          chessIcon: "♜", // Rook
-          color: "#D95D67",
-          description: "A methodical approach focused on solidifying your position and optimizing operations.",
-          moves: [
-            "Implement robust business processes",
-            "Invest in automation and operational technology",
-            "Create detailed financial controls",
-            "Develop comprehensive quality management systems"
-          ],
-          strengths: "Creates operational excellence; improves margins",
-          weaknesses: "May create organizational rigidity",
-          timeframe: "6-12 months"
+          strengths: "Professional quality; includes support",
+          weaknesses: "Moderate timeline",
+          timeframe: "3-5 months"
         }
       }
     },
-    // Finance industry strategies
-    finance: {
-      medium: {
-        growth: {
-          name: "Queen's Indian Defense",
-          chessIcon: "♛", // Queen
-          color: "#4D8DDA",
-          description: "A balanced strategy combining solid defensive positioning with calculated offensive moves.",
+    devops: {
+      startup: {
+        migrate: {
+          name: "Cloud Essentials Package",
+          icon: <ResultIcon />,
+          color: "var(--color-primary)",
+          description: "Perfect for startups getting started with cloud infrastructure.",
           moves: [
-            "Strengthen core offerings while exploring new market segments",
-            "Develop tiered service approach for different client categories",
-            "Create strategic partnerships to expand service capabilities",
-            "Invest in advanced analytics for personalized offerings"
+            "AWS/GCP cloud setup and configuration",
+            "CI/CD pipeline automation",
+            "Monitoring and alerting setup",
+            "Basic security configurations"
           ],
-          strengths: "Balances risk and opportunity; builds on existing client relationships",
-          weaknesses: "Requires careful resource allocation",
-          timeframe: "18-24 months"
+          strengths: "Affordable monthly pricing; essential features",
+          weaknesses: "May need upgrades as you grow",
+          timeframe: "1-2 months"
+        }
+      },
+      medium: {
+        scale: {
+          name: "Managed Cloud Ops Package",
+          icon: "☁️",
+          color: "var(--color-primary)",
+          description: "24/7 monitoring and management for growing companies.",
+          moves: [
+            "24/7 monitoring and alerting",
+            "Security patching and updates",
+            "Automated backups and rollback",
+            "Cost optimization strategies"
+          ],
+          strengths: "Comprehensive management; peace of mind",
+          weaknesses: "Monthly recurring cost",
+          timeframe: "Ongoing"
+        }
+      }
+    },
+    security: {
+      small: {
+        security: {
+          name: "Basic Security Maintenance",
+          icon: "🔒",
+          color: "var(--color-primary)",
+          description: "Essential security services for small businesses.",
+          moves: [
+            "Monthly vulnerability scanning",
+            "IAM review and optimization",
+            "Encrypted backup setup",
+            "Security best practices implementation"
+          ],
+          strengths: "Affordable; essential protection",
+          weaknesses: "Basic level coverage",
+          timeframe: "Monthly"
+        }
+      },
+      medium: {
+        compliance: {
+          name: "Compliance Suite",
+          icon: "🔒",
+          color: "var(--color-primary)",
+          description: "Full compliance support for SOC 2 and GDPR requirements.",
+          moves: [
+            "SOC 2/GDPR readiness assessment",
+            "Full security dashboard setup",
+            "Compliance documentation",
+            "Monthly advisory calls"
+          ],
+          strengths: "Comprehensive compliance support",
+          weaknesses: "Higher investment",
+          timeframe: "3-6 months"
         }
       }
     }
@@ -223,85 +293,6 @@ const EnhancedAIStrategyAnalyzer = () => {
     };
   }, []);
 
-  // Handle particle animation
-  useEffect(() => {
-    if (!canvasRef.current) return;
-
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-
-    // Set canvas dimensions
-    const handleResize = () => {
-      if (!canvas.parentElement) return;
-
-      const rect = canvas.parentElement.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    // Create particles
-    const createParticles = () => {
-      const particles = [];
-      const particleCount = 100;
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 2 + 1,
-          speedX: Math.random() * 1 - 0.5,
-          speedY: Math.random() * 1 - 0.5,
-          color: `rgba(255, 255, 255, ${Math.random() * 0.3})`
-        });
-      }
-
-      particlesRef.current = particles;
-    };
-
-    createParticles();
-
-    // Animation loop
-    let animationFrame;
-
-    const animate = () => {
-      if (!ctx) return;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particlesRef.current.forEach(particle => {
-        ctx.fillStyle = particle.color;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fill();
-
-        particle.x += particle.speedX;
-        particle.y += particle.speedY;
-
-        // Bounds checking
-        if (particle.x < 0 || particle.x > canvas.width) {
-          particle.speedX = -particle.speedX;
-        }
-
-        if (particle.y < 0 || particle.y > canvas.height) {
-          particle.speedY = -particle.speedY;
-        }
-      });
-
-      animationFrame = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
-    };
-  }, []);
 
   // Handle answer selection
   const handleAnswerSelect = (questionId, value) => {
@@ -328,16 +319,16 @@ const EnhancedAIStrategyAnalyzer = () => {
     return !!answers[questions[currentQuestion].id];
   };
 
-  // Analyze answers and generate strategic recommendation
+  // Analyze answers and generate service recommendation
   const analyzeStrategy = () => {
     setIsAnalyzing(true);
 
     // Simulate AI processing
     setTimeout(() => {
       // Get key parameters from answers
-      const industry = answers.industry || 'technology';
-      const size = answers.size || 'small';
-      const goal = answers.goal || 'growth';
+      const service = answers.service || 'fullstack';
+      const size = answers.size || 'startup';
+      const goal = answers.goal || 'launch';
 
       // Select appropriate strategy based on parameters
       let strategy;
@@ -345,11 +336,11 @@ const EnhancedAIStrategyAnalyzer = () => {
       try {
         // Check if the specific combination exists
         if (
-          strategicRecommendations[industry] &&
-          strategicRecommendations[industry][size] &&
-          strategicRecommendations[industry][size][goal]
+          strategicRecommendations[service] &&
+          strategicRecommendations[service][size] &&
+          strategicRecommendations[service][size][goal]
         ) {
-          strategy = strategicRecommendations[industry][size][goal];
+          strategy = strategicRecommendations[service][size][goal];
         } else {
           // Use default strategy if specific combination not found
           strategy = defaultStrategy;
@@ -362,11 +353,11 @@ const EnhancedAIStrategyAnalyzer = () => {
       // Set result with safety checks
       setResult({
         ...strategy,
-        industry: questions[0].options.find(opt => opt.value === (answers.industry || 'technology'))?.label || 'Technology',
-        size: questions[1].options.find(opt => opt.value === (answers.size || 'small'))?.label || 'Small Business',
-        goal: questions[2].options.find(opt => opt.value === (answers.goal || 'growth'))?.label || 'Growth',
+        service: questions[0].options.find(opt => opt.value === (answers.service || 'fullstack'))?.label || 'Full-Stack Development',
+        size: questions[1].options.find(opt => opt.value === (answers.size || 'startup'))?.label || 'Startup',
+        goal: questions[2].options.find(opt => opt.value === (answers.goal || 'launch'))?.label || 'Launch New Product',
         challenge: questions[3].options.find(opt => opt.value === answers.challenge)?.label || "Various Challenges",
-        planningTime: questions[4].options.find(opt => opt.value === answers.timeframe)?.label || "Medium-term"
+        timeframe: questions[4].options.find(opt => opt.value === answers.timeframe)?.label || "Medium-term"
       });
 
       // Show results after "processing" is complete
@@ -388,8 +379,12 @@ const EnhancedAIStrategyAnalyzer = () => {
   // Update progress bar based on current question
   useEffect(() => {
     if (progressRef.current) {
+      // Calculate progress based on completed questions (starts from 0%)
+      const completedQuestions = Object.keys(answers).length;
+      const progressPercent = (completedQuestions / questions.length) * 100;
+      
       gsap.to(progressRef.current, {
-        width: `${((currentQuestion + (isCurrentQuestionAnswered() ? 1 : 0)) / questions.length) * 100}%`,
+        width: `${progressPercent}%`,
         duration: 0.5,
         ease: 'power2.out'
       });
@@ -517,54 +512,156 @@ const EnhancedAIStrategyAnalyzer = () => {
       style={{
         padding: '80px 0',
         position: 'relative',
-        background: 'linear-gradient(135deg, #151515 0%, #252525 100%)',
-        color: 'white',
+        background: '#ffffff',
+        color: 'var(--text-on-light)',
         overflow: 'hidden',
       }}
     >
-      {/* Background Canvas for Particles */}
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          pointerEvents: 'none',
-        }}
-      />
+      {/* Background - Different Style Variation */}
+      {!isMobile ? (
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 0,
+            pointerEvents: 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: '24px',
+            padding: '4rem 0',
+          }}
+        >
+          {Array.from({ length: 32 }).map((_, i) => {
+            const depth = i % 4;
+            const lineOpacity = 0.08 + depth * 0.03;
 
-      {/* Background gradient circles */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '-20%',
-          right: '-10%',
-          width: '600px',
-          height: '600px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(229, 162, 68, 0.1) 0%, rgba(229, 162, 68, 0) 70%)',
-          filter: 'blur(60px)',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
-      />
+            // Calculate distance from center (16 is the middle of 32)
+            const centerIndex = 16;
+            const distanceFromCenter = Math.abs(i - centerIndex);
+            const maxDistance = centerIndex;
 
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '-20%',
-          left: '-10%',
-          width: '700px',
-          height: '700px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(77, 141, 218, 0.1) 0%, rgba(77, 141, 218, 0) 70%)',
-          filter: 'blur(60px)',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
-      />
+            // Lines get shorter as they approach center - different curve
+            const lineWidthPercent = 8 + (distanceFromCenter / maxDistance) * 18;
+            const centerGapPercent = 100 - (lineWidthPercent * 2);
+
+            // Add subtle offset for visual interest
+            const offset = depth % 2 === 0 ? 15 : -15;
+
+            return (
+              <div
+                key={`line-${i}`}
+                style={{
+                  width: '100%',
+                  height: '1.5px',
+                  position: 'relative',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                {/* Left side line */}
+                <div
+                  style={{
+                    width: `${lineWidthPercent}%`,
+                    height: '1.5px',
+                    background: `linear-gradient(90deg, transparent 0%, rgba(30, 64, 175, ${lineOpacity * 0.5}) 30%, rgba(30, 64, 175, ${lineOpacity}) 70%, rgba(30, 64, 175, ${lineOpacity * 1.2}) 100%)`,
+                    borderRadius: '2px',
+                    transform: `translateX(${offset}px)`,
+                    opacity: 0.7 + depth * 0.1,
+                  }}
+                />
+
+                {/* Center gap */}
+                <div style={{ width: `${centerGapPercent}%`, height: '1.5px' }} />
+
+                {/* Right side line */}
+                <div
+                  style={{
+                    width: `${lineWidthPercent}%`,
+                    height: '1.5px',
+                    background: `linear-gradient(90deg, rgba(30, 64, 175, ${lineOpacity * 1.2}) 0%, rgba(30, 64, 175, ${lineOpacity}) 30%, rgba(30, 64, 175, ${lineOpacity * 0.5}) 70%, transparent 100%)`,
+                    borderRadius: '2px',
+                    transform: `translateX(${-offset}px)`,
+                    opacity: 0.7 + depth * 0.1,
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 0,
+            pointerEvents: 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            gap: '20px',
+            padding: '2rem 0.5rem',
+            minHeight: '100%',
+          }}
+        >
+          {Array.from({ length: 25 }).map((_, i) => {
+            const lineOpacity = 0.08;
+
+            // Calculate distance from center (12.5 is the middle of 25)
+            const centerIndex = 12.5;
+            const distanceFromCenter = Math.abs(i - centerIndex);
+            const maxDistance = centerIndex;
+
+            // Lines get shorter as they approach center - mobile optimized
+            const lineWidthPercent = 15 + (distanceFromCenter / maxDistance) * 18;
+            const centerGapPercent = Math.max(30, 100 - (lineWidthPercent * 2));
+
+            return (
+              <div
+                key={`mobile-line-${i}`}
+                style={{
+                  width: '100%',
+                  height: '1px',
+                  position: 'relative',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}
+              >
+                {/* Left side line */}
+                <div
+                  style={{
+                    width: `${lineWidthPercent}%`,
+                    height: '1px',
+                    background: `linear-gradient(90deg, transparent 0%, rgba(30, 64, 175, ${lineOpacity}) 50%, rgba(30, 64, 175, ${lineOpacity * 1.5}) 100%)`,
+                    borderRadius: '1px',
+                  }}
+                />
+
+                {/* Center gap */}
+                <div style={{ width: `${centerGapPercent}%`, height: '1px' }} />
+
+                {/* Right side line */}
+                <div
+                  style={{
+                    width: `${lineWidthPercent}%`,
+                    height: '1px',
+                    background: `linear-gradient(90deg, rgba(30, 64, 175, ${lineOpacity * 1.5}) 0%, rgba(30, 64, 175, ${lineOpacity}) 50%, transparent 100%)`,
+                    borderRadius: '1px',
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       <div className="container" style={{
         maxWidth: '1000px',
@@ -573,123 +670,181 @@ const EnhancedAIStrategyAnalyzer = () => {
         position: 'relative',
         zIndex: 1,
       }}>
-        <div style={{
-          textAlign: 'center',
-          marginBottom: '3rem',
-        }}>
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '0.6rem 1.2rem',
-              background: 'rgba(255, 255, 255, 0.05)',
-              backdropFilter: 'blur(10px)',
-              borderRadius: '50px',
-              marginBottom: '1.5rem',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-            }}
-          >
+        {!showResults && (
+          <div style={{
+            textAlign: 'center',
+            marginBottom: '3rem',
+          }}>
             <motion.div
-              animate={{
-                rotate: [0, 360],
-                transition: { duration: 10, repeat: Infinity, ease: "linear" }
-              }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
               style={{
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '24px',
-                height: '24px',
-                marginRight: '0.8rem',
+                padding: '0.5rem 1rem',
+                background: 'var(--color-primary-light)',
+                borderRadius: '8px',
+                marginBottom: '1.5rem',
               }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C13.3132 2 14.6136 2.25866 15.8268 2.7612C17.0401 3.26375 18.1425 4.00035 19.0711 4.92893C19.9997 5.85752 20.7362 6.95991 21.2388 8.17317C21.7413 9.38642 22 10.6868 22 12C22 14.6522 20.9464 17.1957 19.0711 19.0711C17.1957 20.9464 14.6522 22 12 22C10.6868 22 9.38642 21.7413 8.17317 21.2388C6.95991 20.7362 5.85752 19.9997 4.92893 19.0711C3.05357 17.1957 2 14.6522 2 12C2 9.34784 3.05357 6.8043 4.92893 4.92893C6.8043 3.05357 9.34784 2 12 2Z" stroke="#E5A244" strokeWidth="2" />
-                <path d="M16 12L10 16.5V7.5L16 12Z" fill="#E5A244" />
-              </svg>
+              <span style={{
+                color: 'var(--color-primary)',
+                fontWeight: '600',
+                fontSize: '0.875rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+              }}>
+                Service Recommendation Tool
+              </span>
             </motion.div>
-            <span style={{
-              background: 'linear-gradient(90deg, #E5A244, #4D8DDA)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontWeight: 'bold',
-            }}>
-              AI-Powered Analysis
-            </span>
-          </motion.div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            style={{
-              fontSize: '2.5rem',
-              fontWeight: 'bold',
-              marginBottom: '1rem',
-              background: 'linear-gradient(90deg, #FFFFFF, #AAAAAA)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            Strategic Move Analyzer
-          </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              style={{
+                fontSize: isMobile ? '2rem' : '3rem',
+                fontWeight: '700',
+                marginBottom: '1rem',
+                color: 'var(--text-on-light)',
+                fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                lineHeight: 1.2,
+              }}
+            >
+              Find Your Perfect Service Package
+            </motion.h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            style={{
-              fontSize: '1.1rem',
-              color: '#e0e0e0',
-              maxWidth: '700px',
-              margin: '0 auto',
-              lineHeight: 1.6,
-            }}
-          >
-            Our AI will analyze your business needs and recommend a tailored chess-inspired
-            strategy to help you outmaneuver your competition and achieve your goals.
-          </motion.p>
-        </div>
+            <motion.p
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              style={{
+                fontSize: isMobile ? '1rem' : '1.25rem',
+                color: 'var(--text-on-light-muted)',
+                maxWidth: '700px',
+                margin: '0 auto',
+                lineHeight: 1.7,
+              }}
+            >
+              Answer a few questions and we'll recommend the perfect Cypentra service package
+              tailored to your needs, goals, and timeline.
+            </motion.p>
+          </div>
+        )}
 
         <motion.div
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            backdropFilter: 'blur(10px)',
-            borderRadius: '16px',
-            overflow: 'hidden',
-            boxShadow: '0 15px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+            background: 'transparent',
+            borderRadius: '0',
+            overflow: 'visible',
+            boxShadow: 'none',
+            border: 'none',
+            maxWidth: '800px',
+            margin: '0 auto',
           }}
         >
           {!showResults ? (
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              minHeight: '500px',
+              minHeight: 'auto',
             }}>
-              {/* Progress indicator */}
+              {/* Progress indicator - Advanced & Aesthetic */}
               <div style={{
-                padding: '0.7rem 2rem',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1rem',
-                flexWrap: 'wrap',
+                padding: '0 0 2.5rem 0',
+                marginBottom: '3rem',
               }}>
                 <div style={{
-                  flex: 1,
-                  position: 'relative',
-                  height: '6px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  borderRadius: '100px',
-                  minWidth: '120px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginBottom: '1rem',
                 }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                  }}>
+                    <div style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '12px',
+                      background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontWeight: '700',
+                      fontSize: '0.875rem',
+                      boxShadow: '0 4px 12px rgba(30, 64, 175, 0.25)',
+                    }}>
+                      {currentQuestion + 1}
+                    </div>
+                      <div>
+                        <div style={{
+                          fontSize: '0.875rem',
+                          color: 'var(--text-on-light-muted)',
+                          fontWeight: '500',
+                          marginBottom: '0.125rem',
+                        }}>
+                          Question {currentQuestion + 1} of {questions.length}
+                        </div>
+                        <div style={{
+                          fontSize: '0.75rem',
+                          color: 'var(--text-on-light-muted)',
+                          opacity: 0.7,
+                        }}>
+                          {Math.round((Object.keys(answers).length / questions.length) * 100)}% Complete
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{
+                      fontSize: '1.125rem',
+                      fontWeight: '700',
+                      color: 'var(--color-primary)',
+                      fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                    }}>
+                      {Math.round((Object.keys(answers).length / questions.length) * 100)}%
+                    </div>
+                </div>
+                
+                {/* Advanced Progress Bar */}
+                <div style={{
+                  position: 'relative',
+                  height: '8px',
+                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  borderRadius: '100px',
+                  overflow: 'hidden',
+                  boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.05)',
+                }}>
+                  {/* Animated background shimmer */}
+                  <motion.div
+                    animate={{
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    }}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%)',
+                      backgroundSize: '200% 100%',
+                      opacity: 0.5,
+                    }}
+                  />
+                  
+                  {/* Progress fill */}
                   <motion.div
                     ref={progressRef}
                     style={{
@@ -698,27 +853,77 @@ const EnhancedAIStrategyAnalyzer = () => {
                       left: 0,
                       height: '100%',
                       width: '0%',
-                      background: 'linear-gradient(90deg, #E5A244, #4D8DDA)',
+                      background: 'linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%)',
                       borderRadius: '100px',
+                      boxShadow: '0 0 12px rgba(30, 64, 175, 0.4)',
+                      position: 'relative',
+                      overflow: 'hidden',
                     }}
-                  />
+                  >
+                    {/* Shine effect */}
+                    <motion.div
+                      animate={{
+                        x: ['-100%', '200%'],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 1,
+                        ease: 'easeInOut',
+                      }}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                        width: '50%',
+                      }}
+                    />
+                  </motion.div>
+                  
+                  {/* Step indicators */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '0 2px',
+                  }}>
+                    {Array.from({ length: questions.length }).map((_, idx) => {
+                      const isAnswered = answers[questions[idx]?.id];
+                      return (
+                        <div
+                          key={idx}
+                          style={{
+                            width: '4px',
+                            height: '4px',
+                            borderRadius: '50%',
+                            backgroundColor: isAnswered 
+                              ? 'rgba(255, 255, 255, 0.8)' 
+                              : 'rgba(0, 0, 0, 0.1)',
+                            boxShadow: isAnswered 
+                              ? '0 0 4px rgba(255, 255, 255, 0.6)' 
+                              : 'none',
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
-
-                <span style={{
-                  fontSize: '0.9rem',
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  whiteSpace: 'nowrap',
-                }}>
-                  Question {currentQuestion + 1} of {questions.length}
-                </span>
               </div>
 
               {/* Questions */}
               <div style={{
                 flex: 1,
-                padding: isMobile ? '2rem 1.5rem' : '2.5rem',
+                padding: isMobile ? '0 1rem' : '0',
                 position: 'relative',
-                overflow: 'hidden',
+                overflow: 'visible',
               }}>
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -733,146 +938,197 @@ const EnhancedAIStrategyAnalyzer = () => {
                       height: '100%',
                     }}
                   >
-                    {/* Question header */}
+                    {/* Attractive Question Design */}
                     <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      marginBottom: '2rem',
+                      maxWidth: '900px',
+                      margin: '0 auto',
                     }}>
+                      {/* Question Header */}
                       <motion.div
                         variants={itemVariants}
                         style={{
-                          display: 'flex',
+                          marginBottom: '3rem',
+                          textAlign: 'center',
+                        }}
+                      >
+                        <div style={{
+                          display: 'inline-flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          width: '50px',
-                          height: '50px',
-                          borderRadius: '12px',
-                          backgroundColor: questions[currentQuestion].color,
-                          fontSize: '1.5rem',
-                          marginRight: '1rem',
-                          flexShrink: 0,
-                        }}
-                      >
-                        {questions[currentQuestion].icon}
-                      </motion.div>
-
-                      <motion.h3
-                        variants={itemVariants}
-                        style={{
-                          fontSize: isMobile ? '1.3rem' : '1.5rem',
-                          fontWeight: 'bold',
-                          color: 'white',
-                        }}
-                      >
-                        {questions[currentQuestion].question}
-                      </motion.h3>
-                    </div>
-
-                    {/* Answer options */}
-                    <div style={{
-                      display: 'grid',
-                      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(280px, 1fr))',
-                      gap: '1rem',
-                      marginBottom: '2rem',
-                    }}>
-                      {questions[currentQuestion].options.map((option, idx) => (
-                        <motion.button
-                          key={option.value}
-                          custom={idx}
-                          variants={optionVariants}
-                          initial="hidden"
-                          animate={
-                            answers[questions[currentQuestion].id] === option.value
-                              ? "selected"
-                              : "visible"
-                          }
-                          whileHover="hover"
-                          whileTap="tap"
-                          onClick={() => handleAnswerSelect(questions[currentQuestion].id, option.value)}
+                          width: '48px',
+                          height: '48px',
+                          borderRadius: '10px',
+                          backgroundColor: 'var(--color-primary-light)',
+                          color: 'var(--color-primary)',
+                          marginBottom: '1.5rem',
+                        }}>
+                          <QuestionIcon type={questions[currentQuestion].iconType} />
+                        </div>
+                        
+                        <motion.h3
+                          variants={itemVariants}
                           style={{
-                            padding: '1.2rem',
-                            borderRadius: '12px',
-                            backgroundColor: answers[questions[currentQuestion].id] === option.value
-                              ? `${questions[currentQuestion].color}15`
-                              : 'rgba(255, 255, 255, 0.05)',
-                            border: `1px solid ${answers[questions[currentQuestion].id] === option.value
-                                ? questions[currentQuestion].color
-                                : 'rgba(255, 255, 255, 0.1)'
-                              }`,
-                            color: answers[questions[currentQuestion].id] === option.value
-                              ? questions[currentQuestion].color
-                              : 'white',
-                            textAlign: 'left',
-                            fontWeight: answers[questions[currentQuestion].id] === option.value
-                              ? 'bold'
-                              : 'normal',
-                            cursor: 'pointer',
-                            position: 'relative',
-                            overflow: 'hidden',
+                            fontSize: isMobile ? '1.5rem' : '2rem',
+                            fontWeight: '700',
+                            color: 'var(--text-on-light)',
+                            fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                            lineHeight: 1.3,
+                            marginBottom: '0.75rem',
+                            maxWidth: '800px',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
                           }}
                         >
-                          {/* Pulse effect when selected */}
-                          {showPulse && answers[questions[currentQuestion].id] === option.value && (
-                            <motion.div
-                              variants={pulseVariants}
-                              initial="initial"
-                              animate="animate"
-                              style={{
-                                position: 'absolute',
-                                top: '50%',
-                                left: '50%',
-                                transform: 'translate(-50%, -50%)',
-                                width: '100%',
-                                height: '100%',
-                                borderRadius: '12px',
-                                backgroundColor: questions[currentQuestion].color,
-                                zIndex: 0,
-                              }}
-                            />
-                          )}
+                          {questions[currentQuestion].question}
+                        </motion.h3>
+                      </motion.div>
 
-                          <span style={{ position: 'relative', zIndex: 1 }}>
-                            {option.label}
-                          </span>
-                        </motion.button>
-                      ))}
+                      {/* Answer options - Attractive Card Design */}
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+                        gap: '1rem',
+                      }}>
+                        {questions[currentQuestion].options.map((option, idx) => {
+                          const isSelected = answers[questions[currentQuestion].id] === option.value;
+                          return (
+                            <motion.button
+                              key={option.value}
+                              custom={idx}
+                              variants={optionVariants}
+                              initial="hidden"
+                              animate={isSelected ? "selected" : "visible"}
+                              whileHover={{ 
+                                scale: 1.02,
+                                transition: { duration: 0.2 }
+                              }}
+                              whileTap={{ scale: 0.98 }}
+                              onClick={() => handleAnswerSelect(questions[currentQuestion].id, option.value)}
+                              style={{
+                                padding: '1.25rem 1.5rem',
+                                background: isSelected 
+                                  ? 'var(--color-primary)' 
+                                  : 'white',
+                                border: `2px solid ${isSelected 
+                                  ? 'var(--color-primary)' 
+                                  : 'rgba(0, 0, 0, 0.08)'
+                                }`,
+                                borderRadius: '12px',
+                                color: isSelected 
+                                  ? 'white' 
+                                  : 'var(--text-on-light)',
+                                textAlign: 'left',
+                                fontWeight: isSelected ? '600' : '500',
+                                cursor: 'pointer',
+                                position: 'relative',
+                                transition: 'all 0.2s ease',
+                                fontSize: '1rem',
+                                lineHeight: 1.5,
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '1rem',
+                                boxShadow: isSelected 
+                                  ? '0 4px 12px rgba(30, 64, 175, 0.2)' 
+                                  : '0 2px 4px rgba(0, 0, 0, 0.04)',
+                              }}
+                            >
+                              {/* Radio indicator */}
+                              <motion.div
+                                animate={{
+                                  scale: isSelected ? 1 : 0.9,
+                                }}
+                                style={{
+                                  width: '20px',
+                                  height: '20px',
+                                  borderRadius: '50%',
+                                  border: `2px solid ${isSelected 
+                                    ? 'white' 
+                                    : 'var(--text-on-light-muted)'
+                                  }`,
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  flexShrink: 0,
+                                  backgroundColor: isSelected ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                                }}
+                              >
+                                {isSelected && (
+                                  <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    style={{
+                                      width: '8px',
+                                      height: '8px',
+                                      borderRadius: '50%',
+                                      backgroundColor: 'white',
+                                    }}
+                                  />
+                                )}
+                              </motion.div>
+                              
+                              <span style={{ flex: 1 }}>{option.label}</span>
+                              
+                              {isSelected && (
+                                <motion.svg
+                                  initial={{ opacity: 0, scale: 0 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  width="20"
+                                  height="20"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="white"
+                                  strokeWidth="2.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </motion.svg>
+                              )}
+                            </motion.button>
+                          );
+                        })}
+                      </div>
                     </div>
 
-                    {/* Navigation buttons */}
+                    {/* Navigation buttons - Professional Design */}
                     <div style={{
                       display: 'flex',
                       justifyContent: 'space-between',
-                      marginTop: 'auto',
+                      alignItems: 'center',
+                      marginTop: '2.5rem',
+                      paddingTop: '2rem',
+                      borderTop: '1px solid rgba(0, 0, 0, 0.06)',
                     }}>
                       <motion.button
-                        variants={itemVariants}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ opacity: currentQuestion === 0 ? 0.5 : 0.8 }}
+                        whileTap={{ scale: 0.98 }}
                         onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
                         disabled={currentQuestion === 0}
                         style={{
-                          padding: '0.8rem 1.5rem',
+                          padding: '0.75rem 1.25rem',
                           background: 'transparent',
-                          border: '1px solid rgba(255, 255, 255, 0.2)',
+                          border: 'none',
                           borderRadius: '8px',
-                          color: 'white',
+                          color: 'var(--text-on-light-muted)',
                           cursor: currentQuestion === 0 ? 'not-allowed' : 'pointer',
-                          opacity: currentQuestion === 0 ? 0.5 : 1,
+                          opacity: currentQuestion === 0 ? 0.3 : 1,
                           display: 'flex',
                           alignItems: 'center',
+                          gap: '0.5rem',
+                          fontWeight: '500',
+                          fontSize: '0.9375rem',
+                          transition: 'all 0.2s ease',
                         }}
                       >
                         <svg
-                          width="16"
-                          height="16"
+                          width="18"
+                          height="18"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          style={{ marginRight: '0.5rem' }}
                         >
                           <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
@@ -881,86 +1137,86 @@ const EnhancedAIStrategyAnalyzer = () => {
 
                       {currentQuestion === questions.length - 1 ? (
                         <motion.button
-                          variants={itemVariants}
-                          whileHover={{
-                            scale: isCurrentQuestionAnswered() ? 1.05 : 1,
-                            backgroundColor: isCurrentQuestionAnswered() ? '#4D8DDA' : undefined
-                          }}
-                          whileTap={isCurrentQuestionAnswered() ? { scale: 0.95 } : {}}
+                          whileHover={isCurrentQuestionAnswered() ? { 
+                            scale: 1.02,
+                            boxShadow: '0 4px 12px rgba(30, 64, 175, 0.25)'
+                          } : {}}
+                          whileTap={isCurrentQuestionAnswered() ? { scale: 0.98 } : {}}
                           onClick={analyzeStrategy}
                           disabled={!isCurrentQuestionAnswered()}
                           style={{
-                            padding: '0.8rem 1.5rem',
+                            padding: '0.75rem 1.75rem',
                             background: isCurrentQuestionAnswered()
-                              ? 'linear-gradient(90deg, #4D8DDA, #5D9DFA)'
-                              : 'rgba(255, 255, 255, 0.1)',
-                            color: 'white',
+                              ? 'var(--color-primary)'
+                              : 'rgba(0, 0, 0, 0.05)',
+                            color: isCurrentQuestionAnswered() ? 'white' : 'var(--text-on-light-muted)',
                             border: 'none',
                             borderRadius: '8px',
-                            fontWeight: 'bold',
+                            fontWeight: '600',
+                            fontSize: '0.9375rem',
                             cursor: isCurrentQuestionAnswered() ? 'pointer' : 'not-allowed',
                             display: 'flex',
                             alignItems: 'center',
+                            gap: '0.5rem',
                             boxShadow: isCurrentQuestionAnswered()
-                              ? '0 4px 20px rgba(77, 141, 218, 0.3)'
+                              ? '0 2px 8px rgba(30, 64, 175, 0.2)'
                               : 'none',
+                            transition: 'all 0.2s ease',
                           }}
                         >
-                          <span>Analyze Strategy</span>
+                          Get Recommendation
                           <svg
-                            width="20"
-                            height="20"
+                            width="18"
+                            height="18"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            style={{ marginLeft: '0.5rem' }}
                           >
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                            <polyline points="9 18 15 12 9 6"></polyline>
                           </svg>
                         </motion.button>
                       ) : (
                         <motion.button
-                          variants={itemVariants}
-                          whileHover={{
-                            scale: isCurrentQuestionAnswered() ? 1.05 : 1,
-                            backgroundColor: isCurrentQuestionAnswered() ? '#4D8DDA' : undefined
-                          }}
-                          whileTap={isCurrentQuestionAnswered() ? { scale: 0.95 } : {}}
+                          whileHover={isCurrentQuestionAnswered() ? { 
+                            scale: 1.02,
+                            boxShadow: '0 4px 12px rgba(30, 64, 175, 0.25)'
+                          } : {}}
+                          whileTap={isCurrentQuestionAnswered() ? { scale: 0.98 } : {}}
                           onClick={() => isCurrentQuestionAnswered() && setCurrentQuestion(currentQuestion + 1)}
                           disabled={!isCurrentQuestionAnswered()}
                           style={{
-                            padding: '0.8rem 1.5rem',
+                            padding: '0.75rem 1.75rem',
                             background: isCurrentQuestionAnswered()
-                              ? 'linear-gradient(90deg, #4D8DDA, #5D9DFA)'
-                              : 'rgba(255, 255, 255, 0.1)',
-                            color: 'white',
+                              ? 'var(--color-primary)'
+                              : 'rgba(0, 0, 0, 0.05)',
+                            color: isCurrentQuestionAnswered() ? 'white' : 'var(--text-on-light-muted)',
                             border: 'none',
                             borderRadius: '8px',
-                            fontWeight: 'bold',
+                            fontWeight: '600',
+                            fontSize: '0.9375rem',
                             cursor: isCurrentQuestionAnswered() ? 'pointer' : 'not-allowed',
                             display: 'flex',
                             alignItems: 'center',
+                            gap: '0.5rem',
                             boxShadow: isCurrentQuestionAnswered()
-                              ? '0 4px 20px rgba(77, 141, 218, 0.3)'
+                              ? '0 2px 8px rgba(30, 64, 175, 0.2)'
                               : 'none',
+                            transition: 'all 0.2s ease',
                           }}
                         >
-                          <span>Next Question</span>
+                          Next
                           <svg
-                            width="16"
-                            height="16"
+                            width="18"
+                            height="18"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            style={{ marginLeft: '0.5rem' }}
                           >
                             <polyline points="9 18 15 12 9 6"></polyline>
                           </svg>
@@ -1144,7 +1400,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                     <p style={{
                       fontSize: '1rem',
                       textAlign: 'center',
-                      color: 'rgba(255, 255, 255, 0.7)',
+                      color: 'var(--text-on-light-muted)',
                       marginBottom: '2rem',
                       lineHeight: 1.6,
                     }}>
@@ -1196,7 +1452,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                               marginRight: '1rem',
                             }}
                           />
-                          <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
+                          <span style={{ color: 'var(--text-on-light)' }}>
                             {stage.text}
                           </span>
                         </motion.div>
@@ -1207,527 +1463,495 @@ const EnhancedAIStrategyAnalyzer = () => {
               )}
             </div>
           ) : (
-            // Results display
-            <div style={{ padding: '2.5rem' }}>
+            <div style={{ 
+              padding: isMobile ? '2rem 1rem' : '4rem 0',
+              position: 'relative',
+            }}>
+              {/* Background lines for result page */}
+              {!isMobile ? (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 0,
+                    pointerEvents: 'none',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    gap: '24px',
+                    padding: '4rem 0',
+                  }}
+                >
+                  {Array.from({ length: 32 }).map((_, i) => {
+                    const depth = i % 4;
+                    const lineOpacity = 0.08 + depth * 0.03;
+
+                    const centerIndex = 16;
+                    const distanceFromCenter = Math.abs(i - centerIndex);
+                    const maxDistance = centerIndex;
+
+                    const lineWidthPercent = 8 + (distanceFromCenter / maxDistance) * 18;
+                    const centerGapPercent = 100 - (lineWidthPercent * 2);
+                    const offset = depth % 2 === 0 ? 15 : -15;
+
+                    return (
+                      <div
+                        key={`result-line-${i}`}
+                        style={{
+                          width: '100%',
+                          height: '1.5px',
+                          position: 'relative',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: `${lineWidthPercent}%`,
+                            height: '1.5px',
+                            background: `linear-gradient(90deg, transparent 0%, rgba(30, 64, 175, ${lineOpacity * 0.5}) 30%, rgba(30, 64, 175, ${lineOpacity}) 70%, rgba(30, 64, 175, ${lineOpacity * 1.2}) 100%)`,
+                            borderRadius: '2px',
+                            transform: `translateX(${offset}px)`,
+                            opacity: 0.7 + depth * 0.1,
+                          }}
+                        />
+                        <div style={{ width: `${centerGapPercent}%`, height: '1.5px' }} />
+                        <div
+                          style={{
+                            width: `${lineWidthPercent}%`,
+                            height: '1.5px',
+                            background: `linear-gradient(90deg, rgba(30, 64, 175, ${lineOpacity * 1.2}) 0%, rgba(30, 64, 175, ${lineOpacity}) 30%, rgba(30, 64, 175, ${lineOpacity * 0.5}) 70%, transparent 100%)`,
+                            borderRadius: '2px',
+                            transform: `translateX(${-offset}px)`,
+                            opacity: 0.7 + depth * 0.1,
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 0,
+                    pointerEvents: 'none',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    gap: '20px',
+                    padding: '2rem 0.5rem',
+                    minHeight: '100%',
+                  }}
+                >
+                  {Array.from({ length: 25 }).map((_, i) => {
+                    const lineOpacity = 0.08;
+                    const centerIndex = 12.5;
+                    const distanceFromCenter = Math.abs(i - centerIndex);
+                    const maxDistance = centerIndex;
+                    const lineWidthPercent = 15 + (distanceFromCenter / maxDistance) * 18;
+                    const centerGapPercent = Math.max(30, 100 - (lineWidthPercent * 2));
+
+                    return (
+                      <div
+                        key={`result-mobile-line-${i}`}
+                        style={{
+                          width: '100%',
+                          height: '1px',
+                          position: 'relative',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: `${lineWidthPercent}%`,
+                            height: '1px',
+                            background: `linear-gradient(90deg, transparent 0%, rgba(30, 64, 175, ${lineOpacity}) 50%, rgba(30, 64, 175, ${lineOpacity * 1.5}) 100%)`,
+                            borderRadius: '1px',
+                          }}
+                        />
+                        <div style={{ width: `${centerGapPercent}%`, height: '1px' }} />
+                        <div
+                          style={{
+                            width: `${lineWidthPercent}%`,
+                            height: '1px',
+                            background: `linear-gradient(90deg, rgba(30, 64, 175, ${lineOpacity * 1.5}) 0%, rgba(30, 64, 175, ${lineOpacity}) 50%, transparent 100%)`,
+                            borderRadius: '1px',
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+              
               <AnimatePresence>
                 {result && (
                   <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
                     style={{
+                      maxWidth: '1000px',
+                      margin: '0 auto',
                       position: 'relative',
+                      zIndex: 1,
                     }}
                   >
-                    {/* Strategy header */}
-                    <div style={{
-                      position: 'relative',
-                      display: 'flex',
-                      flexDirection: isMobile ? 'column' : 'row',
-                      alignItems: isMobile ? 'center' : 'flex-start',
-                      gap: '2rem',
-                      marginBottom: '3rem',
-                      padding: '2rem',
-                      background: 'rgba(0, 0, 0, 0.2)',
-                      borderRadius: '16px',
-                      overflow: 'hidden',
-                    }}>
-                      {/* Background glow */}
+                    {/* Header Section - Attractive Design */}
+                    <motion.div
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      style={{
+                        textAlign: 'center',
+                        marginBottom: '4rem',
+                        paddingBottom: '3rem',
+                        borderBottom: '2px solid rgba(0, 0, 0, 0.06)',
+                      }}
+                    >
                       <div style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: '80%',
-                        height: '80%',
-                        borderRadius: '50%',
-                        background: `radial-gradient(circle, ${safeResult.color}20 0%, ${safeResult.color}00 70%)`,
-                        filter: 'blur(40px)',
-                        zIndex: 0,
-                      }} />
-
-                      {/* Chess piece icon */}
-                      <motion.div
-                        variants={resultIconVariants}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '90px',
-                          height: '90px',
-                          borderRadius: '50%',
-                          backgroundColor: safeResult.color,
-                          fontSize: '3.5rem',
-                          color: 'white',
-                          boxShadow: `0 5px 25px ${safeResult.color}90`,
-                          position: 'relative',
-                          zIndex: 1,
-                          flexShrink: 0,
-                        }}
-                      >
-                        {safeResult.chessIcon}
-                      </motion.div>
-
-                      <div style={{
-                        position: 'relative',
-                        zIndex: 1,
-                        textAlign: isMobile ? 'center' : 'left',
+                        display: 'inline-block',
+                        padding: '0.5rem 1.25rem',
+                        backgroundColor: 'var(--color-primary-light)',
+                        borderRadius: '20px',
+                        marginBottom: '1.5rem',
                       }}>
-                        <motion.h3
-                          variants={resultTextVariants}
-                          custom={0}
-                          style={{
-                            fontSize: '2rem',
-                            fontWeight: 'bold',
-                            marginBottom: '0.5rem',
-                            color: 'white',
-                          }}
-                        >
-                          {safeResult.name}
-                        </motion.h3>
-
-                        <motion.p
-                          variants={resultTextVariants}
-                          custom={1}
-                          style={{
-                            fontSize: '1.1rem',
-                            color: '#e0e0e0',
-                            lineHeight: 1.6,
-                            maxWidth: '700px',
-                          }}
-                        >
-                          {safeResult.description}
-                        </motion.p>
+                        <span style={{
+                          fontSize: '0.8125rem',
+                          fontWeight: '600',
+                          color: 'var(--color-primary)',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.1em',
+                        }}>
+                          Recommended Package
+                        </span>
                       </div>
-                    </div>
+                      
+                      <h2 style={{
+                        fontSize: isMobile ? '2rem' : '3rem',
+                        fontWeight: '700',
+                        marginBottom: '1.25rem',
+                        color: 'var(--text-on-light)',
+                        fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                        lineHeight: 1.2,
+                      }}>
+                        {safeResult?.name || 'Service Package'}
+                      </h2>
+                      
+                      <p style={{
+                        fontSize: isMobile ? '1.125rem' : '1.375rem',
+                        color: 'var(--text-on-light-muted)',
+                        lineHeight: 1.7,
+                        maxWidth: '750px',
+                        margin: '0 auto',
+                        fontWeight: '400',
+                      }}>
+                        {safeResult?.description || 'A comprehensive service package tailored to your needs.'}
+                      </p>
+                    </motion.div>
 
-                    {/* Strategy content grid */}
+                    {/* Main Content Grid - Attractive Layout */}
                     <div style={{
                       display: 'grid',
-                      gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-                      gap: '2rem',
-                      marginBottom: '3rem',
+                      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                      gap: '3rem',
+                      marginBottom: '4rem',
                     }}>
-                      {/* Business profile */}
+                      {/* Left Column - Project Details */}
                       <motion.div
-                        variants={bubbleVariants}
-                        custom={0}
-                        style={{
-                          padding: '2rem',
-                          borderRadius: '16px',
-                          border: '1px solid rgba(255, 255, 255, 0.1)',
-                          backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                        }}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3, duration: 0.5 }}
                       >
-                        <h4 style={{
-                          fontSize: '1.2rem',
-                          fontWeight: 'bold',
-                          marginBottom: '1.5rem',
-                          color: 'white',
-                          display: 'flex',
-                          alignItems: 'center',
+                        <h3 style={{
+                          fontSize: '1.5rem',
+                          fontWeight: '700',
+                          marginBottom: '2rem',
+                          color: 'var(--text-on-light)',
+                          fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                          paddingBottom: '1rem',
+                          borderBottom: '2px solid var(--color-primary)',
+                          display: 'inline-block',
                         }}>
-                          <span style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: '30px',
-                            height: '30px',
-                            borderRadius: '8px',
-                            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                            marginRight: '1rem',
-                          }}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                              <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                          </span>
-                          Business Profile
-                        </h4>
-
-                        <ul style={{
-                          listStyle: 'none',
-                          padding: 0,
-                          margin: 0,
+                          Project Overview
+                        </h3>
+                        <div style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '1.5rem',
                         }}>
                           {[
-                            { label: 'Industry', value: result?.industry || 'Technology' },
-                            { label: 'Company Size', value: result?.size || 'Small Business' },
-                            { label: 'Primary Goal', value: result?.goal || 'Growth' },
+                            { label: 'Service', value: result?.service || 'Full-Stack Development' },
+                            { label: 'Company Size', value: result?.size || 'Startup' },
+                            { label: 'Primary Goal', value: result?.goal || 'Launch New Product' },
                             { label: 'Main Challenge', value: result?.challenge || 'Various Challenges' },
-                            { label: 'Planning Timeframe', value: result?.planningTime || 'Medium-term' }
+                            { label: 'Timeframe', value: result?.timeframe || 'Medium-term' }
                           ].map((item, idx) => (
-                            <li
+                            <div
                               key={idx}
                               style={{
                                 display: 'flex',
-                                justifyContent: 'space-between',
-                                padding: '0.8rem 0',
-                                borderBottom: idx < 4 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
+                                flexDirection: 'column',
+                                gap: '0.5rem',
+                                padding: '1.25rem',
+                                borderRadius: '12px',
+                                backgroundColor: 'var(--color-primary-light)',
                               }}
                             >
-                              <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>{item.label}:</span>
-                              <span style={{ fontWeight: 'bold', color: 'white' }}>{item.value}</span>
-                            </li>
+                              <span style={{
+                                fontSize: '0.8125rem',
+                                color: 'var(--text-on-light-muted)',
+                                fontWeight: '500',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em',
+                              }}>
+                                {item.label}
+                              </span>
+                              <span style={{
+                                fontSize: '1.0625rem',
+                                fontWeight: '600',
+                                color: 'var(--text-on-light)',
+                              }}>
+                                {item.value}
+                              </span>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       </motion.div>
 
-                      {/* Strategy assessment */}
+                      {/* Right Column - Strengths & Considerations */}
                       <motion.div
-                        variants={bubbleVariants}
-                        custom={1}
-                        style={{
-                          padding: '2rem',
-                          borderRadius: '16px',
-                          border: '1px solid rgba(255, 255, 255, 0.1)',
-                          backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                        }}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.4, duration: 0.5 }}
                       >
-                        <h4 style={{
-                          fontSize: '1.2rem',
-                          fontWeight: 'bold',
-                          marginBottom: '1.5rem',
-                          color: 'white',
-                          display: 'flex',
-                          alignItems: 'center',
+                        <h3 style={{
+                          fontSize: '1.5rem',
+                          fontWeight: '700',
+                          marginBottom: '2rem',
+                          color: 'var(--text-on-light)',
+                          fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                          paddingBottom: '1rem',
+                          borderBottom: '2px solid var(--color-primary)',
+                          display: 'inline-block',
                         }}>
-                          <span style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: '30px',
-                            height: '30px',
-                            borderRadius: '8px',
-                            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                            marginRight: '1rem',
+                          Assessment
+                        </h3>
+                        <div style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '1.5rem',
+                        }}>
+                          <div style={{
+                            padding: '1.5rem',
+                            borderRadius: '12px',
+                            backgroundColor: 'var(--color-primary-light)',
+                            borderLeft: '4px solid var(--color-primary)',
                           }}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="9 11 12 14 22 4"></polyline>
-                              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                            </svg>
-                          </span>
-                          Strategy Assessment
-                        </h4>
+                            <h4 style={{
+                              fontSize: '1rem',
+                              fontWeight: '700',
+                              color: 'var(--text-on-light)',
+                              marginBottom: '0.75rem',
+                              fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                            }}>
+                              Strengths
+                            </h4>
+                            <p style={{
+                              fontSize: '1rem',
+                              color: 'var(--text-on-light)',
+                              lineHeight: 1.7,
+                              margin: 0,
+                            }}>
+                              {safeResult?.strengths || 'Comprehensive solution tailored to your needs.'}
+                            </p>
+                          </div>
 
-                        <div style={{ marginBottom: '1.5rem' }}>
-                          <h5 style={{
-                            fontSize: '1rem',
-                            color: 'rgba(255, 255, 255, 0.6)',
-                            marginBottom: '0.8rem',
-                            display: 'flex',
-                            alignItems: 'center',
+                          <div style={{
+                            padding: '1.5rem',
+                            borderRadius: '12px',
+                            backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                            borderLeft: '4px solid var(--text-on-light-muted)',
                           }}>
-                            <span style={{
-                              display: 'inline-block',
-                              width: '6px',
-                              height: '6px',
-                              borderRadius: '50%',
-                              backgroundColor: '#4D8DDA',
-                              marginRight: '0.5rem',
-                            }}></span>
-                            Strengths
-                          </h5>
-                          <p style={{
-                            padding: '1rem',
-                            background: 'rgba(77, 141, 218, 0.1)',
-                            borderRadius: '8px',
-                            fontSize: '0.95rem',
-                            color: 'white',
-                            border: '1px solid rgba(77, 141, 218, 0.2)',
-                          }}>
-                            {safeResult.strengths}
-                          </p>
-                        </div>
-
-                        <div>
-                          <h5 style={{
-                            fontSize: '1rem',
-                            color: 'rgba(255, 255, 255, 0.6)',
-                            marginBottom: '0.8rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                          }}>
-                            <span style={{
-                              display: 'inline-block',
-                              width: '6px',
-                              height: '6px',
-                              borderRadius: '50%',
-                              backgroundColor: '#E5A244',
-                              marginRight: '0.5rem',
-                            }}></span>
-                            Considerations
-                          </h5>
-                          <p style={{
-                            padding: '1rem',
-                            background: 'rgba(229, 162, 68, 0.1)',
-                            borderRadius: '8px',
-                            fontSize: '0.95rem',
-                            color: 'white',
-                            border: '1px solid rgba(229, 162, 68, 0.2)',
-                          }}>
-                            {safeResult.weaknesses}
-                          </p>
+                            <h4 style={{
+                              fontSize: '1rem',
+                              fontWeight: '700',
+                              color: 'var(--text-on-light)',
+                              marginBottom: '0.75rem',
+                              fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                            }}>
+                              Considerations
+                            </h4>
+                            <p style={{
+                              fontSize: '1rem',
+                              color: 'var(--text-on-light)',
+                              lineHeight: 1.7,
+                              margin: 0,
+                            }}>
+                              {safeResult?.weaknesses || 'May require phased implementation.'}
+                            </p>
+                          </div>
                         </div>
                       </motion.div>
                     </div>
 
-                    {/* Strategic moves section */}
+                    {/* Implementation Steps - Attractive Design */}
                     <motion.div
-                      variants={bubbleVariants}
-                      custom={2}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5, duration: 0.5 }}
                       style={{
-                        marginBottom: '3rem',
+                        marginBottom: '4rem',
                       }}
                     >
-                      <h4 style={{
-                        fontSize: '1.2rem',
-                        fontWeight: 'bold',
-                        marginBottom: '1.5rem',
-                        color: 'white',
-                        display: 'flex',
-                        alignItems: 'center',
+                      <h3 style={{
+                        fontSize: '1.5rem',
+                        fontWeight: '700',
+                        marginBottom: '2rem',
+                        color: 'var(--text-on-light)',
+                        fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                        paddingBottom: '1rem',
+                        borderBottom: '2px solid var(--color-primary)',
+                        display: 'inline-block',
                       }}>
-                        <span style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '30px',
-                          height: '30px',
-                          borderRadius: '8px',
-                          backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                          marginRight: '1rem',
-                        }}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                          </svg>
-                        </span>
-                        Strategic Moves
-                      </h4>
-
+                        Implementation Steps
+                      </h3>
                       <div style={{
                         display: 'grid',
-                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
-                        gap: '1.5rem',
+                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+                        gap: '1.25rem',
                       }}>
                         {safeResultMoves.map((move, idx) => (
-                          <motion.div
+                          <div
                             key={idx}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 + idx * 0.1, duration: 0.5 }}
                             style={{
                               padding: '1.5rem',
                               borderRadius: '12px',
-                              backgroundColor: `${safeResult.color}10`,
-                              border: `1px solid ${safeResult.color}30`,
+                              backgroundColor: 'white',
+                              border: '1px solid rgba(0, 0, 0, 0.08)',
+                              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
                               position: 'relative',
-                              overflow: 'hidden',
+                              transition: 'all 0.2s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = 'translateY(-2px)';
+                              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = 'translateY(0)';
+                              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
                             }}
                           >
-                            {/* Move number circle */}
-                            <div style={{
-                              position: 'absolute',
-                              top: '-10px',
-                              right: '-10px',
-                              width: '60px',
-                              height: '60px',
-                              borderRadius: '50%',
-                              backgroundColor: `${safeResult.color}10`,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '1.5rem',
-                              fontWeight: 'bold',
-                              color: safeResult.color,
-                              opacity: 0.6,
-                            }}>
-                              {idx + 1}
-                            </div>
-
                             <div style={{
                               display: 'flex',
                               alignItems: 'flex-start',
+                              gap: '1rem',
                             }}>
-                              <span style={{
-                                width: '24px',
-                                height: '24px',
-                                borderRadius: '50%',
-                                backgroundColor: safeResult.color,
+                              <div style={{
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '8px',
+                                backgroundColor: 'var(--color-primary)',
                                 color: 'white',
-                                display: 'inline-flex',
+                                display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                marginRight: '1rem',
-                                fontWeight: 'bold',
-                                fontSize: '0.8rem',
+                                fontWeight: '700',
+                                fontSize: '0.875rem',
                                 flexShrink: 0,
-                                marginTop: '0.2rem',
                               }}>
                                 {idx + 1}
-                              </span>
+                              </div>
                               <p style={{
                                 fontSize: '1rem',
-                                color: 'white',
+                                color: 'var(--text-on-light)',
                                 lineHeight: 1.6,
+                                margin: 0,
+                                flex: 1,
+                                fontWeight: '500',
                               }}>
                                 {move}
                               </p>
                             </div>
-                          </motion.div>
+                          </div>
                         ))}
                       </div>
                     </motion.div>
 
-                    {/* Call to action */}
+                    {/* Call to Action */}
                     <motion.div
-                      variants={bubbleVariants}
-                      custom={3}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6, duration: 0.5 }}
                       style={{
-                        display: 'flex',
-                        flexDirection: isMobile ? 'column' : 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: '2rem',
-                        borderRadius: '16px',
-                        backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        gap: '2rem',
-                      }}
-                    >
-                      <div>
-                        <h4 style={{
-                          fontSize: '1.2rem',
-                          fontWeight: 'bold',
-                          marginBottom: '0.5rem',
-                          color: 'white',
-                        }}>
-                          Ready to implement your strategy?
-                        </h4>
-                        <p style={{
-                          fontSize: '1rem',
-                          color: 'rgba(255, 255, 255, 0.7)',
-                        }}>
-                          Our strategic consultants can help you execute this plan with precision.
-                        </p>
-                      </div>
-
-                      <div style={{
                         display: 'flex',
                         gap: '1rem',
-                        flexWrap: 'wrap',
-                        justifyContent: isMobile ? 'center' : 'flex-end',
-                      }}
-                      >
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={resetAnalyzer}
-                          style={{
-                            padding: '0.8rem 1.5rem',
-                            background: 'transparent',
-                            border: '1px solid rgba(255, 255, 255, 0.2)',
-                            borderRadius: '8px',
-                            color: 'white',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            style={{ marginRight: '0.5rem' }}
-                          >
-                            <path d="M3 2v6h6"></path>
-                            <path d="M3 13a9 9 0 1 0 3-7.7L3 8"></path>
-                          </svg>
-                          Try Again
-                        </motion.button>
-
-                        <motion.button
-                          whileHover={{ scale: 1.05, backgroundColor: '#4D8DDA' }}
-                          whileTap={{ scale: 0.95 }}
-                          style={{
-                            padding: '0.8rem 1.5rem',
-                            background: 'linear-gradient(90deg, #4D8DDA, #5D9DFA)',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '8px',
-                            fontWeight: 'bold',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            boxShadow: '0 4px 20px rgba(77, 141, 218, 0.3)',
-                          }}
-                        >
-                          Schedule Consultation
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            style={{ marginLeft: '0.5rem' }}
-                          >
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                          </svg>
-                        </motion.button>
-                      </div>
-                    </motion.div>
-
-                    {/* Download report button */}
-                    <motion.div
-                      variants={bubbleVariants}
-                      custom={4}
-                      style={{
-                        display: 'flex',
                         justifyContent: 'center',
-                        marginTop: '2rem',
+                        flexWrap: 'wrap',
+                        paddingTop: '2rem',
+                        borderTop: '1px solid rgba(0, 0, 0, 0.06)',
                       }}
                     >
                       <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ opacity: 0.8 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={resetAnalyzer}
                         style={{
-                          padding: '1rem 2rem',
+                          padding: '0.875rem 1.5rem',
                           background: 'transparent',
-                          border: '1px solid rgba(255, 255, 255, 0.2)',
-                          borderRadius: '50px',
-                          color: 'rgba(255, 255, 255, 0.7)',
+                          border: '1px solid rgba(0, 0, 0, 0.1)',
+                          borderRadius: '8px',
+                          color: 'var(--text-on-light)',
+                          cursor: 'pointer',
                           display: 'flex',
                           alignItems: 'center',
-                          fontSize: '0.9rem',
-                          cursor: 'pointer',
+                          gap: '0.5rem',
+                          fontWeight: '500',
+                          fontSize: '0.9375rem',
+                          transition: 'all 0.2s ease',
                         }}
                       >
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          style={{ marginRight: '0.5rem' }}
-                        >
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                          <polyline points="7 10 12 15 17 10"></polyline>
-                          <line x1="12" y1="15" x2="12" y2="3"></line>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M3 2v6h6"></path>
+                          <path d="M3 13a9 9 0 1 0 3-7.7L3 8"></path>
                         </svg>
-                        Download Strategic Report
+                        Try Again
+                      </motion.button>
+
+                      <motion.button
+                        whileHover={{ scale: 1.02, boxShadow: '0 4px 12px rgba(30, 64, 175, 0.25)' }}
+                        whileTap={{ scale: 0.98 }}
+                        style={{
+                          padding: '0.875rem 1.75rem',
+                          background: 'var(--color-primary)',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '8px',
+                          fontWeight: '600',
+                          fontSize: '0.9375rem',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          boxShadow: '0 2px 8px rgba(30, 64, 175, 0.2)',
+                          transition: 'all 0.2s ease',
+                        }}
+                      >
+                        Schedule Consultation
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
                       </motion.button>
                     </motion.div>
                   </motion.div>

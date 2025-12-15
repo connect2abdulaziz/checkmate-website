@@ -1,26 +1,26 @@
 'use client';
 import { useState, useEffect } from 'react';
-import EnhancedChessHero from '../components/sections/EnhancedChessHero';
-import StrategicServicesSection from '../components/sections/InteractiveServicesSection';
-import AIStrategyAnalyzer from '../components/sections/AIPersonalizedContent';
+import Hero from '../components/sections/Hero';
+import ServicesSection from '../components/sections/ServicesSection';
+import AIPersonalizedContent from '../components/sections/AIPersonalizedContent';
 import ChessTimeline from '../components/sections/ChessTimeline';
 import ChessCaseStudies from '../components/sections/ChessCaseStudies';
 import ChessGrandmastersTeam from '../components/sections/ChessGrandmastersTeam';
 import InteractiveContactForm from '../components/sections/InteractiveContactForm';
 import ChessFaqAccordion from '../components/sections/ChessFaqAccordion';
-import ChessHeader from '@/components/layout/ChessHeader';
+import Header from '@/components/layout/Header';
 import ChessFooter from '@/components/layout/ChessFooter';
 
 export default function Home() {
   // State for loading screen or other page-level state if needed
   const [isLoading, setIsLoading] = useState(true);
-  
+
   // Simulate loading effect
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -32,11 +32,11 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <ChessHeader />
+          <Header />
           <main>
-            <EnhancedChessHero />
-            <StrategicServicesSection />
-            <AIStrategyAnalyzer />
+            <Hero />
+            <ServicesSection />
+            <AIPersonalizedContent />
             <ChessTimeline />
             <ChessCaseStudies />
             <ChessGrandmastersTeam />
@@ -46,7 +46,7 @@ export default function Home() {
           <ChessFooter />
         </>
       )}
-      
+
       <style jsx>{`
         .loading-screen {
           position: fixed;

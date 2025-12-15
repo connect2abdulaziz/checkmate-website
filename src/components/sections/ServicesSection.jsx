@@ -149,80 +149,45 @@ const ServicesSection = () => {
   
   
   return (
-    <section 
-      className="services-section"
-      style={{
-        position: 'relative',
-        padding: '100px 0',
-        backgroundColor: 'var(--background)',
-        overflow: 'hidden',
-      }}
-    >
-      
-      <div className="container" style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 2rem',
-        position: 'relative',
-        zIndex: 1,
-      }}>
-        <div className="section-header" style={{
-          textAlign: 'center',
-          marginBottom: '3rem',
-        }}>
-          <h6 style={{
-            fontSize: '1rem',
-            fontWeight: 'bold',
-            color: 'var(--color-primary)',
-            textTransform: 'uppercase',
-            marginBottom: '1rem',
-            letterSpacing: '2px',
-          }}>
-            Our Services
-          </h6>
-          <h2 style={{
-            fontSize: '2.8rem',
-            fontWeight: 'bold',
-            marginBottom: '1.5rem',
-            color: 'var(--text-on-light)',
-            fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-          }}>
-            Professional Packaged Services
-          </h2>
-          <p style={{
-            fontSize: '1.2rem',
-            maxWidth: '700px',
-            margin: '0 auto',
-            color: 'var(--text-on-light-muted)',
-            lineHeight: 1.6,
-          }}>
-            Secure Development & Cloud Ops, powered by expert engineers. 
-            From full-stack applications to cloud infrastructure, we deliver scalable solutions.
-          </p>
-        </div>
+    <>
+      <section 
+        className="services-section"
+        style={{
+          position: 'relative',
+          padding: '100px 0',
+          backgroundColor: 'var(--background)',
+          overflow: 'hidden',
+        }}
+      >
         
-        <div 
-          className="services-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-            gap: '2rem',
-          }}
-        >
+        <div className="container" style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 2rem',
+          position: 'relative',
+          zIndex: 1,
+        }}>
+          <div className="section-header" style={{
+            textAlign: 'center',
+            marginBottom: '3rem',
+          }}>
+            <h6 className="section-label">
+              Our Services
+            </h6>
+            <h2 className="section-title">
+              Professional Packaged Services
+            </h2>
+            <p className="section-description">
+              Secure Development & Cloud Ops, powered by expert engineers. 
+              From full-stack applications to cloud infrastructure, we deliver scalable solutions.
+            </p>
+          </div>
+          
+          <div className="services-grid">
           {services.map((service) => (
             <div
               key={service.id}
               className="service-card"
-              style={{
-                background: 'white',
-                borderRadius: '12px',
-                padding: '2.5rem',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                border: '1px solid rgba(0,0,0,0.06)',
-                position: 'relative',
-                overflow: 'hidden',
-              }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px)';
                 e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.12)';
@@ -233,80 +198,27 @@ const ServicesSection = () => {
               }}
             >
               {/* Service icon */}
-              <div
-                className="service-icon"
-                style={{
-                  marginBottom: '1.5rem',
-                  color: 'var(--color-primary)',
-                  position: 'relative',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                }}
-              >
+              <div className="service-icon">
                 <ServiceIcon iconType={service.iconType} size={48} />
               </div>
               
               {/* Circle background */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '2rem',
-                  right: '2rem',
-                  width: '80px',
-                  height: '80px',
-                  borderRadius: '50%',
-                  background: 'var(--color-primary-light)',
-                  zIndex: 0,
-                }}
-              />
+              <div className="service-circle-bg" />
               
               {/* Service content */}
-              <h3 style={{
-                fontSize: '1.5rem',
-                fontWeight: 'bold',
-                marginBottom: '1rem',
-                color: 'var(--text-on-light)',
-                fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-              }}>
+              <h3 className="service-title">
                 {service.title}
               </h3>
               
-              <p style={{
-                fontSize: '1rem',
-                color: 'var(--text-on-light-muted)',
-                marginBottom: '1.5rem',
-                lineHeight: 1.6,
-              }}>
+              <p className="service-description">
                 {service.description}
               </p>
               
               {/* Features list */}
-              <ul style={{
-                padding: 0,
-                margin: 0,
-                listStyle: 'none',
-              }}>
+              <ul className="service-features">
                 {service.features.map((feature, index) => (
-                  <li
-                    key={index}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      marginBottom: '0.8rem',
-                      fontSize: '0.95rem',
-                      color: 'var(--text-on-light-muted)',
-                    }}
-                  >
-                    <span style={{
-                      display: 'inline-block',
-                      width: '6px',
-                      height: '6px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--color-primary)',
-                      marginRight: '10px',
-                      flexShrink: 0,
-                    }} />
+                  <li key={index} className="service-feature">
+                    <span className="feature-dot" />
                     {feature}
                   </li>
                 ))}
@@ -315,16 +227,7 @@ const ServicesSection = () => {
               {/* Learn more link */}
               <a
                 href={`/services/${service.id}`}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  marginTop: '1.5rem',
-                  color: 'var(--color-primary)',
-                  fontWeight: 'bold',
-                  fontSize: '0.95rem',
-                  textDecoration: 'none',
-                  transition: 'transform 0.2s ease',
-                }}
+                className="service-link"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateX(5px)';
                 }}
@@ -353,15 +256,219 @@ const ServicesSection = () => {
         </div>
       </div>
       
-      {/* Mobile responsiveness */}
       <style jsx>{`
+        .services-section {
+          padding: 100px 0;
+        }
+
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 2rem;
+        }
+
+        .section-label {
+          font-size: 1rem;
+          font-weight: bold;
+          color: var(--color-primary);
+          text-transform: uppercase;
+          margin-bottom: 1rem;
+          letter-spacing: 2px;
+        }
+
+        .section-title {
+          font-size: 2.8rem;
+          font-weight: bold;
+          margin-bottom: 1.5rem;
+          color: var(--text-on-light);
+          font-family: var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif;
+        }
+
+        .section-description {
+          font-size: 1.2rem;
+          max-width: 700px;
+          margin: 0 auto;
+          color: var(--text-on-light-muted);
+          line-height: 1.6;
+        }
+
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+          gap: 2rem;
+        }
+
+        .service-card {
+          background: white;
+          border-radius: 12px;
+          padding: 2.5rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          border: 1px solid rgba(0,0,0,0.06);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .service-icon {
+          margin-bottom: 1.5rem;
+          color: var(--color-primary);
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+        }
+
+        .service-circle-bg {
+          position: absolute;
+          top: 2rem;
+          right: 2rem;
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background: var(--color-primary-light);
+          z-index: 0;
+        }
+
+        .service-title {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+          color: var(--text-on-light);
+          font-family: var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif;
+        }
+
+        .service-description {
+          font-size: 1rem;
+          color: var(--text-on-light-muted);
+          margin-bottom: 1.5rem;
+          line-height: 1.6;
+        }
+
+        .service-features {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+        }
+
+        .service-feature {
+          display: flex;
+          align-items: center;
+          margin-bottom: 0.8rem;
+          font-size: 0.95rem;
+          color: var(--text-on-light-muted);
+        }
+
+        .feature-dot {
+          display: inline-block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: var(--color-primary);
+          margin-right: 10px;
+          flex-shrink: 0;
+        }
+
+        .service-link {
+          display: inline-flex;
+          align-items: center;
+          margin-top: 1.5rem;
+          color: var(--color-primary);
+          font-weight: bold;
+          font-size: 0.95rem;
+          text-decoration: none;
+          transition: transform 0.2s ease;
+        }
+
         @media (max-width: 768px) {
+          .services-section {
+            padding: 60px 0;
+          }
+
+          .container {
+            padding: 0 1rem;
+          }
+
+          .section-header {
+            margin-bottom: 2rem;
+          }
+
+          .section-label {
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+          }
+
+          .section-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+          }
+
+          .section-description {
+            font-size: 1rem;
+            padding: 0 1rem;
+          }
+
           .services-grid {
             grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+
+          .service-card {
+            padding: 1.5rem;
+          }
+
+          .service-icon {
+            margin-bottom: 1rem;
+          }
+
+          .service-icon svg {
+            width: 40px;
+            height: 40px;
+          }
+
+          .service-circle-bg {
+            width: 60px;
+            height: 60px;
+            top: 1.5rem;
+            right: 1.5rem;
+          }
+
+          .service-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+          }
+
+          .service-description {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+          }
+
+          .service-feature {
+            font-size: 0.875rem;
+            margin-bottom: 0.6rem;
+          }
+
+          .service-link {
+            font-size: 0.875rem;
+            margin-top: 1rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .services-section {
+            padding: 40px 0;
+          }
+
+          .section-title {
+            font-size: 1.75rem;
+          }
+
+          .service-card {
+            padding: 1.25rem;
           }
         }
       `}</style>
     </section>
+    </>
   );
 };
 
