@@ -3,7 +3,7 @@
 import React from 'react';
 
 const ServicesSection = () => {
-  
+
   // Custom SVG Icons Component
   const ServiceIcon = ({ iconType, size = 48 }) => {
     const iconStyle = {
@@ -146,118 +146,133 @@ const ServicesSection = () => {
       ]
     }
   ];
-  
-  
+
+
   return (
     <>
-    <section 
-      className="services-section"
-      style={{
-        position: 'relative',
-        padding: '100px 0',
-        backgroundColor: '#ffffff',
-        overflow: 'hidden',
-        marginTop: '-1px',
-      }}
-    >
-      
-      <div className="container" style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 2rem',
-        position: 'relative',
-        zIndex: 1,
-      }}>
-        <div className="section-header" style={{
-          textAlign: 'center',
-          marginBottom: '3rem',
+      <section
+        className="services-section"
+        style={{
+          position: 'relative',
+          padding: '100px 0',
+          backgroundImage: 'url(/formbg.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: '#ffffff',
+          overflow: 'hidden',
+          marginTop: '-1px',
+        }}
+      >
+        {/* Background overlay for lower intensity */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(255, 255, 255, 0.85)',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }} />
+
+        <div className="container" style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 2rem',
+          position: 'relative',
+          zIndex: 1,
         }}>
+          <div className="section-header" style={{
+            textAlign: 'center',
+            marginBottom: '3rem',
+          }}>
             <h6 className="section-label">
-            Our Services
-          </h6>
+              Our Services
+            </h6>
             <h2 className="section-title">
-            Professional Packaged Services
-          </h2>
+              Professional Packaged Services
+            </h2>
             <p className="section-description">
-            Secure Development & Cloud Ops, powered by expert engineers. 
-            From full-stack applications to cloud infrastructure, we deliver scalable solutions.
-          </p>
-        </div>
-        
+              Secure Development & Cloud Ops, powered by expert engineers.
+              From full-stack applications to cloud infrastructure, we deliver scalable solutions.
+            </p>
+          </div>
+
           <div className="services-grid">
-          {services.map((service) => (
-            <div
-              key={service.id}
-              className="service-card"
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.12)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08)';
-              }}
-            >
-              {/* Service icon */}
-              <div className="service-icon">
-                <ServiceIcon iconType={service.iconType} size={48} />
-              </div>
-              
-              {/* Circle background */}
-              <div className="service-circle-bg" />
-              
-              {/* Service content */}
-              <h3 className="service-title">
-                {service.title}
-              </h3>
-              
-              <p className="service-description">
-                {service.description}
-              </p>
-              
-              {/* Features list */}
-              <ul className="service-features">
-                {service.features.map((feature, index) => (
-                  <li key={index} className="service-feature">
-                    <span className="feature-dot" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              
-              {/* Learn more link */}
-              <a
-                href={`/services/${service.id}`}
-                className="service-link"
+            {services.map((service) => (
+              <div
+                key={service.id}
+                className="service-card"
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateX(5px)';
+                  e.currentTarget.style.transform = 'translateY(-5px)';
+                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.12)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateX(0)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08)';
                 }}
               >
-                Learn more
-                <svg 
-                  width="16" 
-                  height="16" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                  style={{ marginLeft: '0.5rem' }}
+                {/* Service icon */}
+                <div className="service-icon">
+                  <ServiceIcon iconType={service.iconType} size={48} />
+                </div>
+
+                {/* Circle background */}
+                <div className="service-circle-bg" />
+
+                {/* Service content */}
+                <h3 className="service-title">
+                  {service.title}
+                </h3>
+
+                <p className="service-description">
+                  {service.description}
+                </p>
+
+                {/* Features list */}
+                <ul className="service-features">
+                  {service.features.map((feature, index) => (
+                    <li key={index} className="service-feature">
+                      <span className="feature-dot" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Learn more link */}
+                <a
+                  href={`/services/${service.id}`}
+                  className="service-link"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateX(5px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateX(0)';
+                  }}
                 >
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
-            </div>
-          ))}
+                  Learn more
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ marginLeft: '0.5rem' }}
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      
-      <style jsx>{`
+
+        <style jsx>{`
         .services-section {
           padding: 100px 0;
         }
@@ -270,29 +285,33 @@ const ServicesSection = () => {
 
         .section-label {
           font-size: 1rem;
-          font-weight: bold;
-          color: var(--color-secondary);
+          font-weight: 700;
+          color: var(--color-primary);
           text-transform: uppercase;
           margin-bottom: 1rem;
           letter-spacing: 2px;
           font-family: var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif;
+          text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
         .section-title {
           font-size: 2.8rem;
-          font-weight: bold;
+          font-weight: 700;
           margin-bottom: 1.5rem;
-          color: var(--text-on-light);
+          color: #0F172A;
           font-family: var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif;
+          text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
         }
 
         .section-description {
           font-size: 1.2rem;
           max-width: 700px;
           margin: 0 auto;
-          color: var(--text-on-light-muted);
+          color: #1A202C;
           line-height: 1.6;
           font-family: var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif;
+          font-weight: 500;
+          text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
         .services-grid {
@@ -473,7 +492,7 @@ const ServicesSection = () => {
           }
         }
       `}</style>
-    </section>
+      </section>
     </>
   );
 };

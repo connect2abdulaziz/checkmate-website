@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 
 const InteractiveContactForm = () => {
+  const [buttonState, setButtonState] = useState('idle'); // idle, sending, sent
   // Form state
   const [formData, setFormData] = useState({
     name: '',
@@ -15,131 +16,65 @@ const InteractiveContactForm = () => {
     message: '',
     budget: 5000,
   });
-  
+
   const [formStep, setFormStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const formSteps = ['Your Details', 'Project Info', 'Message'];
   const containerRef = useRef(null);
-  const formRef = useRef(null);
-  const cursorRef = useRef(null);
   const headerRef = useRef(null);
-  
-  // For liquid effect on budget slider
-  const budgetProgress = useMotionValue(0);
-  const budgetProgressSpring = useTransform(budgetProgress, [0, 100], [0, 100]);
-  const sliderColor = useTransform(
-    budgetProgress,
-    [0, 40, 70, 100],
-    ['#4D8DDA', '#50AC8E', '#E5A244', '#D95D67']
-  );
-  
-  // For 3D card effect
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  
-  // Service options
-  const serviceOptions = [
-    { value: 'web_development', label: 'Web Development', icon: '🖥️', color: '#4D8DDA' },
-    { value: 'ai_integration', label: 'AI Integration', icon: '🤖', color: '#D95D67' },
-    { value: 'software_optimization', label: 'Software Optimization', icon: '📈', color: '#50AC8E' },
-    { value: 'mobile_app', label: 'Mobile App Development', icon: '📱', color: '#E5A244' },
-    { value: 'bug_fixes', label: 'Bug Fixes & Maintenance', icon: '🐞', color: '#8B64C0' }
-  ];
-  
-  // Budget ranges
-  const budgetRanges = [
-    { min: 1000, max: 3000, label: 'Small Project' },
-    { min: 3001, max: 7000, label: 'Medium Project' },
-    { min: 7001, max: 15000, label: 'Large Project' },
-    { min: 15001, max: 25000, label: 'Enterprise Project' }
-  ];
-  
-  // Calculate the budget label based on current value
-  const getCurrentBudgetLabel = () => {
-    const range = budgetRanges.find(
-      range => formData.budget >= range.min && formData.budget <= range.max
-    );
-    return range ? range.label : 'Custom Project';
-  };
-  
-  // Calculate percentage for budget slider
-  const calculateBudgetPercentage = (value) => {
-    const min = budgetRanges[0].min;
-    const max = budgetRanges[budgetRanges.length - 1].max;
-    return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
-  };
-  
-  // Update budget slider position when formData.budget changes
+  const submitButtonRef = useRef(null);
+
+  // Check for mobile
   useEffect(() => {
-    budgetProgress.set(calculateBudgetPercentage(formData.budget));
-  }, [formData.budget]);
-  
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Initialize GSAP animations
   useEffect(() => {
-    // Background animations
-    const particles = document.querySelectorAll('.particle');
-    
-    gsap.to(particles, {
-      y: 'random(-100, 100)',
-      x: 'random(-100, 100)',
-      rotation: 'random(-180, 180)',
-      duration: 'random(10, 30)',
-      repeat: -1,
-      repeatRefresh: true,
-      ease: 'sine.inOut',
-      stagger: 0.1
-    });
-    
-    // Header animation
-    gsap.fromTo(
-      headerRef.current,
-      { opacity: 0, y: -30 },
-      { opacity: 1, y: 0, duration: 1, ease: 'back.out(1.7)' }
-    );
-    
-    // Custom cursor following effect
-    const handleMouseMove = (e) => {
-      if (cursorRef.current) {
-        // Delay for smooth following effect
-        gsap.to(cursorRef.current, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 0.2,
-          ease: 'power2.out'
-        });
-      }
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+    if (headerRef.current) {
+      gsap.fromTo(
+        headerRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
+      );
+    }
   }, []);
-  
-  // 3D card effect handlers
-  const handleMouseMove3D = (e) => {
-    if (!containerRef.current) return;
-    
-    const rect = containerRef.current.getBoundingClientRect();
-    // Calculate mouse position relative to card center
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    
-    setMousePosition({ x, y });
-  };
-  
+
+  // Service options - clean design without emojis
+  const serviceOptions = [
+    { value: 'fullstack', label: 'Full-Stack Development' },
+    { value: 'software', label: 'Software Engineering' },
+    { value: 'devops', label: 'DevOps & Cloud' },
+    { value: 'security', label: 'Security & Compliance' },
+    { value: 'ai', label: 'AI & Machine Learning' },
+    { value: 'automation', label: 'Process Automation' }
+  ];
+
+  // Budget ranges
+  const budgetRanges = [
+    { value: '1000-5000', label: '$1,000 - $5,000' },
+    { value: '5000-10000', label: '$5,000 - $10,000' },
+    { value: '10000-25000', label: '$10,000 - $25,000' },
+    { value: '25000+', label: '$25,000+' }
+  ];
+
   // Form submission handler
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+    setButtonState('sending');
+
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-      
+      setButtonState('sent');
+
       // Reset form after showing success message
       setTimeout(() => {
         setFormData({
@@ -149,14 +84,15 @@ const InteractiveContactForm = () => {
           company: '',
           service: '',
           message: '',
-          budget: 5000,
+          budget: '5000-10000',
         });
         setFormStep(0);
         setIsSubmitted(false);
+        setButtonState('idle');
       }, 5000);
-    }, 2000);
+    }, 1200);
   };
-  
+
   // Form input change handler
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -165,17 +101,7 @@ const InteractiveContactForm = () => {
       [name]: value
     });
   };
-  
-  // Budget slider change handler
-  const handleBudgetChange = (e) => {
-    const value = parseInt(e.target.value);
-    setFormData({
-      ...formData,
-      budget: value
-    });
-    budgetProgress.set(calculateBudgetPercentage(value));
-  };
-  
+
   // Service selection handler
   const handleServiceSelect = (service) => {
     setFormData({
@@ -183,8 +109,16 @@ const InteractiveContactForm = () => {
       service: service.value
     });
   };
-  
-  // Validation check to enable/disable next button
+
+  // Budget selection handler
+  const handleBudgetSelect = (budget) => {
+    setFormData({
+      ...formData,
+      budget: budget.value
+    });
+  };
+
+  // Validation check for each step
   const canProceed = () => {
     if (formStep === 0) {
       return formData.name && formData.email;
@@ -194,164 +128,57 @@ const InteractiveContactForm = () => {
     }
     return formData.message;
   };
-  
+
   // Form navigation handlers
   const goToNextStep = () => {
     if (formStep < formSteps.length - 1) {
       setFormStep(current => current + 1);
     }
   };
-  
+
   const goToPrevStep = () => {
     if (formStep > 0) {
       setFormStep(current => current - 1);
     }
   };
-  
-  // Create floating particles
-  const renderParticles = () => {
-    const particles = [];
-    const shapes = ['♙', '♘', '♗', '♖', '♕', '♔'];
-    const colors = ['#4D8DDA', '#D95D67', '#50AC8E', '#E5A244', '#8B64C0'];
-    
-    for (let i = 0; i < 20; i++) {
-      const size = Math.random() * 30 + 10;
-      particles.push(
-        <div 
-          key={`particle-${i}`}
-          className="particle"
-          style={{
-            position: 'absolute',
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            fontSize: `${size}px`,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            opacity: 0.1,
-            zIndex: 0,
-            transform: `rotate(${Math.random() * 360}deg)`,
-          }}
-        >
-          {shapes[Math.floor(Math.random() * shapes.length)]}
-        </div>
-      );
-    }
-    
-    return particles;
-  };
-  
-  // Create glow effect that follows cursor
-  const renderGlowEffect = () => {
-    return (
-      <div 
-        ref={cursorRef}
-        className="glow-effect"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '300px',
-          height: '300px',
-          background: 'radial-gradient(circle, rgba(77, 141, 218, 0.15) 0%, rgba(80, 172, 142, 0.05) 50%, transparent 70%)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          transform: 'translate(-50%, -50%)',
-          zIndex: 0,
-          transition: 'width 0.3s, height 0.3s',
-        }}
-      />
-    );
-  };
-  
+
   return (
     <section
       className="interactive-contact-section"
       ref={containerRef}
-      onMouseMove={handleMouseMove3D} 
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       style={{
         position: 'relative',
-        padding: '120px 0',
-        backgroundColor: '#111',
-        color: '#fff',
-        overflow: 'hidden',
-        perspective: '1000px',
+        padding: isMobile ? '2.5rem 0' : '60px 0',
+        backgroundImage: 'url(/formbg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: 'var(--background)',
+        color: 'var(--text-on-light)',
+        overflow: 'visible',
+        marginTop: '-1px',
       }}
     >
-      {/* Animated particles */}
-      {renderParticles()}
-      
-      {/* Cursor glow effect */}
-      {renderGlowEffect()}
-      
-      {/* Fluid wave background */}
-      <div 
-        className="fluid-wave"
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          width: '100%',
-          height: '50%',
-          background: 'linear-gradient(180deg, transparent, rgba(77, 141, 218, 0.03))',
-          zIndex: 0,
-          overflow: 'hidden',
-        }}
-      >
-        <svg
-          viewBox="0 0 1440 320"
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          <motion.path
-            initial={{ d: "M0,192L60,176C120,160,240,128,360,138.7C480,149,600,203,720,224C840,245,960,235,1080,208C1200,181,1320,139,1380,117.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z" }}
-            animate={{ 
-              d: [
-                "M0,192L60,176C120,160,240,128,360,138.7C480,149,600,203,720,224C840,245,960,235,1080,208C1200,181,1320,139,1380,117.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z",
-                "M0,128L60,154.7C120,181,240,235,360,240C480,245,600,203,720,197.3C840,192,960,224,1080,218.7C1200,213,1320,171,1380,149.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z",
-                "M0,192L60,176C120,160,240,128,360,138.7C480,149,600,203,720,224C840,245,960,235,1080,208C1200,181,1320,139,1380,117.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
-              ]
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 15,
-              ease: "easeInOut",
-            }}
-            fill="rgba(77, 141, 218, 0.05)"
-          />
-          <motion.path
-            initial={{ d: "M0,256L48,245.3C96,235,192,213,288,213.3C384,213,480,235,576,218.7C672,203,768,149,864,160C960,171,1056,245,1152,245.3C1248,245,1344,171,1392,133.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" }}
-            animate={{ 
-              d: [
-                "M0,256L48,245.3C96,235,192,213,288,213.3C384,213,480,235,576,218.7C672,203,768,149,864,160C960,171,1056,245,1152,245.3C1248,245,1344,171,1392,133.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z", 
-                "M0,288L48,272C96,256,192,224,288,213.3C384,203,480,213,576,229.3C672,245,768,267,864,261.3C960,256,1056,224,1152,218.7C1248,213,1344,235,1392,245.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-                "M0,256L48,245.3C96,235,192,213,288,213.3C384,213,480,235,576,218.7C672,203,768,149,864,160C960,171,1056,245,1152,245.3C1248,245,1344,171,1392,133.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-              ] 
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 20,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-            fill="rgba(80, 172, 142, 0.05)"
-          />
-        </svg>
-      </div>
-      
-      <div 
-        className="container" 
+      {/* Background overlay to reduce intensity */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.70)',
+        zIndex: 1,
+        pointerEvents: 'none',
+      }} />
+
+      <div
+        className="container"
         style={{
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 2rem',
+          padding: isMobile ? '0 1rem' : '0 2rem',
           position: 'relative',
-          zIndex: 1,
+          zIndex: 3,
         }}
       >
         <motion.div
@@ -359,208 +186,211 @@ const InteractiveContactForm = () => {
           className="section-header"
           style={{
             textAlign: 'center',
-            marginBottom: '4rem',
+            marginBottom: isMobile ? '1.5rem' : '2.5rem',
           }}
         >
           <motion.h6
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             style={{
-              fontSize: '1rem',
-              fontWeight: 'bold',
-              color: '#50AC8E',
+              fontSize: isMobile ? '0.8rem' : '0.875rem',
+              fontWeight: 700,
+              color: 'var(--color-primary)',
               textTransform: 'uppercase',
               letterSpacing: '2px',
-              marginBottom: '1rem',
-              display: 'inline-block',
-              padding: '0.5rem 1rem',
-              background: 'rgba(80, 172, 142, 0.1)',
-              borderRadius: '50px',
-              fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+              marginBottom: '0.75rem',
+              fontFamily: "var(--font-syne), var(--font-bricolage), -apple-system, BlinkMacSystemFont, sans-serif",
             }}
           >
-            Make Your Move
+            Get In Touch
           </motion.h6>
-          
+
           <motion.h2
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            className="hero-text"
             style={{
-              fontSize: '3rem',
-              fontWeight: 'bold',
-              marginBottom: '1.5rem',
-              background: 'linear-gradient(135deg, #FFFFFF 0%, #50AC8E 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+              fontSize: isMobile ? '1.5rem' : '2.2rem',
+              marginBottom: '1rem',
+              color: 'var(--text-on-light)',
             }}
           >
-            Strategic Collaboration
+            Start Your Project
           </motion.h2>
-          
+
           <motion.p
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{
-              fontSize: '1.2rem',
+              fontSize: isMobile ? '0.9rem' : '1rem',
               maxWidth: '700px',
               margin: '0 auto',
-              color: '#aaa',
-              lineHeight: 1.6,
-              fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+              color: 'var(--text-on-light-muted)',
+              lineHeight: 1.5,
+              fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
             }}
           >
-            Ready to transform your digital vision into reality? Fill out the form below 
-            and our team will analyze your requirements to deliver the perfect solution.
+            Tell us about your project and we'll get back to you within 24 hours with a tailored proposal.
           </motion.p>
         </motion.div>
-        
-        {/* Main content area */}
-        <div 
+
+        {/* Form Container */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            perspective: '1000px',
+            maxWidth: '900px',
+            margin: '0 auto',
+            position: 'relative',
           }}
         >
-          {/* 3D Form Card with hover effect */}
-          <motion.div
-            ref={formRef}
-            style={{
-              width: '100%',
-              maxWidth: '800px',
-              backgroundColor: 'rgba(25, 25, 25, 0.9)',
-              borderRadius: '20px',
-              overflow: 'hidden',
-              boxShadow: isHovered 
-                ? '0 25px 50px -12px rgba(80, 172, 142, 0.25), 0 0 30px rgba(77, 141, 218, 0.2)' 
-                : '0 25px 50px -12px rgba(0, 0, 0, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              transform: isHovered 
-                ? `perspective(1000px) rotateY(${mousePosition.x * 0.01}deg) rotateX(${-mousePosition.y * 0.01}deg)` 
-                : 'perspective(1000px) rotateY(0) rotateX(0)',
-              transition: 'box-shadow 0.3s ease, transform 0.1s ease',
-            }}
-          >
-            {/* Form content */}
-            <AnimatePresence mode="wait">
-              {/* Success message */}
-              {isSubmitted ? (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  style={{
-                    padding: '5rem 3rem',
-                    textAlign: 'center',
-                  }}
-                >
+          <AnimatePresence mode="wait">
+            {/* Success message */}
+            {isSubmitted ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  padding: isMobile ? '2.5rem 1.5rem' : '3.5rem 2.5rem',
+                  textAlign: 'center',
+                  borderRadius: isMobile ? '16px' : '20px',
+                  boxShadow: '0 10px 40px var(--glass-shadow)',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  backdropFilter: 'blur(20px)',
+                }}
+              >
+                <div style={{ position: 'relative' }}>
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 10 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
                     style={{
-                      width: '120px',
-                      height: '120px',
+                      width: isMobile ? '80px' : '100px',
+                      height: isMobile ? '80px' : '100px',
                       borderRadius: '50%',
-                      backgroundColor: 'rgba(80, 172, 142, 0.1)',
+                      backgroundColor: 'var(--color-secondary-light)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '3rem',
+                      fontSize: isMobile ? '2rem' : '2.5rem',
                       margin: '0 auto 2rem',
-                      color: '#50AC8E',
+                      color: 'var(--color-secondary)',
+                      fontWeight: 700,
                     }}
                   >
                     ✓
                   </motion.div>
-                  
-                  <h3 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#fff' }}>
-                    Message Received!
-                  </h3>
-                  
-                  <p style={{ color: '#aaa', marginBottom: '2rem' }}>
-                    Thanks for reaching out. Our team will analyze your requirements 
-                    and get back to you within 24 hours.
-                  </p>
-                  
-                  <motion.div 
-                    style={{ fontSize: '2.5rem', marginBottom: '2rem' }}
-                    animate={{ 
-                      rotate: [0, 20, 0, -20, 0],
-                      scale: [1, 1.2, 1, 1.2, 1]
-                    }}
-                    transition={{ 
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatDelay: 1
+
+                  <h3
+                    className="hero-text"
+                    style={{
+                      fontSize: isMobile ? '1.5rem' : '2rem',
+                      marginBottom: '1rem',
+                      color: 'var(--text-on-light)',
                     }}
                   >
-                    ♔
-                  </motion.div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="form"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                >
-                  {/* Form header with progress */}
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-                    padding: '1.5rem 2rem',
+                    Thank You!
+                  </h3>
+
+                  <p style={{
+                    color: 'var(--text-on-light-muted)',
+                    marginBottom: '0',
+                    fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                    fontSize: isMobile ? '0.875rem' : '1rem',
+                    lineHeight: 1.6,
                   }}>
-                    <div>
-                      <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff' }}>
+                    Your message has been received. Our team will review your project details and get back to you within 24 hours.
+                  </p>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  borderRadius: isMobile ? '16px' : '20px',
+                  padding: isMobile ? '1.5rem 1.25rem' : '2rem 2rem',
+                  boxShadow: '0 10px 40px var(--glass-shadow)',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  backdropFilter: 'blur(20px)',
+                }}
+              >
+                <div style={{ position: 'relative' }}>
+                  {/* Progress Bar */}
+                  <div style={{
+                    marginBottom: isMobile ? '1.5rem' : '2rem',
+                    paddingBottom: isMobile ? '1rem' : '1.25rem',
+                    borderBottom: '1px solid var(--border-subtle)',
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '0.75rem',
+                    }}>
+                      <h3 style={{
+                        fontSize: isMobile ? '1rem' : '1.25rem',
+                        fontWeight: 700,
+                        color: 'var(--text-on-light)',
+                        fontFamily: "var(--font-syne), var(--font-bricolage), -apple-system, BlinkMacSystemFont, sans-serif",
+                        margin: 0,
+                        letterSpacing: '-0.01em',
+                      }}>
                         {formSteps[formStep]}
                       </h3>
-                      <p style={{ fontSize: '0.9rem', color: '#aaa' }}>
+                      <span style={{
+                        fontSize: isMobile ? '0.8rem' : '0.85rem',
+                        color: 'var(--text-on-light-muted)',
+                        fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                        fontWeight: 600,
+                      }}>
                         Step {formStep + 1} of {formSteps.length}
-                      </p>
+                      </span>
                     </div>
-                    
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+
+                    {/* Progress Bars */}
+                    <div style={{
+                      display: 'flex',
+                      gap: '0.5rem',
+                      width: '100%',
+                    }}>
                       {formSteps.map((_, index) => (
                         <motion.div
-                          key={`step-${index}`}
+                          key={`progress-${index}`}
                           style={{
-                            width: '10px',
-                            height: '10px',
-                            borderRadius: '50%',
-                            backgroundColor: index === formStep ? '#50AC8E' : 'rgba(255, 255, 255, 0.2)',
-                            cursor: index < formStep ? 'pointer' : 'default',
+                            flex: 1,
+                            height: '6px',
+                            borderRadius: '3px',
+                            backgroundColor: index <= formStep
+                              ? 'var(--color-secondary)'
+                              : 'var(--color-secondary-light)',
+                            transition: 'background-color 0.3s ease',
                           }}
-                          animate={{
-                            scale: index === formStep ? [1, 1.2, 1] : 1,
-                          }}
-                          transition={{
-                            duration: 0.6,
-                            repeat: index === formStep ? Infinity : 0,
-                            repeatDelay: 1,
-                          }}
-                          onClick={() => {
-                            if (index < formStep) {
-                              setFormStep(index);
-                            }
-                          }}
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 }}
                         />
                       ))}
                     </div>
                   </div>
-                  
-                  {/* Form body */}
+
                   <form onSubmit={handleSubmit}>
-                    <div style={{ padding: '2rem' }}>
-                      {/* Step 1: Contact Details */}
+                    <AnimatePresence mode="wait">
+                      {/* Step 1: Your Details */}
                       {formStep === 0 && (
                         <motion.div
                           initial={{ opacity: 0, x: 20 }}
@@ -568,142 +398,172 @@ const InteractiveContactForm = () => {
                           exit={{ opacity: 0, x: -20 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <div style={{ marginBottom: '1.5rem' }}>
-                            <label 
-                              htmlFor="name"
-                              style={{ 
-                                display: 'block', 
-                                marginBottom: '0.5rem', 
-                                color: '#ddd',
-                                fontSize: '0.9rem'
-                              }}
-                            >
-                              Full Name *
-                            </label>
-                            <motion.input
-                              whileFocus={{ boxShadow: '0 0 0 2px rgba(80, 172, 142, 0.5)' }}
-                              type="text"
-                              id="name"
-                              name="name"
-                              value={formData.name}
-                              onChange={handleInputChange}
-                              required
-                              placeholder="Enter your full name"
-                              style={{
-                                width: '100%',
-                                padding: '1rem',
-                                borderRadius: '10px',
-                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)',
-                                color: '#fff',
-                                fontSize: '1rem',
-                                transition: 'all 0.3s ease',
-                              }}
-                            />
-                          </div>
-                          
-                          <div style={{ marginBottom: '1.5rem' }}>
-                            <label 
-                              htmlFor="email"
-                              style={{ 
-                                display: 'block', 
-                                marginBottom: '0.5rem', 
-                                color: '#ddd',
-                                fontSize: '0.9rem'
-                              }}
-                            >
-                              Email Address *
-                            </label>
-                            <motion.input
-                              whileFocus={{ boxShadow: '0 0 0 2px rgba(80, 172, 142, 0.5)' }}
-                              type="email"
-                              id="email"
-                              name="email"
-                              value={formData.email}
-                              onChange={handleInputChange}
-                              required
-                              placeholder="Enter your email address"
-                              style={{
-                                width: '100%',
-                                padding: '1rem',
-                                borderRadius: '10px',
-                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)',
-                                color: '#fff',
-                                fontSize: '1rem',
-                                transition: 'all 0.3s ease',
-                              }}
-                            />
-                          </div>
-                          
-                          <div style={{ marginBottom: '1.5rem' }}>
-                            <label 
-                              htmlFor="phone"
-                              style={{ 
-                                display: 'block', 
-                                marginBottom: '0.5rem', 
-                                color: '#ddd',
-                                fontSize: '0.9rem'
-                              }}
-                            >
-                              Phone Number (Optional)
-                            </label>
-                            <motion.input
-                              whileFocus={{ boxShadow: '0 0 0 2px rgba(80, 172, 142, 0.5)' }}
-                              type="tel"
-                              id="phone"
-                              name="phone"
-                              value={formData.phone}
-                              onChange={handleInputChange}
-                              placeholder="Enter your phone number"
-                              style={{
-                                width: '100%',
-                                padding: '1rem',
-                                borderRadius: '10px',
-                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)',
-                                color: '#fff',
-                                fontSize: '1rem',
-                                transition: 'all 0.3s ease',
-                              }}
-                            />
-                          </div>
-                          
-                          <div style={{ marginBottom: '1.5rem' }}>
-                            <label 
-                              htmlFor="company"
-                              style={{ 
-                                display: 'block', 
-                                marginBottom: '0.5rem', 
-                                color: '#ddd',
-                                fontSize: '0.9rem'
-                              }}
-                            >
-                              Company (Optional)
-                            </label>
-                            <motion.input
-                              whileFocus={{ boxShadow: '0 0 0 2px rgba(80, 172, 142, 0.5)' }}
-                              type="text"
-                              id="company"
-                              name="company"
-                              value={formData.company}
-                              onChange={handleInputChange}
-                              placeholder="Enter your company name"
-                              style={{
-                                width: '100%',
-                                padding: '1rem',
-                                borderRadius: '10px',
-                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)',
-                                color: '#fff',
-                                fontSize: '1rem',
-                                transition: 'all 0.3s ease',
-                              }}
-                            />
+                          <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                            gap: isMobile ? '1rem' : '1.25rem',
+                          }}>
+                            {/* Name */}
+                            <div style={{ gridColumn: isMobile ? '1' : 'span 1' }}>
+                              <label
+                                htmlFor="name"
+                                style={{
+                                  display: 'block',
+                                  marginBottom: '0.4rem',
+                                  color: 'var(--text-on-light)',
+                                  fontSize: isMobile ? '0.8rem' : '0.85rem',
+                                  fontWeight: 600,
+                                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                                }}
+                              >
+                                Full Name *
+                              </label>
+                              <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                required
+                                placeholder="John Doe"
+                                style={{
+                                  width: '100%',
+                                  padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
+                                  borderRadius: '8px',
+                                  backgroundColor: 'var(--glass-block-1)',
+                                  border: '1px solid var(--glass-border)',
+                                  color: 'var(--text-on-light)',
+                                  fontSize: isMobile ? '0.85rem' : '0.9rem',
+                                  transition: 'all 0.2s ease',
+                                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                                  outline: 'none',
+                                }}
+                                onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
+                                onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
+                              />
+                            </div>
+
+                            {/* Email */}
+                            <div style={{ gridColumn: isMobile ? '1' : 'span 1' }}>
+                              <label
+                                htmlFor="email"
+                                style={{
+                                  display: 'block',
+                                  marginBottom: '0.5rem',
+                                  color: 'var(--text-on-light)',
+                                  fontSize: isMobile ? '0.875rem' : '0.9rem',
+                                  fontWeight: '600',
+                                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                                }}
+                              >
+                                Email Address *
+                              </label>
+                              <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                required
+                                placeholder="john@example.com"
+                                style={{
+                                  width: '100%',
+                                  padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
+                                  borderRadius: '8px',
+                                  backgroundColor: 'var(--glass-block-1)',
+                                  border: '1px solid var(--glass-border)',
+                                  color: 'var(--text-on-light)',
+                                  fontSize: isMobile ? '0.85rem' : '0.9rem',
+                                  transition: 'all 0.2s ease',
+                                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                                  outline: 'none',
+                                }}
+                                onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
+                                onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
+                              />
+                            </div>
+
+                            {/* Phone */}
+                            <div style={{ gridColumn: isMobile ? '1' : 'span 1' }}>
+                              <label
+                                htmlFor="phone"
+                                style={{
+                                  display: 'block',
+                                  marginBottom: '0.5rem',
+                                  color: 'var(--text-on-light)',
+                                  fontSize: isMobile ? '0.875rem' : '0.9rem',
+                                  fontWeight: '600',
+                                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                                }}
+                              >
+                                Phone Number (Optional)
+                              </label>
+                              <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleInputChange}
+                                placeholder="+1 (555) 000-0000"
+                                style={{
+                                  width: '100%',
+                                  padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
+                                  borderRadius: '8px',
+                                  backgroundColor: 'var(--glass-block-1)',
+                                  border: '1px solid var(--glass-border)',
+                                  color: 'var(--text-on-light)',
+                                  fontSize: isMobile ? '0.85rem' : '0.9rem',
+                                  transition: 'all 0.2s ease',
+                                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                                  outline: 'none',
+                                }}
+                                onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
+                                onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
+                              />
+                            </div>
+
+                            {/* Company */}
+                            <div style={{ gridColumn: isMobile ? '1' : 'span 1' }}>
+                              <label
+                                htmlFor="company"
+                                style={{
+                                  display: 'block',
+                                  marginBottom: '0.5rem',
+                                  color: 'var(--text-on-light)',
+                                  fontSize: isMobile ? '0.875rem' : '0.9rem',
+                                  fontWeight: '600',
+                                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                                }}
+                              >
+                                Company (Optional)
+                              </label>
+                              <input
+                                type="text"
+                                id="company"
+                                name="company"
+                                value={formData.company}
+                                onChange={handleInputChange}
+                                placeholder="Your Company"
+                                style={{
+                                  width: '100%',
+                                  padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
+                                  borderRadius: '8px',
+                                  backgroundColor: 'var(--glass-block-1)',
+                                  border: '1px solid var(--glass-border)',
+                                  color: 'var(--text-on-light)',
+                                  fontSize: isMobile ? '0.85rem' : '0.9rem',
+                                  transition: 'all 0.2s ease',
+                                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                                  outline: 'none',
+                                }}
+                                onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
+                                onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
+                              />
+                            </div>
                           </div>
                         </motion.div>
                       )}
-                      
+
                       {/* Step 2: Project Info */}
                       {formStep === 1 && (
                         <motion.div
@@ -712,206 +572,115 @@ const InteractiveContactForm = () => {
                           exit={{ opacity: 0, x: -20 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <div style={{ marginBottom: '2rem' }}>
-                            <label 
-                              style={{ 
-                                display: 'block', 
-                                marginBottom: '1rem', 
-                                color: '#ddd',
-                                fontSize: '0.9rem'
+                          {/* Service Selection */}
+                          <div style={{ marginBottom: isMobile ? '1rem' : '1.25rem' }}>
+                            <label
+                              style={{
+                                display: 'block',
+                                marginBottom: '0.75rem',
+                                color: 'var(--text-on-light)',
+                                fontSize: isMobile ? '0.8rem' : '0.85rem',
+                                fontWeight: 600,
+                                fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                               }}
                             >
                               Select Service *
                             </label>
-                            
+
                             <div style={{
                               display: 'grid',
-                              gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                              gap: '1rem',
-                              marginBottom: '2rem'
+                              gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+                              gap: isMobile ? '0.75rem' : '1rem',
                             }}>
                               {serviceOptions.map((service) => (
-                                <motion.div
+                                <motion.button
                                   key={service.value}
-                                  whileHover={{ 
-                                    scale: 1.05, 
-                                    backgroundColor: `${service.color}20` 
-                                  }}
-                                  whileTap={{ scale: 0.95 }}
+                                  type="button"
+                                  whileHover={{ y: -2 }}
+                                  whileTap={{ scale: 0.98 }}
                                   onClick={() => handleServiceSelect(service)}
                                   style={{
-                                    padding: '1.5rem 1rem',
-                                    borderRadius: '12px',
-                                    backgroundColor: formData.service === service.value 
-                                      ? `${service.color}20` 
-                                      : 'rgba(255, 255, 255, 0.05)',
-                                    border: formData.service === service.value 
-                                      ? `1px solid ${service.color}` 
-                                      : '1px solid rgba(255, 255, 255, 0.1)',
+                                    padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
+                                    borderRadius: '8px',
+                                    backgroundColor: formData.service === service.value
+                                      ? 'var(--color-secondary)'
+                                      : 'var(--background)',
+                                    border: `2px solid ${formData.service === service.value
+                                      ? 'var(--color-secondary)'
+                                      : 'var(--glass-border)'}`,
+                                    color: formData.service === service.value
+                                      ? '#ffffff'
+                                      : 'var(--text-on-light)',
                                     cursor: 'pointer',
                                     textAlign: 'center',
-                                    transition: 'all 0.3s ease',
+                                    transition: 'all 0.2s ease',
+                                    fontSize: isMobile ? '0.75rem' : '0.8rem',
+                                    fontWeight: formData.service === service.value ? 600 : 500,
+                                    fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                                    lineHeight: 1.4,
                                   }}
                                 >
-                                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-                                    {service.icon}
-                                  </div>
-                                  <div style={{ 
-                                    color: formData.service === service.value ? service.color : '#ddd',
-                                    fontWeight: formData.service === service.value ? 'bold' : 'normal',
-                                  }}>
-                                    {service.label}
-                                  </div>
-                                </motion.div>
+                                  {service.label}
+                                </motion.button>
                               ))}
                             </div>
                           </div>
-                          
-                          <div style={{ marginBottom: '1.5rem' }}>
-                            <div style={{ 
-                              display: 'flex', 
-                              justifyContent: 'space-between', 
-                              alignItems: 'center',
-                              marginBottom: '1rem'
-                            }}>
-                              <label 
-                                htmlFor="budget"
-                                style={{ 
-                                  color: '#ddd',
-                                  fontSize: '0.9rem'
-                                }}
-                              >
-                                Project Budget *
-                              </label>
-                              
-                              <div style={{
-                                padding: '0.5rem 1rem',
-                                borderRadius: '50px',
-                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                                color: '#fff',
-                                fontSize: '0.9rem',
-                                fontWeight: 'bold',
-                              }}>
-                                <motion.span
-                                  key={formData.budget}
-                                  initial={{ opacity: 0, y: 10 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: -10 }}
-                                >
-                                  ${formData.budget.toLocaleString()} - {getCurrentBudgetLabel()}
-                                </motion.span>
-                              </div>
-                            </div>
-                            
-                            {/* Custom liquid slider */}
+
+                          {/* Budget Selection */}
+                          <div style={{ marginBottom: isMobile ? '1rem' : '1.25rem' }}>
+                            <label
+                              style={{
+                                display: 'block',
+                                marginBottom: '0.75rem',
+                                color: 'var(--text-on-light)',
+                                fontSize: isMobile ? '0.8rem' : '0.85rem',
+                                fontWeight: 600,
+                                fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                              }}
+                            >
+                              Project Budget *
+                            </label>
+
                             <div style={{
-                              position: 'relative',
-                              height: '8px',
-                              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                              borderRadius: '4px',
-                              marginBottom: '2rem',
-                              cursor: 'pointer',
+                              display: 'grid',
+                              gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                              gap: isMobile ? '0.75rem' : '1rem',
                             }}>
-                              {/* Progress track */}
-                              <motion.div
-                                style={{
-                                  position: 'absolute',
-                                  top: 0,
-                                  left: 0,
-                                  height: '100%',
-                                  width: `${budgetProgressSpring.get()}%`,
-                                  borderRadius: '4px',
-                                  background: sliderColor,
-                                }}
-                              />
-                              
-                              {/* Liquid blob effect */}
-                              <svg 
-                                style={{ 
-                                  position: 'absolute', 
-                                  top: '-20px',
-                                  left: `calc(${budgetProgressSpring.get()}% - 20px)`,
-                                  width: '40px',
-                                  height: '40px',
-                                  filter: 'drop-shadow(0 2px 5px rgba(0,0,0,0.2))',
-                                  pointerEvents: 'none',
-                                }}
-                                viewBox="0 0 40 40"
-                              >
-                                <motion.circle 
-                                  cx="20" 
-                                  cy="20" 
-                                  r="8"
-                                  fill={sliderColor}
+                              {budgetRanges.map((budget) => (
+                                <motion.button
+                                  key={budget.value}
+                                  type="button"
+                                  whileHover={{ y: -2 }}
+                                  whileTap={{ scale: 0.98 }}
+                                  onClick={() => handleBudgetSelect(budget)}
                                   style={{
-                                    filter: 'url(#goo)'
-                                  }}
-                                  animate={{
-                                    r: [8, 9, 8],
-                                    scale: [1, 1.05, 1]
-                                  }}
-                                  transition={{
-                                    duration: 2,
-                                    repeat: Infinity,
-                                  }}
-                                />
-                                <filter id="goo">
-                                  <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
-                                  <feColorMatrix 
-                                    in="blur" 
-                                    mode="matrix" 
-                                    values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" 
-                                    result="goo" 
-                                  />
-                                  <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-                                </filter>
-                              </svg>
-                              
-                              {/* Actual range input (hidden but functional) */}
-                              <input
-                                type="range"
-                                id="budget"
-                                name="budget"
-                                min={1000}
-                                max={25000}
-                                step={500}
-                                value={formData.budget}
-                                onChange={handleBudgetChange}
-                                style={{
-                                  position: 'absolute',
-                                  top: 0,
-                                  left: 0,
-                                  width: '100%',
-                                  height: '100%',
-                                  opacity: 0,
-                                  cursor: 'pointer',
-                                }}
-                              />
-                              
-                              {/* Budget markers */}
-                              {budgetRanges.map((range, index) => (
-                                <div
-                                  key={`range-${index}`}
-                                  style={{
-                                    position: 'absolute',
-                                    bottom: '-25px',
-                                    left: `${calculateBudgetPercentage(range.min)}%`,
-                                    transform: 'translateX(-50%)',
-                                    color: formData.budget >= range.min && formData.budget <= range.max 
-                                      ? '#fff' 
-                                      : '#666',
-                                    fontSize: '0.8rem',
-                                    transition: 'color 0.3s ease',
+                                    padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
+                                    borderRadius: '8px',
+                                    backgroundColor: formData.budget === budget.value
+                                      ? 'var(--color-secondary)'
+                                      : 'var(--background)',
+                                    border: `2px solid ${formData.budget === budget.value
+                                      ? 'var(--color-secondary)'
+                                      : 'var(--glass-border)'}`,
+                                    color: formData.budget === budget.value
+                                      ? '#ffffff'
+                                      : 'var(--text-on-light)',
+                                    cursor: 'pointer',
+                                    textAlign: 'center',
+                                    transition: 'all 0.2s ease',
+                                    fontSize: isMobile ? '0.75rem' : '0.8rem',
+                                    fontWeight: formData.budget === budget.value ? 600 : 500,
+                                    fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                                   }}
                                 >
-                                  ${range.min.toLocaleString()}
-                                </div>
+                                  {budget.label}
+                                </motion.button>
                               ))}
                             </div>
                           </div>
                         </motion.div>
                       )}
-                      
+
                       {/* Step 3: Message */}
                       {formStep === 2 && (
                         <motion.div
@@ -920,123 +689,89 @@ const InteractiveContactForm = () => {
                           exit={{ opacity: 0, x: -20 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <div style={{ marginBottom: '1.5rem' }}>
-                            <label 
+                          <div>
+                            <label
                               htmlFor="message"
-                              style={{ 
-                                display: 'block', 
-                                marginBottom: '0.5rem', 
-                                color: '#ddd',
-                                fontSize: '0.9rem'
+                              style={{
+                                display: 'block',
+                                marginBottom: '0.4rem',
+                                color: 'var(--text-on-light)',
+                                fontSize: isMobile ? '0.8rem' : '0.85rem',
+                                fontWeight: 600,
+                                fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                               }}
                             >
                               Project Details *
                             </label>
-                            <motion.textarea
-                              whileFocus={{ boxShadow: '0 0 0 2px rgba(80, 172, 142, 0.5)' }}
+                            <textarea
                               id="message"
                               name="message"
                               value={formData.message}
                               onChange={handleInputChange}
                               required
-                              placeholder="Tell us about your project, requirements, and timeline"
-                              rows={6}
+                              placeholder="Tell us about your project requirements, goals, and timeline..."
+                              rows={isMobile ? 4 : 5}
                               style={{
                                 width: '100%',
-                                padding: '1rem',
-                                borderRadius: '10px',
-                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                                border: '1px solid rgba(255, 255, 255, 0.1)',
-                                color: '#fff',
-                                fontSize: '1rem',
-                                transition: 'all 0.3s ease',
+                                padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
+                                borderRadius: '8px',
+                                backgroundColor: 'var(--glass-block-1)',
+                                border: '1px solid var(--glass-border)',
+                                color: 'var(--text-on-light)',
+                                fontSize: isMobile ? '0.85rem' : '0.9rem',
+                                transition: 'all 0.2s ease',
                                 resize: 'vertical',
+                                fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                                outline: 'none',
+                                lineHeight: 1.5,
                               }}
+                              onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
+                              onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
                             />
-                          </div>
-                          
-                          <div style={{
-                            padding: '1rem',
-                            borderRadius: '10px',
-                            backgroundColor: 'rgba(77, 141, 218, 0.1)',
-                            marginBottom: '1.5rem',
-                          }}>
-                            <div style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '1rem',
-                            }}>
-                              <div style={{
-                                width: '40px',
-                                height: '40px',
-                                borderRadius: '50%',
-                                backgroundColor: 'rgba(77, 141, 218, 0.2)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '1.2rem',
-                                color: '#4D8DDA',
-                              }}>
-                                <span>ℹ️</span>
-                              </div>
-                              
-                              <div>
-                                <h4 style={{
-                                  fontSize: '1rem',
-                                  fontWeight: 'bold',
-                                  marginBottom: '0.25rem',
-                                  color: '#fff',
-                                }}>
-                                  Next Steps
-                                </h4>
-                                <p style={{
-                                  fontSize: '0.9rem',
-                                  color: '#aaa',
-                                }}>
-                                  After submitting, our team will analyze your requirements and respond within 24 hours with a tailored proposal.
-                                </p>
-                              </div>
-                            </div>
                           </div>
                         </motion.div>
                       )}
-                    </div>
-                    
-                    {/* Form navigation */}
+                    </AnimatePresence>
+
+                    {/* Navigation Buttons */}
                     <div style={{
                       display: 'flex',
                       justifyContent: 'space-between',
-                      borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-                      padding: '1.5rem 2rem',
+                      alignItems: 'center',
+                      marginTop: isMobile ? '1.5rem' : '1.75rem',
+                      paddingTop: isMobile ? '1.25rem' : '1.5rem',
+                      borderTop: '1px solid var(--border-subtle)',
                     }}>
                       {formStep > 0 ? (
                         <motion.button
                           type="button"
                           onClick={goToPrevStep}
-                          whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+                          whileHover={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}
                           whileTap={{ scale: 0.95 }}
                           style={{
+                            padding: isMobile ? '0.65rem 1.1rem' : '0.75rem 1.25rem',
+                            borderRadius: '8px',
+                            backgroundColor: 'transparent',
+                            border: '1px solid var(--glass-border)',
+                            color: 'var(--text-on-light-muted)',
+                            cursor: 'pointer',
+                            fontSize: isMobile ? '0.8rem' : '0.85rem',
+                            fontWeight: 600,
+                            fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                            transition: 'all 0.2s ease',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.5rem',
-                            padding: '0.8rem 1.5rem',
-                            borderRadius: '10px',
-                            backgroundColor: 'transparent',
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
-                            color: '#ddd',
-                            cursor: 'pointer',
-                            fontSize: '0.9rem',
-                            fontWeight: 'bold',
                           }}
                         >
-                          <svg 
-                            width="16" 
-                            height="16" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
                             strokeLinejoin="round"
                           >
                             <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -1045,39 +780,43 @@ const InteractiveContactForm = () => {
                           Back
                         </motion.button>
                       ) : (
-                        <div /> // Empty div to maintain spacing
+                        <div />
                       )}
-                      
+
                       {formStep < formSteps.length - 1 ? (
                         <motion.button
                           type="button"
                           onClick={goToNextStep}
                           disabled={!canProceed()}
-                          whileHover={canProceed() ? { scale: 1.05 } : {}}
-                          whileTap={canProceed() ? { scale: 0.95 } : {}}
+                          whileHover={canProceed() ? { scale: 1.02 } : {}}
+                          whileTap={canProceed() ? { scale: 0.98 } : {}}
                           style={{
+                            padding: isMobile ? '0.65rem 1.1rem' : '0.75rem 1.25rem',
+                            borderRadius: '8px',
+                            backgroundColor: canProceed()
+                              ? 'var(--color-secondary)'
+                              : 'var(--color-secondary-light)',
+                            border: 'none',
+                            color: canProceed() ? '#ffffff' : 'var(--text-on-light-muted)',
+                            cursor: canProceed() ? 'pointer' : 'not-allowed',
+                            fontSize: isMobile ? '0.8rem' : '0.85rem',
+                            fontWeight: 600,
+                            fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                            transition: 'all 0.2s ease',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.5rem',
-                            padding: '0.8rem 1.5rem',
-                            borderRadius: '10px',
-                            backgroundColor: canProceed() ? '#50AC8E' : 'rgba(80, 172, 142, 0.2)',
-                            border: 'none',
-                            color: canProceed() ? '#fff' : '#aaa',
-                            cursor: canProceed() ? 'pointer' : 'not-allowed',
-                            fontSize: '0.9rem',
-                            fontWeight: 'bold',
                           }}
                         >
                           Next
-                          <svg 
-                            width="16" 
-                            height="16" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
                             strokeLinejoin="round"
                           >
                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -1085,160 +824,218 @@ const InteractiveContactForm = () => {
                           </svg>
                         </motion.button>
                       ) : (
-                        <motion.button
+                        <button
+                          ref={submitButtonRef}
                           type="submit"
                           disabled={!canProceed() || isSubmitting}
-                          whileHover={canProceed() && !isSubmitting ? { scale: 1.05 } : {}}
-                          whileTap={canProceed() && !isSubmitting ? { scale: 0.95 } : {}}
+                          className={`submit-btn ${buttonState}`}
                           style={{
+                            padding: isMobile ? '0.65rem 1.1rem' : '0.75rem 1.25rem',
+                            borderRadius: '8px',
+                            backgroundColor: canProceed() && !isSubmitting
+                              ? 'var(--color-secondary)'
+                              : 'var(--color-secondary-light)',
+                            border: 'none',
+                            color: canProceed() && !isSubmitting ? '#ffffff' : 'var(--text-on-light-muted)',
+                            cursor: canProceed() && !isSubmitting ? 'pointer' : 'not-allowed',
+                            fontSize: isMobile ? '0.8rem' : '0.85rem',
+                            fontWeight: 600,
+                            fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                            transition: 'all 0.3s ease',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.5rem',
-                            padding: '0.8rem 1.5rem',
-                            borderRadius: '10px',
-                            backgroundColor: canProceed() && !isSubmitting ? '#50AC8E' : 'rgba(80, 172, 142, 0.2)',
-                            border: 'none',
-                            color: canProceed() && !isSubmitting ? '#fff' : '#aaa',
-                            cursor: canProceed() && !isSubmitting ? 'pointer' : 'not-allowed',
-                            fontSize: '0.9rem',
-                            fontWeight: 'bold',
                             position: 'relative',
                             overflow: 'hidden',
                           }}
                         >
-                          {isSubmitting ? (
-                            <>
-                              <svg 
-                                width="20" 
-                                height="20" 
-                                viewBox="0 0 24 24" 
-                                fill="none" 
-                                stroke="currentColor" 
-                                strokeWidth="2" 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round"
-                                style={{
-                                  animation: 'spin 1s linear infinite',
-                                }}
-                              >
-                                <line x1="12" y1="2" x2="12" y2="6"></line>
-                                <line x1="12" y1="18" x2="12" y2="22"></line>
-                                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
-                                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
-                                <line x1="2" y1="12" x2="6" y2="12"></line>
-                                <line x1="18" y1="12" x2="22" y2="12"></line>
-                                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
-                                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
-                              </svg>
-                              Processing
-                            </>
-                          ) : (
-                            <>
-                              Submit Request
-                              <svg 
-                                width="16" 
-                                height="16" 
-                                viewBox="0 0 24 24" 
-                                fill="none" 
-                                stroke="currentColor" 
-                                strokeWidth="2" 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round"
-                              >
-                                <line x1="22" y1="2" x2="11" y2="13"></line>
-                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                              </svg>
-                            </>
+                          <span className="btn-text">
+                            {buttonState === 'sent' ? 'Sent!' : 'Send Message'}
+                          </span>
+
+                          {/* Paper Airplane Icon */}
+                          <svg
+                            className="paper-plane"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                          </svg>
+
+                          {/* Checkmark Icon */}
+                          {buttonState === 'sent' && (
+                            <svg
+                              className="checkmark"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="3"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
                           )}
-                          
-                          {/* Button shine effect */}
-                          {canProceed() && !isSubmitting && (
-                            <motion.span 
-                              style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '30px',
-                                height: '100%',
-                                background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent)',
-                                transform: 'skewX(-20deg)',
-                              }}
-                              animate={{ 
-                                x: ['0%', '400%'], 
-                              }}
-                              transition={{
-                                duration: 1.5,
-                                repeat: Infinity,
-                                repeatDelay: 3,
-                              }}
-                            />
+
+                          {/* Loading Dots */}
+                          {buttonState === 'sending' && (
+                            <div className="loading-dots">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                            </div>
                           )}
-                        </motion.button>
+                        </button>
                       )}
                     </div>
                   </form>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </div>
-      
-      {/* Floating chess piece */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          bottom: '50px',
-          right: '10%',
-          fontSize: '5rem',
-          color: '#50AC8E',
-          opacity: 0.2,
-          zIndex: 0,
-        }}
-        animate={{
-          y: [0, -30, 0],
-          rotate: [0, 10, 0, -10, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      >
-        ♘
-      </motion.div>
-      
-      <motion.div
-        style={{
-          position: 'absolute',
-          top: '100px',
-          left: '10%',
-          fontSize: '4rem',
-          color: '#4D8DDA',
-          opacity: 0.2,
-          zIndex: 0,
-        }}
-        animate={{
-          y: [0, 30, 0],
-          rotate: [0, -15, 0, 15, 0],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1,
-        }}
-      >
-        ♗
-      </motion.div>
-      
-      {/* Add animation for spinner in CSS */}
+
+      {/* Paper Airplane Submit Animation & Other Styles */}
       <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+        /* Paper Airplane Icon */
+        .paper-plane {
+          width: 16px;
+          height: 16px;
+          transition: all 0.4s ease;
         }
-        
+
+        /* Button Text */
+        .btn-text {
+          transition: all 0.3s ease;
+        }
+
+        /* When button is clicked/submitting */
+        .submit-btn.sending .paper-plane {
+          animation: flyAway 1s ease-in-out forwards;
+        }
+
+        .submit-btn.sending .btn-text {
+          animation: fadeText 1s ease-in-out forwards;
+        }
+
+        /* Success state after animation */
+        .submit-btn.sent {
+          background-color: #48BB78 !important;
+        }
+
+        .submit-btn.sent .btn-text {
+          opacity: 1;
+        }
+
+        /* Paper airplane fly away animation */
+        @keyframes flyAway {
+          0% {
+            transform: translateX(0) translateY(0) rotate(0deg);
+            opacity: 1;
+          }
+          20% {
+            transform: translateX(-5px) translateY(3px) rotate(-10deg);
+            opacity: 1;
+          }
+          50% {
+            transform: translateX(20px) translateY(-15px) rotate(15deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateX(100px) translateY(-50px) rotate(45deg);
+            opacity: 0;
+          }
+        }
+
+        /* Button text fade animation */
+        @keyframes fadeText {
+          0% {
+            opacity: 1;
+          }
+          30% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+
+        /* Loading Dots */
+        .loading-dots {
+          display: none;
+        }
+
+        .submit-btn.sending .loading-dots {
+          display: inline-flex;
+          gap: 4px;
+        }
+
+        .loading-dots span {
+          width: 5px;
+          height: 5px;
+          background-color: white;
+          border-radius: 50%;
+          animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .loading-dots span:nth-child(1) {
+          animation-delay: -0.32s;
+        }
+
+        .loading-dots span:nth-child(2) {
+          animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+          0%, 80%, 100% {
+            transform: scale(0);
+          }
+          40% {
+            transform: scale(1);
+          }
+        }
+
+        /* Checkmark Success Icon */
+        .checkmark {
+          display: none;
+          width: 16px;
+          height: 16px;
+        }
+
+        .submit-btn.sent .checkmark {
+          display: block;
+          animation: popIn 0.3s ease-out forwards;
+        }
+
+        .submit-btn.sent .paper-plane {
+          display: none;
+        }
+
+        @keyframes popIn {
+          0% {
+            transform: scale(0);
+            opacity: 0;
+          }
+          70% {
+            transform: scale(1.2);
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+          color: var(--text-on-light-muted);
+          opacity: 0.5;
+        }
+
         @media (max-width: 768px) {
           .container {
             padding: 0 1rem;

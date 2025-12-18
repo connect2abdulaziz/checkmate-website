@@ -94,6 +94,10 @@ const Hero = () => {
         position: 'relative',
         minHeight: '85vh',
         width: '100%',
+        backgroundImage: 'url(/formbg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         backgroundColor: '#ffffff',
         overflow: 'hidden',
         display: 'flex',
@@ -102,6 +106,18 @@ const Hero = () => {
         color: 'var(--text-on-light)',
       }}
     >
+      {/* Background overlay to reduce intensity */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.70)',
+        zIndex: 0,
+        pointerEvents: 'none',
+      }} />
+
       {/* 3D Paper Art Style Background */}
 
       {/* Decorative Lines - Full Width */}
@@ -113,7 +129,7 @@ const Hero = () => {
             top: 0,
             width: '100%',
             height: '100%',
-            zIndex: 0,
+            zIndex: 1,
             pointerEvents: 'none',
             display: 'flex',
             flexDirection: 'column',
@@ -189,7 +205,7 @@ const Hero = () => {
             top: 0,
             width: '100%',
             height: '100%',
-            zIndex: 0,
+            zIndex: 1,
             pointerEvents: 'none',
             display: 'flex',
             flexDirection: 'column',
@@ -257,7 +273,7 @@ const Hero = () => {
           width: '100%',
           maxWidth: '1400px',
           margin: '0 auto',
-          zIndex: 1,
+          zIndex: 2,
         }}
       >
         <motion.div

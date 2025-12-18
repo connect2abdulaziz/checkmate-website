@@ -186,7 +186,7 @@ const EnhancedAIStrategyAnalyzer = () => {
           weaknesses: "Higher initial investment",
           timeframe: "4-6 months"
         }
-        },
+      },
       small: {
         launch: {
           name: "Professional App Package",
@@ -203,8 +203,8 @@ const EnhancedAIStrategyAnalyzer = () => {
           weaknesses: "Moderate timeline",
           timeframe: "3-5 months"
         }
-        }
-      },
+      }
+    },
     devops: {
       startup: {
         migrate: {
@@ -222,7 +222,7 @@ const EnhancedAIStrategyAnalyzer = () => {
           weaknesses: "May need upgrades as you grow",
           timeframe: "1-2 months"
         }
-        },
+      },
       medium: {
         scale: {
           name: "Managed Cloud Ops Package",
@@ -257,8 +257,8 @@ const EnhancedAIStrategyAnalyzer = () => {
           strengths: "Affordable; essential protection",
           weaknesses: "Basic level coverage",
           timeframe: "Monthly"
-      }
-    },
+        }
+      },
       medium: {
         compliance: {
           name: "Compliance Suite",
@@ -512,24 +512,40 @@ const EnhancedAIStrategyAnalyzer = () => {
       style={{
         padding: '80px 0',
         position: 'relative',
-        background: '#ffffff',
+        backgroundImage: 'url(/formbg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#ffffff',
         color: 'var(--text-on-light)',
         overflow: 'hidden',
         marginTop: '-1px',
       }}
     >
+      {/* Background overlay for lower intensity */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        zIndex: 0,
+        pointerEvents: 'none',
+      }} />
+
       {/* Background - Different Style Variation */}
       {!showResults && (
         !isMobile ? (
           <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
               right: 0,
               bottom: 0,
               zIndex: 0,
-          pointerEvents: 'none',
+              pointerEvents: 'none',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -596,14 +612,14 @@ const EnhancedAIStrategyAnalyzer = () => {
             })}
           </div>
         ) : (
-      <div
-        style={{
-          position: 'absolute',
+          <div
+            style={{
+              position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-          zIndex: 0,
+              zIndex: 0,
               pointerEvents: 'none',
               display: 'flex',
               flexDirection: 'column',
@@ -651,14 +667,14 @@ const EnhancedAIStrategyAnalyzer = () => {
                   <div style={{ width: `${centerGapPercent}%`, height: '1px' }} />
 
                   {/* Right side line */}
-      <div
-        style={{
+                  <div
+                    style={{
                       width: `${lineWidthPercent}%`,
                       height: '1px',
                       background: `linear-gradient(90deg, rgba(15, 23, 42, ${lineOpacity * 1.5}) 0%, rgba(15, 23, 42, ${lineOpacity}) 50%, transparent 100%)`,
                       borderRadius: '1px',
-        }}
-      />
+                    }}
+                  />
                 </div>
               );
             })}
@@ -674,69 +690,69 @@ const EnhancedAIStrategyAnalyzer = () => {
         zIndex: 1,
       }}>
         {!showResults && (
-        <div style={{
-          textAlign: 'center',
-          marginBottom: '3rem',
-        }}>
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+          <div style={{
+            textAlign: 'center',
+            marginBottom: '3rem',
+          }}>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 padding: '0.5rem 1rem',
                 background: 'var(--color-secondary-light)',
                 borderRadius: '8px',
-              marginBottom: '1.5rem',
+                marginBottom: '1.5rem',
               }}
-          >
-            <span style={{
+            >
+              <span style={{
                 color: 'var(--color-secondary)',
                 fontWeight: '600',
                 fontSize: '0.875rem',
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em',
                 fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-            }}>
+              }}>
                 Service Recommendation Tool
-            </span>
-          </motion.div>
+              </span>
+            </motion.div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            style={{
+            <motion.h2
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              style={{
                 fontSize: isMobile ? '2rem' : '3rem',
                 fontWeight: '700',
-              marginBottom: '1rem',
+                marginBottom: '1rem',
                 color: 'var(--text-on-light)',
                 fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                 lineHeight: 1.2,
-            }}
-          >
+              }}
+            >
               Find Your Perfect Service Package
-          </motion.h2>
+            </motion.h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            style={{
+            <motion.p
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              style={{
                 fontSize: isMobile ? '1rem' : '1.25rem',
                 color: 'var(--text-on-light-muted)',
-              maxWidth: '700px',
-              margin: '0 auto',
+                maxWidth: '700px',
+                margin: '0 auto',
                 lineHeight: 1.7,
                 fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-            }}
-          >
+              }}
+            >
               Answer a few questions and we'll recommend the perfect Cypentra service package
               tailored to your needs, goals, and timeline.
-          </motion.p>
-        </div>
+            </motion.p>
+          </div>
         )}
 
         <motion.div
@@ -765,12 +781,12 @@ const EnhancedAIStrategyAnalyzer = () => {
                 marginBottom: '3rem',
               }}>
                 <div style={{
-                display: 'flex',
-                alignItems: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
                   justifyContent: 'space-between',
                   marginBottom: '1rem',
-              }}>
-                <div style={{
+                }}>
+                  <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.75rem',
@@ -972,9 +988,9 @@ const EnhancedAIStrategyAnalyzer = () => {
                           <QuestionIcon type={questions[currentQuestion].iconType} />
                         </div>
 
-                      <motion.h3
-                        variants={itemVariants}
-                        style={{
+                        <motion.h3
+                          variants={itemVariants}
+                          style={{
                             fontSize: isMobile ? '1.5rem' : '2rem',
                             fontWeight: '700',
                             color: 'var(--text-on-light)',
@@ -984,38 +1000,38 @@ const EnhancedAIStrategyAnalyzer = () => {
                             maxWidth: '800px',
                             marginLeft: 'auto',
                             marginRight: 'auto',
-                        }}
-                      >
-                        {questions[currentQuestion].question}
-                      </motion.h3>
+                          }}
+                        >
+                          {questions[currentQuestion].question}
+                        </motion.h3>
                       </motion.div>
 
                       {/* Answer options - Attractive Card Design */}
-                    <div style={{
-                      display: 'grid',
+                      <div style={{
+                        display: 'grid',
                         gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-                      gap: '1rem',
-                    }}>
+                        gap: '1rem',
+                      }}>
                         {questions[currentQuestion].options.map((option, idx) => {
                           const isSelected = answers[questions[currentQuestion].id] === option.value;
                           return (
-                        <motion.button
-                          key={option.value}
-                          custom={idx}
-                          variants={optionVariants}
-                          initial="hidden"
+                            <motion.button
+                              key={option.value}
+                              custom={idx}
+                              variants={optionVariants}
+                              initial="hidden"
                               animate={isSelected ? "selected" : "visible"}
                               whileHover={{
                                 scale: 1.02,
                                 transition: { duration: 0.2 }
                               }}
                               whileTap={{ scale: 0.98 }}
-                          onClick={() => handleAnswerSelect(questions[currentQuestion].id, option.value)}
-                          style={{
+                              onClick={() => handleAnswerSelect(questions[currentQuestion].id, option.value)}
+                              style={{
                                 padding: '1.25rem 1.5rem',
                                 background: isSelected
                                   ? 'var(--color-secondary)'
-                              : 'white',
+                                  : 'white',
                                 border: `2px solid ${isSelected
                                   ? 'var(--color-secondary)'
                                   : 'rgba(0, 0, 0, 0.08)'
@@ -1024,10 +1040,10 @@ const EnhancedAIStrategyAnalyzer = () => {
                                 color: isSelected
                                   ? 'white'
                                   : 'var(--text-on-light)',
-                            textAlign: 'left',
+                                textAlign: 'left',
                                 fontWeight: isSelected ? '600' : '500',
-                            cursor: 'pointer',
-                            position: 'relative',
+                                cursor: 'pointer',
+                                position: 'relative',
                                 transition: 'all 0.2s ease',
                                 fontSize: '1rem',
                                 lineHeight: 1.5,
@@ -1038,14 +1054,14 @@ const EnhancedAIStrategyAnalyzer = () => {
                                   ? '0 4px 12px rgba(15, 23, 42, 0.2)'
                                   : '0 2px 4px rgba(0, 0, 0, 0.04)',
                                 fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                          }}
-                        >
+                              }}
+                            >
                               {/* Radio indicator */}
-                            <motion.div
+                              <motion.div
                                 animate={{
                                   scale: isSelected ? 1 : 0.9,
                                 }}
-                              style={{
+                                style={{
                                   width: '20px',
                                   height: '20px',
                                   borderRadius: '50%',
@@ -1069,9 +1085,9 @@ const EnhancedAIStrategyAnalyzer = () => {
                                       height: '8px',
                                       borderRadius: '50%',
                                       backgroundColor: 'white',
-                              }}
-                            />
-                          )}
+                                    }}
+                                  />
+                                )}
                               </motion.div>
 
                               <span style={{ flex: 1 }}>{option.label}</span>
@@ -1092,7 +1108,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                                   <polyline points="20 6 9 17 4 12"></polyline>
                                 </motion.svg>
                               )}
-                        </motion.button>
+                            </motion.button>
                           );
                         })}
                       </div>
@@ -1485,8 +1501,8 @@ const EnhancedAIStrategyAnalyzer = () => {
             <>
               {/* Background lines for result page */}
               <div
-                    style={{
-                        position: 'absolute',
+                style={{
+                  position: 'absolute',
                   top: 0,
                   left: 0,
                   right: 0,
@@ -1494,7 +1510,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                   marginLeft: '50%',
                   transform: 'translateX(-50%)',
                   bottom: 0,
-                        zIndex: 0,
+                  zIndex: 0,
                   pointerEvents: 'none',
                   display: 'flex',
                   flexDirection: 'column',
@@ -1512,10 +1528,10 @@ const EnhancedAIStrategyAnalyzer = () => {
                   const distanceFromCenter = Math.abs(i - centerIndex);
                   const maxDistance = centerIndex;
 
-                  const lineWidthPercent = isMobile 
+                  const lineWidthPercent = isMobile
                     ? 15 + (distanceFromCenter / maxDistance) * 18
                     : 8 + (distanceFromCenter / maxDistance) * 18;
-                  const centerGapPercent = isMobile 
+                  const centerGapPercent = isMobile
                     ? Math.max(30, 100 - (lineWidthPercent * 2))
                     : 100 - (lineWidthPercent * 2);
                   const offset = isMobile ? 0 : (depth % 2 === 0 ? 15 : -15);
@@ -1524,17 +1540,17 @@ const EnhancedAIStrategyAnalyzer = () => {
                   return (
                     <div
                       key={`result-line-${i}`}
-                        style={{
+                      style={{
                         width: '100%',
                         height: lineHeight,
                         position: 'relative',
-                          display: 'flex',
+                        display: 'flex',
                         justifyContent: 'space-between',
-                          alignItems: 'center',
-                        }}
-                      >
+                        alignItems: 'center',
+                      }}
+                    >
                       <div
-                          style={{
+                        style={{
                           width: `${lineWidthPercent}%`,
                           height: lineHeight,
                           background: isMobile
@@ -1547,7 +1563,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                       />
                       <div style={{ width: `${centerGapPercent}%`, height: lineHeight }} />
                       <div
-                          style={{
+                        style={{
                           width: `${lineWidthPercent}%`,
                           height: lineHeight,
                           background: isMobile
@@ -1558,96 +1574,241 @@ const EnhancedAIStrategyAnalyzer = () => {
                           opacity: isMobile ? 1 : (0.7 + depth * 0.1),
                         }}
                       />
-                      </div>
+                    </div>
                   );
                 })}
-                    </div>
+              </div>
 
-                    <div style={{
+              <div style={{
                 padding: isMobile ? '2rem 1rem' : '4rem 0',
                 position: 'relative',
                 zIndex: 1,
-                    }}>
+              }}>
                 <AnimatePresence>
-                {result && (
-                      <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                        style={{
-                      maxWidth: '1000px',
-                      margin: '0 auto',
-                      position: 'relative',
-                      zIndex: 1,
-                    }}
-                  >
-                    {/* Header Section - Attractive Design */}
+                  {result && (
                     <motion.div
-                      initial={{ opacity: 0, y: -20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
                       transition={{ duration: 0.5 }}
                       style={{
-                        textAlign: 'center',
-                        marginBottom: '4rem',
-                        paddingBottom: '3rem',
-                        borderBottom: '2px solid rgba(0, 0, 0, 0.06)',
+                        maxWidth: '1000px',
+                        margin: '0 auto',
+                        position: 'relative',
+                        zIndex: 1,
+                      }}
+                    >
+                      {/* Header Section - Attractive Design */}
+                      <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        style={{
+                          textAlign: 'center',
+                          marginBottom: '4rem',
+                          paddingBottom: '3rem',
+                          borderBottom: '2px solid rgba(0, 0, 0, 0.06)',
                         }}
                       >
-                      <div style={{
-                        display: 'inline-block',
-                        padding: '0.5rem 1.25rem',
-                        backgroundColor: 'var(--color-secondary-light)',
-                        borderRadius: '20px',
+                        <div style={{
+                          display: 'inline-block',
+                          padding: '0.5rem 1.25rem',
+                          backgroundColor: 'var(--color-secondary-light)',
+                          borderRadius: '20px',
                           marginBottom: '1.5rem',
                         }}>
                           <span style={{
-                          fontSize: '0.8125rem',
-                          fontWeight: '600',
-                          color: 'var(--color-secondary)',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.1em',
+                            fontSize: '0.8125rem',
+                            fontWeight: '600',
+                            color: 'var(--color-secondary)',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.1em',
+                            fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                          }}>
+                            Recommended Package
+                          </span>
+                        </div>
+
+                        <h2 style={{
+                          fontSize: isMobile ? '2rem' : '3rem',
+                          fontWeight: '700',
+                          marginBottom: '1.25rem',
+                          color: 'var(--text-on-light)',
+                          fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                          lineHeight: 1.2,
+                        }}>
+                          {safeResult?.name || 'Service Package'}
+                        </h2>
+
+                        <p style={{
+                          fontSize: isMobile ? '1.125rem' : '1.375rem',
+                          color: 'var(--text-on-light-muted)',
+                          lineHeight: 1.7,
+                          maxWidth: '750px',
+                          margin: '0 auto',
+                          fontWeight: '400',
                           fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                         }}>
-                          Recommended Package
-                          </span>
+                          {safeResult?.description || 'A comprehensive service package tailored to your needs.'}
+                        </p>
+                      </motion.div>
+
+                      {/* Main Content Grid - Attractive Layout */}
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                        gap: '3rem',
+                        marginBottom: '4rem',
+                      }}>
+                        {/* Left Column - Project Details */}
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.3, duration: 0.5 }}
+                        >
+                          <h3 style={{
+                            fontSize: '1.5rem',
+                            fontWeight: '700',
+                            marginBottom: '2rem',
+                            color: 'var(--text-on-light)',
+                            fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                            paddingBottom: '1rem',
+                            borderBottom: '2px solid var(--color-secondary)',
+                            display: 'inline-block',
+                          }}>
+                            Project Overview
+                          </h3>
+                          <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '1.5rem',
+                          }}>
+                            {[
+                              { label: 'Service', value: result?.service || 'Full-Stack Development' },
+                              { label: 'Company Size', value: result?.size || 'Startup' },
+                              { label: 'Primary Goal', value: result?.goal || 'Launch New Product' },
+                              { label: 'Main Challenge', value: result?.challenge || 'Various Challenges' },
+                              { label: 'Timeframe', value: result?.timeframe || 'Medium-term' }
+                            ].map((item, idx) => (
+                              <div
+                                key={idx}
+                                style={{
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '0.5rem',
+                                  padding: '1.25rem',
+                                  borderRadius: '12px',
+                                  backgroundColor: 'var(--color-secondary-light)',
+                                }}
+                              >
+                                <span style={{
+                                  fontSize: '0.8125rem',
+                                  color: 'var(--text-on-light-muted)',
+                                  fontWeight: '500',
+                                  textTransform: 'uppercase',
+                                  letterSpacing: '0.05em',
+                                  fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                                }}>
+                                  {item.label}
+                                </span>
+                                <span style={{
+                                  fontSize: '1.0625rem',
+                                  fontWeight: '600',
+                                  color: 'var(--text-on-light)',
+                                  fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                                }}>
+                                  {item.value}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+
+                        {/* Right Column - Strengths & Considerations */}
+                        <motion.div
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.4, duration: 0.5 }}
+                        >
+                          <h3 style={{
+                            fontSize: '1.5rem',
+                            fontWeight: '700',
+                            marginBottom: '2rem',
+                            color: 'var(--text-on-light)',
+                            fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                            paddingBottom: '1rem',
+                            borderBottom: '2px solid var(--color-secondary)',
+                            display: 'inline-block',
+                          }}>
+                            Assessment
+                          </h3>
+                          <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '1.5rem',
+                          }}>
+                            <div style={{
+                              padding: '1.5rem',
+                              borderRadius: '12px',
+                              backgroundColor: 'var(--color-secondary-light)',
+                              borderLeft: '4px solid var(--color-secondary)',
+                            }}>
+                              <h4 style={{
+                                fontSize: '1rem',
+                                fontWeight: '700',
+                                color: 'var(--text-on-light)',
+                                marginBottom: '0.75rem',
+                                fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                              }}>
+                                Strengths
+                              </h4>
+                              <p style={{
+                                fontSize: '1rem',
+                                color: 'var(--text-on-light)',
+                                lineHeight: 1.7,
+                                margin: 0,
+                                fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                              }}>
+                                {safeResult?.strengths || 'Comprehensive solution tailored to your needs.'}
+                              </p>
+                            </div>
+
+                            <div style={{
+                              padding: '1.5rem',
+                              borderRadius: '12px',
+                              backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                              borderLeft: '4px solid var(--text-on-light-muted)',
+                            }}>
+                              <h4 style={{
+                                fontSize: '1rem',
+                                fontWeight: '700',
+                                color: 'var(--text-on-light)',
+                                marginBottom: '0.75rem',
+                                fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                              }}>
+                                Considerations
+                              </h4>
+                              <p style={{
+                                fontSize: '1rem',
+                                color: 'var(--text-on-light)',
+                                lineHeight: 1.7,
+                                margin: 0,
+                                fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                              }}>
+                                {safeResult?.weaknesses || 'May require phased implementation.'}
+                              </p>
+                            </div>
+                          </div>
+                        </motion.div>
                       </div>
 
-                      <h2 style={{
-                        fontSize: isMobile ? '2rem' : '3rem',
-                        fontWeight: '700',
-                        marginBottom: '1.25rem',
-                        color: 'var(--text-on-light)',
-                        fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-                        lineHeight: 1.2,
-                      }}>
-                        {safeResult?.name || 'Service Package'}
-                      </h2>
-
-                      <p style={{
-                        fontSize: isMobile ? '1.125rem' : '1.375rem',
-                        color: 'var(--text-on-light-muted)',
-                        lineHeight: 1.7,
-                        maxWidth: '750px',
-                        margin: '0 auto',
-                        fontWeight: '400',
-                        fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                      }}>
-                        {safeResult?.description || 'A comprehensive service package tailored to your needs.'}
-                      </p>
-                    </motion.div>
-
-                    {/* Main Content Grid - Attractive Layout */}
-                    <div style={{
-                      display: 'grid',
-                      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-                      gap: '3rem',
-                      marginBottom: '4rem',
-                    }}>
-                      {/* Left Column - Project Details */}
+                      {/* Implementation Steps - Attractive Design */}
                       <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3, duration: 0.5 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5, duration: 0.5 }}
+                        style={{
+                          marginBottom: '4rem',
+                        }}
                       >
                         <h3 style={{
                           fontSize: '1.5rem',
@@ -1659,251 +1820,106 @@ const EnhancedAIStrategyAnalyzer = () => {
                           borderBottom: '2px solid var(--color-secondary)',
                           display: 'inline-block',
                         }}>
-                          Project Overview
+                          Implementation Steps
                         </h3>
                         <div style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '1.5rem',
+                          display: 'grid',
+                          gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
+                          gap: '1.25rem',
                         }}>
-                          {[
-                            { label: 'Service', value: result?.service || 'Full-Stack Development' },
-                            { label: 'Company Size', value: result?.size || 'Startup' },
-                            { label: 'Primary Goal', value: result?.goal || 'Launch New Product' },
-                            { label: 'Main Challenge', value: result?.challenge || 'Various Challenges' },
-                            { label: 'Timeframe', value: result?.timeframe || 'Medium-term' }
-                          ].map((item, idx) => (
+                          {safeResultMoves.map((move, idx) => (
                             <div
                               key={idx}
                               style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '0.5rem',
-                                padding: '1.25rem',
+                                padding: '1.5rem',
                                 borderRadius: '12px',
-                                backgroundColor: 'var(--color-secondary-light)',
+                                backgroundColor: 'white',
+                                border: '1px solid rgba(0, 0, 0, 0.08)',
+                                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                                position: 'relative',
+                                transition: 'all 0.2s ease',
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'translateY(-2px)';
+                                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
                               }}
                             >
-                              <span style={{
-                                fontSize: '0.8125rem',
-                                color: 'var(--text-on-light-muted)',
-                                fontWeight: '500',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em',
-                                fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                              <div style={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: '1rem',
                               }}>
-                                {item.label}
-                              </span>
-                              <span style={{
-                                fontSize: '1.0625rem',
-                                fontWeight: '600',
-                                color: 'var(--text-on-light)',
-                                fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                              }}>
-                                {item.value}
-                              </span>
+                                <div style={{
+                                  width: '32px',
+                                  height: '32px',
+                                  borderRadius: '8px',
+                                  backgroundColor: 'var(--color-secondary)',
+                                  color: 'white',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontWeight: '700',
+                                  fontSize: '0.875rem',
+                                  flexShrink: 0,
+                                }}>
+                                  {idx + 1}
+                                </div>
+                                <p style={{
+                                  fontSize: '1rem',
+                                  color: 'var(--text-on-light)',
+                                  lineHeight: 1.6,
+                                  margin: 0,
+                                  flex: 1,
+                                  fontWeight: '500',
+                                  fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                                }}>
+                                  {move}
+                                </p>
+                              </div>
                             </div>
                           ))}
                         </div>
                       </motion.div>
 
-                      {/* Right Column - Strengths & Considerations */}
+                      {/* Call to Action */}
                       <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4, duration: 0.5 }}
-                      >
-                        <h3 style={{
-                          fontSize: '1.5rem',
-                          fontWeight: '700',
-                          marginBottom: '2rem',
-                          color: 'var(--text-on-light)',
-                          fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-                          paddingBottom: '1rem',
-                          borderBottom: '2px solid var(--color-secondary)',
-                          display: 'inline-block',
-                        }}>
-                          Assessment
-                        </h3>
-                        <div style={{
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6, duration: 0.5 }}
+                        style={{
                           display: 'flex',
-                          flexDirection: 'column',
-                          gap: '1.5rem',
-                        }}>
-                          <div style={{
-                            padding: '1.5rem',
-                            borderRadius: '12px',
-                            backgroundColor: 'var(--color-secondary-light)',
-                            borderLeft: '4px solid var(--color-secondary)',
-                          }}>
-                            <h4 style={{
-                            fontSize: '1rem',
-                              fontWeight: '700',
-                              color: 'var(--text-on-light)',
-                              marginBottom: '0.75rem',
-                              fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-                            }}>
-                            Strengths
-                            </h4>
-                          <p style={{
-                              fontSize: '1rem',
-                              color: 'var(--text-on-light)',
-                              lineHeight: 1.7,
-                              margin: 0,
-                              fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                          }}>
-                              {safeResult?.strengths || 'Comprehensive solution tailored to your needs.'}
-                          </p>
-                        </div>
-
-                          <div style={{
-                            padding: '1.5rem',
-                            borderRadius: '12px',
-                            backgroundColor: 'rgba(0, 0, 0, 0.02)',
-                            borderLeft: '4px solid var(--text-on-light-muted)',
-                          }}>
-                            <h4 style={{
-                            fontSize: '1rem',
-                              fontWeight: '700',
-                              color: 'var(--text-on-light)',
-                              marginBottom: '0.75rem',
-                              fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-                            }}>
-                            Considerations
-                            </h4>
-                          <p style={{
-                              fontSize: '1rem',
-                              color: 'var(--text-on-light)',
-                              lineHeight: 1.7,
-                              margin: 0,
-                              fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                          }}>
-                              {safeResult?.weaknesses || 'May require phased implementation.'}
-                          </p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    </div>
-
-                    {/* Implementation Steps - Attractive Design */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5, duration: 0.5 }}
-                      style={{
-                        marginBottom: '4rem',
-                      }}
-                    >
-                      <h3 style={{
-                        fontSize: '1.5rem',
-                        fontWeight: '700',
-                        marginBottom: '2rem',
-                        color: 'var(--text-on-light)',
-                        fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-                        paddingBottom: '1rem',
-                        borderBottom: '2px solid var(--color-secondary)',
-                        display: 'inline-block',
-                      }}>
-                        Implementation Steps
-                      </h3>
-                      <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
-                        gap: '1.25rem',
-                      }}>
-                        {safeResultMoves.map((move, idx) => (
-                          <div
-                            key={idx}
-                            style={{
-                              padding: '1.5rem',
-                              borderRadius: '12px',
-                              backgroundColor: 'white',
-                              border: '1px solid rgba(0, 0, 0, 0.08)',
-                              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
-                              position: 'relative',
-                              transition: 'all 0.2s ease',
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.transform = 'translateY(-2px)';
-                              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.transform = 'translateY(0)';
-                              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
-                            }}
-                          >
-                            <div style={{
-                              display: 'flex',
-                              alignItems: 'flex-start',
-                              gap: '1rem',
-                            }}>
-                              <div style={{
-                                width: '32px',
-                                height: '32px',
-                                borderRadius: '8px',
-                                backgroundColor: 'var(--color-secondary)',
-                                color: 'white',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontWeight: '700',
-                                fontSize: '0.875rem',
-                                flexShrink: 0,
-                              }}>
-                                {idx + 1}
-                              </div>
-                              <p style={{
-                                fontSize: '1rem',
-                                color: 'var(--text-on-light)',
-                                lineHeight: 1.6,
-                                margin: 0,
-                                flex: 1,
-                                fontWeight: '500',
-                                fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                              }}>
-                                {move}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-
-                    {/* Call to Action */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6, duration: 0.5 }}
-                      style={{
-                        display: 'flex',
-                        gap: '1rem',
-                        justifyContent: 'center',
-                        flexWrap: 'wrap',
-                        paddingTop: '2rem',
-                        borderTop: '1px solid rgba(0, 0, 0, 0.06)',
-                      }}
+                          gap: '1rem',
+                          justifyContent: 'center',
+                          flexWrap: 'wrap',
+                          paddingTop: '2rem',
+                          borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+                        }}
                       >
                         <motion.button
-                        whileHover={{ opacity: 0.8 }}
-                        whileTap={{ scale: 0.98 }}
+                          whileHover={{ opacity: 0.8 }}
+                          whileTap={{ scale: 0.98 }}
                           onClick={resetAnalyzer}
                           style={{
-                          padding: '0.875rem 1.5rem',
+                            padding: '0.875rem 1.5rem',
                             background: 'transparent',
-                          border: '1px solid rgba(0, 0, 0, 0.1)',
+                            border: '1px solid rgba(0, 0, 0, 0.1)',
                             borderRadius: '8px',
-                          color: 'var(--text-on-light)',
+                            color: 'var(--text-on-light)',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
-                          gap: '0.5rem',
-                          fontWeight: '500',
-                          fontSize: '0.9375rem',
-                          transition: 'all 0.2s ease',
-                          fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                            gap: '0.5rem',
+                            fontWeight: '500',
+                            fontSize: '0.9375rem',
+                            transition: 'all 0.2s ease',
+                            fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                           }}
                         >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M3 2v6h6"></path>
                             <path d="M3 13a9 9 0 1 0 3-7.7L3 8"></path>
                           </svg>
@@ -1911,35 +1927,35 @@ const EnhancedAIStrategyAnalyzer = () => {
                         </motion.button>
 
                         <motion.button
-                        whileHover={{ scale: 1.02, boxShadow: '0 4px 12px rgba(15, 23, 42, 0.25)' }}
-                        whileTap={{ scale: 0.98 }}
+                          whileHover={{ scale: 1.02, boxShadow: '0 4px 12px rgba(15, 23, 42, 0.25)' }}
+                          whileTap={{ scale: 0.98 }}
                           style={{
-                          padding: '0.875rem 1.75rem',
-                          background: 'var(--color-secondary)',
+                            padding: '0.875rem 1.75rem',
+                            background: 'var(--color-secondary)',
                             color: 'white',
                             border: 'none',
                             borderRadius: '8px',
-                          fontWeight: '600',
-                          fontSize: '0.9375rem',
+                            fontWeight: '600',
+                            fontSize: '0.9375rem',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
-                          gap: '0.5rem',
-                          boxShadow: '0 2px 8px rgba(15, 23, 42, 0.2)',
-                          transition: 'all 0.2s ease',
-                          fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                            gap: '0.5rem',
+                            boxShadow: '0 2px 8px rgba(15, 23, 42, 0.2)',
+                            transition: 'all 0.2s ease',
+                            fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                           }}
                         >
                           Schedule Consultation
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <polyline points="9 18 15 12 9 6"></polyline>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
                           </svg>
                         </motion.button>
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+                  )}
+                </AnimatePresence>
+              </div>
             </>
           )}
         </motion.div>

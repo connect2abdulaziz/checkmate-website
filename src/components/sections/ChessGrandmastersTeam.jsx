@@ -325,38 +325,30 @@ const ChessGrandmastersTeam = () => {
       ref={sectionRef}
       className="chess-team-section"
       style={{
-        padding: isMobile ? '3rem 0' : isTablet ? '4rem 0' : '100px 0',
-        background: '#ffffff',
+        padding: isMobile ? '3rem 0' : isTablet ? '5rem 0' : '120px 0',
+        backgroundImage: 'url(/formbg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#ffffff',
         position: 'relative',
         overflow: 'hidden',
-        overflowY: 'hidden',
         marginTop: '-1px',
         minHeight: isMobile ? 'auto' : '100vh',
       }}
     >
-      {/* Top fade overlay */}
+      {/* Background overlay for lower intensity */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
-        height: isMobile ? '80px' : isTablet ? '100px' : '150px',
-        background: 'linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), transparent)',
-        zIndex: 2,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        zIndex: 0,
         pointerEvents: 'none',
       }} />
 
-      {/* Bottom fade overlay */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: isMobile ? '80px' : isTablet ? '100px' : '150px',
-        background: 'linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), transparent)',
-        zIndex: 2,
-        pointerEvents: 'none',
-      }} />
 
       <div className="container" style={{
         maxWidth: '1200px',
@@ -380,12 +372,13 @@ const ChessGrandmastersTeam = () => {
             transition={{ duration: 0.6 }}
             style={{
               fontSize: isMobile ? '0.75rem' : isTablet ? '0.875rem' : '1rem',
-              fontWeight: 'bold',
-              color: 'var(--color-secondary)',
+              fontWeight: 700,
+              color: 'var(--color-primary)',
               textTransform: 'uppercase',
               letterSpacing: '2px',
               marginBottom: isMobile ? '0.75rem' : '1rem',
               fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+              textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
             }}
           >
             Our Team
@@ -398,10 +391,11 @@ const ChessGrandmastersTeam = () => {
             style={{
               fontSize: isMobile ? '2rem' : isTablet ? '2.75rem' : '3.75rem',
               marginBottom: isMobile ? '1rem' : '1.5rem',
-              color: 'var(--text-on-light)',
+              color: '#0F172A',
               fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-              fontWeight: 600,
+              fontWeight: 700,
               lineHeight: 1.2,
+              textShadow: '0 2px 4px rgba(255, 255, 255, 0.5)',
             }}
           >
             Meet our team
@@ -579,12 +573,13 @@ const ChessGrandmastersTeam = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'flex-start',
-              marginBottom: isTablet ? '2.5rem' : '3rem',
+              marginBottom: isTablet ? '1rem' : '1.5rem',
               position: 'relative',
               width: '100%',
               overflowX: 'hidden',
-              overflowY: 'hidden',
-              height: 'auto',
+              overflowY: 'visible',
+              minHeight: isTablet ? '200px' : '340px',
+              paddingBottom: '10px',
             }}>
               <div style={{
                 display: 'flex',
@@ -593,9 +588,8 @@ const ChessGrandmastersTeam = () => {
                 marginLeft: isTablet ? '-15px' : '-20px',
                 marginRight: isTablet ? '-15px' : '-20px',
                 width: '100%',
-                overflow: 'hidden',
-                overflowY: 'hidden',
-                height: 'auto',
+                overflow: 'visible',
+                minHeight: isTablet ? '200px' : '340px',
               }}>
                 {teamMembers.map((member, index) => {
                   const sizeConfig = getImageSize(member.size);
@@ -685,7 +679,7 @@ const ChessGrandmastersTeam = () => {
                     ? 'repeat(3, 1fr)'
                     : 'repeat(5, 1fr)',
               gap: screenSize === 'small-tablet' ? '1.25rem' : screenSize === 'tablet' ? '1.25rem' : '1rem',
-              marginTop: screenSize === 'small-tablet' ? '1.5rem' : screenSize === 'tablet' ? '1.5rem' : '2rem',
+              marginTop: screenSize === 'small-tablet' ? '0.5rem' : screenSize === 'tablet' ? '0.5rem' : '0.5rem',
               width: '100%',
               boxSizing: 'border-box',
             }}>

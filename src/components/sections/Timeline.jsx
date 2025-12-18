@@ -498,248 +498,33 @@ const Timeline = () => {
       className="chess-timeline-section"
       style={{
         padding: isMobile ? '3rem 0' : '100px 0',
-        background: '#ffffff',
+        backgroundColor: '#ffffff',
+        backgroundImage: 'url(/formbg.png)',
+        backgroundSize: 'auto',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'repeat',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Top fade overlay - merges with section above */}
+      {/* White overlay for subtle background effect */}
       <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: '150px',
-        background: 'linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), transparent)',
-        zIndex: 2,
-        pointerEvents: 'none',
-      }} />
-
-      {/* Bottom fade overlay - merges with section below */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: '150px',
-        background: 'linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7), transparent)',
-        zIndex: 2,
-        pointerEvents: 'none',
-      }} />
-      {/* Static Binary Code Background - Only on sides */}
-      <div className="dev-bg-pattern" style={{
         position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: 0,
-        overflow: 'hidden',
-        background: '#ffffff',
-      }}>
-        {/* Left side binary columns - Creative Cluster Design */}
-        <div style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: isMobile ? '8%' : '15%',
-          height: '100%',
-          display: isMobile ? 'none' : 'flex',
-          flexDirection: 'row',
-          opacity: 0.4,
-        }}>
-          {Array.from({ length: isMobile ? 6 : 12 }).map((_, colIndex) => {
-            const columnWidth = 100 / 12;
-            const randomSeed = colIndex * 1000;
-            const digitsPerColumn = 180;
-            const columnOpacity = 0.3 + (colIndex % 3) * 0.15;
-            const clusterSize = 8 + (randomSeed % 5);
-
-            return (
-              <div
-                key={`left-col-${colIndex}`}
-                style={{
-                  width: `${columnWidth}%`,
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  fontFamily: 'monospace',
-                  fontSize: '0.7rem',
-                  color: 'var(--color-secondary)',
-                  lineHeight: '1.3',
-                  paddingTop: `${(randomSeed % 30)}px`,
-                  opacity: columnOpacity,
-                }}
-              >
-                {Array.from({ length: digitsPerColumn }).map((_, rowIndex) => {
-                  const seed = (randomSeed + rowIndex * 11) % 1000;
-                  const digit = seed % 2 === 0 ? '0' : '1';
-
-                  // Create opacity gradient - fade in/out in clusters
-                  const clusterPosition = rowIndex % clusterSize;
-                  const clusterProgress = clusterPosition / clusterSize;
-                  let opacity;
-                  if (clusterProgress < 0.3) {
-                    opacity = clusterProgress / 0.3 * 0.6;
-                  } else if (clusterProgress > 0.7) {
-                    opacity = (1 - clusterProgress) / 0.3 * 0.6;
-                  } else {
-                    opacity = 0.6;
-                  }
-
-                  const fontSize = clusterPosition === Math.floor(clusterSize / 2)
-                    ? '0.85rem'
-                    : '0.7rem';
-
-                  const isBold = clusterPosition === Math.floor(clusterSize / 2);
-
-                  const colorVariation = seed % 3;
-                  const color = colorVariation === 0
-                    ? 'var(--color-secondary)'
-                    : colorVariation === 1
-                      ? 'rgba(15, 23, 42, 0.7)'
-                      : 'rgba(15, 23, 42, 0.5)';
-
-                  return (
-                    <div
-                      key={`left-${colIndex}-${rowIndex}`}
-                      style={{
-                        marginBottom: '0.25rem',
-                        fontWeight: isBold ? '600' : '400',
-                        opacity: opacity,
-                        whiteSpace: 'nowrap',
-                        color: color,
-                        fontSize: fontSize,
-                        transition: 'all 0.1s ease',
-                      }}
-                    >
-                      {digit}
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Right side binary columns - Creative Cluster Design */}
-        <div style={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          width: isMobile ? '8%' : '15%',
-          height: '100%',
-          display: isMobile ? 'none' : 'flex',
-          flexDirection: 'row',
-          opacity: 0.4,
-        }}>
-          {Array.from({ length: isMobile ? 6 : 12 }).map((_, colIndex) => {
-            const columnWidth = 100 / 12;
-            const randomSeed = (colIndex + 700) * 1000;
-            const digitsPerColumn = 180;
-            const columnOpacity = 0.3 + (colIndex % 3) * 0.15;
-            const clusterSize = 8 + (randomSeed % 5);
-
-            return (
-              <div
-                key={`right-col-${colIndex}`}
-                style={{
-                  width: `${columnWidth}%`,
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  fontFamily: 'monospace',
-                  fontSize: '0.7rem',
-                  color: 'var(--color-secondary)',
-                  lineHeight: '1.3',
-                  paddingTop: `${(randomSeed % 30)}px`,
-                  opacity: columnOpacity,
-                }}
-              >
-                {Array.from({ length: digitsPerColumn }).map((_, rowIndex) => {
-                  const seed = (randomSeed + rowIndex * 11) % 1000;
-                  const digit = seed % 2 === 0 ? '0' : '1';
-
-                  // Create opacity gradient - fade in/out in clusters
-                  const clusterPosition = rowIndex % clusterSize;
-                  const clusterProgress = clusterPosition / clusterSize;
-                  let opacity;
-                  if (clusterProgress < 0.3) {
-                    opacity = clusterProgress / 0.3 * 0.6;
-                  } else if (clusterProgress > 0.7) {
-                    opacity = (1 - clusterProgress) / 0.3 * 0.6;
-                  } else {
-                    opacity = 0.6;
-                  }
-
-                  const fontSize = clusterPosition === Math.floor(clusterSize / 2)
-                    ? '0.85rem'
-                    : '0.7rem';
-
-                  const isBold = clusterPosition === Math.floor(clusterSize / 2);
-
-                  const colorVariation = seed % 3;
-                  const color = colorVariation === 0
-                    ? 'var(--color-secondary)'
-                    : colorVariation === 1
-                      ? 'rgba(15, 23, 42, 0.7)'
-                      : 'rgba(15, 23, 42, 0.5)';
-
-                  return (
-                    <div
-                      key={`right-${colIndex}-${rowIndex}`}
-                      style={{
-                        marginBottom: '0.25rem',
-                        fontWeight: isBold ? '600' : '400',
-                        opacity: opacity,
-                        whiteSpace: 'nowrap',
-                        color: color,
-                        fontSize: fontSize,
-                        transition: 'all 0.1s ease',
-                      }}
-                    >
-                      {digit}
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Decorative gradient overlays for depth */}
-        {!isMobile && (
-          <>
-            <div style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              width: '15%',
-              height: '100%',
-              background: 'linear-gradient(to right, rgba(15, 23, 42, 0.1), transparent)',
-              pointerEvents: 'none',
-            }} />
-            <div style={{
-              position: 'absolute',
-              right: 0,
-              top: 0,
-              width: '15%',
-              height: '100%',
-              background: 'linear-gradient(to left, rgba(15, 23, 42, 0.1), transparent)',
-              pointerEvents: 'none',
-            }} />
-          </>
-        )}
-      </div>
+        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        zIndex: 1,
+        pointerEvents: 'none',
+      }} />
 
       <div className="container" style={{
         maxWidth: '1200px',
         margin: '0 auto',
         padding: isMobile ? '0 1rem' : '0 2rem',
         position: 'relative',
-        zIndex: 1,
+        zIndex: 3,
       }}>
         <div className="section-header" style={{
           textAlign: 'center',
@@ -747,22 +532,24 @@ const Timeline = () => {
         }}>
           <h6 style={{
             fontSize: isMobile ? '0.875rem' : '1rem',
-            fontWeight: 'bold',
-            color: 'var(--color-secondary)',
+            fontWeight: 700,
+            color: 'var(--color-primary)',
             textTransform: 'uppercase',
             letterSpacing: '2px',
             marginBottom: '1rem',
             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+            textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
           }}>
             Our Process
           </h6>
           <h2 style={{
             fontSize: isMobile ? '1.75rem' : '2.8rem',
-            fontWeight: 'bold',
+            fontWeight: 700,
             marginBottom: '1.5rem',
-            color: '#333',
+            color: '#0F172A',
             lineHeight: 1.2,
             fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+            textShadow: '0 2px 4px rgba(255, 255, 255, 0.5)',
           }}>
             From Concept to Deployment
           </h2>
@@ -770,10 +557,12 @@ const Timeline = () => {
             fontSize: isMobile ? '1rem' : '1.2rem',
             maxWidth: '700px',
             margin: '0 auto',
-            color: '#666',
+            color: '#1A202C',
             lineHeight: 1.6,
             padding: isMobile ? '0 0.5rem' : '0',
             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+            fontWeight: 500,
+            textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
           }}>
             Our proven development process ensures your project is delivered on time,
             within budget, and built to scale with your business needs.

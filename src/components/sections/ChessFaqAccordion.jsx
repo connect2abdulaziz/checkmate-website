@@ -6,448 +6,472 @@ import { gsap } from 'gsap';
 
 const ChessFaqAccordion = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
-  const chessBoardRef = useRef(null);
-  const knightRef = useRef(null);
-  
+
+  // Check for mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // FAQ data
   const faqItems = [
     {
       id: 1,
-      question: "What services does Checkmate offer?",
-      answer: "Checkmate offers a comprehensive range of software services including web development, AI integration, software optimization, bug fixes, and mobile app development. Our team specializes in creating custom solutions tailored to your specific business needs with modern UI design and security-focused implementation.",
-      piece: "♔", // King
-      color: "#E5A244", // Gold
-      position: "e1"
+      question: "What services does Cypentra.dev offer?",
+      answer: "Cypentra.dev offers a comprehensive range of software services including Full-Stack Development, Software Engineering, DevOps & Cloud solutions, Security & Compliance, AI & Machine Learning integration, and Process Automation. Our team specializes in creating custom solutions tailored to your specific business needs with modern architecture and security-first implementation.",
+      icon: "code",
+      color: "var(--color-primary)"
     },
     {
       id: 2,
       question: "How does your development process work?",
-      answer: "Our development process follows a strategic chess-like approach: Initial consultation and planning (Opening), Development and testing (Middle game), and Deployment and maintenance (End game). We involve clients at every step, ensuring transparency and alignment with your vision throughout the project lifecycle.",
-      piece: "♕", // Queen
-      color: "#D95D67", // Red
-      position: "d1"
+      answer: "Our development process follows a strategic approach: Discovery and planning phase where we understand your requirements, Design and architecture to create the blueprint, Development with continuous testing, and finally Deployment with ongoing support. We involve clients at every step, ensuring transparency and alignment with your vision throughout the project lifecycle.",
+      icon: "workflow",
+      color: "var(--color-secondary)"
     },
     {
       id: 3,
       question: "What technologies do you specialize in?",
-      answer: "We specialize in modern web technologies including Next.js, React, Three.js, Framer Motion, GSAP, Tailwind CSS, and more. Our team continuously stays updated with the latest technologies to ensure we deliver cutting-edge solutions that are both performant and visually impressive.",
-      piece: "♗", // Bishop
-      color: "#4D8DDA", // Blue
-      position: "c1"
+      answer: "We specialize in modern web technologies including Next.js, React, Node.js, Python, Cloud platforms (AWS, Azure, GCP), Docker, Kubernetes, and more. Our team continuously stays updated with the latest technologies to ensure we deliver cutting-edge solutions that are both performant, scalable, and maintainable.",
+      icon: "layers",
+      color: "var(--color-primary)"
     },
     {
       id: 4,
       question: "How do you handle project timelines and deadlines?",
-      answer: "We break projects into strategic milestones with clear deliverables and timelines. Our project managers use agile methodologies to ensure efficient workflow and timely completion. We provide regular updates and maintain open communication throughout the development process, adapting to any changes in requirements.",
-      piece: "♘", // Knight
-      color: "#50AC8E", // Green
-      position: "b1"
+      answer: "We break projects into clear milestones with specific deliverables and timelines. Our team uses agile methodologies to ensure efficient workflow and timely completion. We provide regular updates, conduct sprint reviews, and maintain open communication throughout the development process, adapting quickly to any changes in requirements.",
+      icon: "clock",
+      color: "var(--color-secondary)"
     },
     {
       id: 5,
-      question: "What sets Checkmate apart from other development companies?",
-      answer: "Checkmate combines strategic thinking with technical expertise – like a chess grandmaster planning several moves ahead. We focus on quality-driven, secure software with extensive customization and maintainability. Our approach isn't just about coding; it's about creating strategic digital assets that provide long-term value to your business.",
-      piece: "♖", // Rook
-      color: "#8B64C0", // Purple
-      position: "a1"
+      question: "What makes Cypentra.dev different from other agencies?",
+      answer: "Cypentra.dev combines strategic thinking with deep technical expertise. We focus on quality-driven, secure software with extensive customization and long-term maintainability. Our approach isn't just about coding; it's about creating digital assets that provide real business value, drive growth, and adapt to your evolving needs.",
+      icon: "star",
+      color: "var(--color-primary)"
     },
     {
       id: 6,
-      question: "How do you ensure the security of applications?",
-      answer: "Security is integrated into every step of our development process, not added as an afterthought. We implement industry best practices, conduct regular security audits, and follow OWASP guidelines. All our applications undergo penetration testing before deployment, and we provide continuous security updates to protect against emerging threats.",
-      piece: "♙", // Pawn
-      color: "#FFB347", // Orange
-      position: "a2"
+      question: "How do you ensure application security?",
+      answer: "Security is integrated into every step of our development process, not added as an afterthought. We implement industry best practices, conduct regular security audits, follow OWASP guidelines, and use secure coding standards. All our applications undergo thorough testing before deployment, and we provide continuous security monitoring and updates.",
+      icon: "shield",
+      color: "var(--color-secondary)"
     },
     {
       id: 7,
-      question: "Do you offer maintenance after project completion?",
-      answer: "Yes, we provide comprehensive maintenance packages to ensure your application remains secure, up-to-date, and optimized. Our maintenance services include regular updates, security patches, performance optimization, and technical support. We offer flexible maintenance plans tailored to your specific requirements and budget.",
-      piece: "♙", // Pawn
-      color: "#5DADE2", // Light Blue
-      position: "b2"
+      question: "Do you provide ongoing support and maintenance?",
+      answer: "Yes, we provide comprehensive maintenance and support packages to ensure your application remains secure, up-to-date, and optimized. Our services include regular updates, bug fixes, security patches, performance optimization, and technical support. We offer flexible plans tailored to your specific requirements and budget.",
+      icon: "tool",
+      color: "var(--color-primary)"
     }
   ];
-  
-  // Chess board positions (for animation)
-  const positions = {
-    "a1": { x: 0, y: 7 },
-    "b1": { x: 1, y: 7 },
-    "c1": { x: 2, y: 7 },
-    "d1": { x: 3, y: 7 },
-    "e1": { x: 4, y: 7 },
-    "a2": { x: 0, y: 6 },
-    "b2": { x: 1, y: 6 },
-  };
-  
-  // Knight's possible moves (L-shaped)
-  const knightMoves = [
-    { x: -2, y: -1 }, { x: -2, y: 1 }, 
-    { x: -1, y: -2 }, { x: -1, y: 2 }, 
-    { x: 1, y: -2 }, { x: 1, y: 2 }, 
-    { x: 2, y: -1 }, { x: 2, y: 1 }
-  ];
-  
-  // Initialize animation
-  useEffect(() => {
-    if (!chessBoardRef.current || !knightRef.current) return;
-    
-    // Set up the knight animation
-    const knight = knightRef.current;
-    
-    // Random knight movement
-    const moveKnight = () => {
-      if (!chessBoardRef.current || !knight) return;
-      
-      // Get random position
-      const fromX = parseInt(knight.dataset.x || 4);
-      const fromY = parseInt(knight.dataset.y || 4);
-      
-      // Filter valid moves (within board)
-      const validMoves = knightMoves.filter(move => {
-        const newX = fromX + move.x;
-        const newY = fromY + move.y;
-        return newX >= 0 && newX < 8 && newY >= 0 && newY < 8;
-      });
-      
-      if (validMoves.length === 0) return;
-      
-      // Pick random valid move
-      const randomMove = validMoves[Math.floor(Math.random() * validMoves.length)];
-      const toX = fromX + randomMove.x;
-      const toY = fromY + randomMove.y;
-      
-      // Save new position
-      knight.dataset.x = toX;
-      knight.dataset.y = toY;
-      
-      // Animate knight along L-shaped path
-      const midX = fromX + randomMove.x / 2;
-      const midY = fromY + randomMove.y / 2;
-      
-      // Calculate position in pixels
-      const cellSize = chessBoardRef.current.offsetWidth / 8;
-      const startX = fromX * cellSize + cellSize / 2;
-      const startY = fromY * cellSize + cellSize / 2;
-      const midPointX = midX * cellSize + cellSize / 2;
-      const midPointY = midY * cellSize + cellSize / 2;
-      const endX = toX * cellSize + cellSize / 2;
-      const endY = toY * cellSize + cellSize / 2;
-      
-      // First half of the L-move
-      gsap.to(knight, {
-        x: midPointX - startX,
-        y: midPointY - startY,
-        duration: 0.5,
-        ease: "power2.inOut",
-        onComplete: () => {
-          // Second half of the L-move
-          gsap.to(knight, {
-            x: endX - startX,
-            y: endY - startY,
-            duration: 0.5,
-            ease: "power2.inOut",
-          });
-        }
-      });
-    };
-    
-    // Set initial position
-    knight.dataset.x = 4;
-    knight.dataset.y = 4;
-    
-    // Start random movements
-    const interval = setInterval(moveKnight, 3000);
-    moveKnight(); // Initial move
-    
-    return () => clearInterval(interval);
-  }, []);
-  
+
   // Toggle accordion item
   const toggleItem = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
-  
-  // Calculate chessboard position for piece
-  const getPiecePosition = (position) => {
-    if (!positions[position]) return { x: 0, y: 0 };
-    
-    const { x, y } = positions[position];
-    return {
-      left: `${(x * 12.5) + 6.25}%`,
-      top: `${(y * 12.5) + 6.25}%`,
+
+  // Get icon SVG
+  const getIcon = (iconType, size = 24) => {
+    const iconStyle = {
+      width: size,
+      height: size,
+      strokeWidth: 2,
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
     };
+
+    switch (iconType) {
+      case 'code':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={iconStyle}>
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+        );
+      case 'workflow':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={iconStyle}>
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        );
+      case 'layers':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={iconStyle}>
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        );
+      case 'clock':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={iconStyle}>
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        );
+      case 'star':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={iconStyle}>
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        );
+      case 'shield':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={iconStyle}>
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        );
+      case 'tool':
+        return (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={iconStyle}>
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+          </svg>
+        );
+      default:
+        return null;
+    }
   };
-  
+
   return (
-    <section 
+    <section
       ref={containerRef}
       className="chess-faq-section"
       style={{
-        padding: '120px 0',
-        background: 'linear-gradient(to right, #1a1a1a, #2a2a2a)',
+        padding: isMobile ? '3rem 0' : '100px 0',
+        backgroundImage: 'url(/formbg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#ffffff',
         position: 'relative',
         overflow: 'hidden',
+        marginTop: '-1px',
       }}
     >
-      {/* Chess pattern background */}
+      {/* Background overlay for lower intensity */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
-        opacity: 0.02,
-        backgroundImage: `
-          linear-gradient(45deg, #fff 25%, transparent 25%),
-          linear-gradient(-45deg, #fff 25%, transparent 25%),
-          linear-gradient(45deg, transparent 75%, #fff 75%),
-          linear-gradient(-45deg, transparent 75%, #fff 75%)
-        `,
-        backgroundSize: '20px 20px',
-        backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0',
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.85)',
         zIndex: 0,
+        pointerEvents: 'none',
       }} />
-      
+
       <div className="container" style={{
         maxWidth: '1200px',
         margin: '0 auto',
-        padding: '0 2rem',
+        padding: isMobile ? '0 1rem' : '0 2rem',
         position: 'relative',
         zIndex: 1,
       }}>
         <div className="section-header" style={{
           textAlign: 'center',
-          marginBottom: '4rem',
+          marginBottom: isMobile ? '2.5rem' : '4rem',
         }}>
           <motion.h6
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             style={{
-              fontSize: '1rem',
-              fontWeight: 'bold',
-              color: '#E5A244',
+              fontSize: isMobile ? '0.875rem' : '1rem',
+              fontWeight: 700,
+              color: 'var(--color-primary)',
               textTransform: 'uppercase',
               letterSpacing: '2px',
               marginBottom: '1rem',
-              display: 'inline-block',
-              padding: '0.5rem 1rem',
-              background: 'rgba(229, 162, 68, 0.1)',
-              borderRadius: '50px',
               fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+              textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
             }}
           >
-            Knowledge Base
+            FAQ
           </motion.h6>
-          
+
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             style={{
-              fontSize: '3rem',
-              fontWeight: 'bold',
+              fontSize: isMobile ? '1.75rem' : '2.8rem',
+              fontWeight: 700,
               marginBottom: '1.5rem',
-              color: '#fff',
+              color: '#0F172A',
               fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+              textShadow: '0 2px 4px rgba(255, 255, 255, 0.5)',
             }}
           >
             Frequently Asked Questions
           </motion.h2>
-          
+
           <motion.p
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{
-              fontSize: '1.2rem',
+              fontSize: isMobile ? '1rem' : '1.2rem',
               maxWidth: '700px',
               margin: '0 auto',
-              color: '#aaa',
+              color: '#1A202C',
               lineHeight: 1.6,
               fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+              fontWeight: 500,
+              textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
+              padding: isMobile ? '0 0.5rem' : '0',
             }}
           >
-            Common questions about our services and processes. 
+            Common questions about our services and processes.
             If you don't find what you're looking for, feel free to reach out directly.
           </motion.p>
         </div>
-        
+
         <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: '4rem',
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: isMobile ? '2rem' : '3rem',
           alignItems: 'flex-start',
-          flexWrap: 'wrap',
         }}>
-          {/* Chess Board Visualization (desktop only) */}
-          <motion.div 
+          {/* Left Content - Info Cards */}
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="chess-board-container"
+            className="faq-info-section"
             style={{
-              flex: '0 0 400px',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
-              position: 'sticky',
-              top: '100px',
+              gap: isMobile ? '1.5rem' : '1.25rem',
             }}
           >
-            <div 
-              ref={chessBoardRef}
-              style={{
-                width: '100%',
-                aspectRatio: '1/1',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(8, 1fr)',
-                gridTemplateRows: 'repeat(8, 1fr)',
-                border: '2px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                position: 'relative',
-                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)',
-                perspective: '1000px',
-                transformStyle: 'preserve-3d',
-                transform: 'rotateX(20deg)',
-              }}
-            >
-              {/* Chess board cells */}
-              {Array.from({ length: 64 }).map((_, index) => {
-                const row = Math.floor(index / 8);
-                const col = index % 8;
-                const isBlack = (row + col) % 2 === 1;
-                
-                return (
-                  <div
-                    key={`cell-${index}`}
-                    style={{
-                      backgroundColor: isBlack ? '#2a2a2a' : '#4a4a4a',
-                      border: '1px solid rgba(255, 255, 255, 0.05)',
-                      transition: 'all 0.3s ease',
-                    }}
-                  />
-                );
-              })}
-              
-              {/* Chess pieces for FAQ visualization */}
-              {faqItems.map((item) => (
-                <motion.div
-                  key={`piece-${item.id}`}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    y: activeIndex === item.id - 1 ? -15 : 0 
-                  }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: item.id * 0.1,
-                    type: "spring",
-                    stiffness: 200
-                  }}
-                  style={{
-                    position: 'absolute',
-                    ...getPiecePosition(item.position),
-                    fontSize: '2rem',
-                    color: activeIndex === item.id - 1 ? item.color : 'rgba(255, 255, 255, 0.5)',
-                    fontWeight: 'bold',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '12.5%',
-                    height: '12.5%',
-                    zIndex: activeIndex === item.id - 1 ? 10 : 1,
-                    filter: activeIndex === item.id - 1 ? `drop-shadow(0 0 10px ${item.color})` : 'none',
-                    transition: 'color 0.3s ease, filter 0.3s ease, transform 0.3s ease',
-                    transform: activeIndex === item.id - 1 ? 'scale(1.2)' : 'scale(1)',
-                    pointerEvents: 'none',
-                  }}
-                >
-                  {item.piece}
-                </motion.div>
-              ))}
-              
-              {/* Animated Knight */}
-              <motion.div
-                ref={knightRef}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 0.7, scale: 1 }}
-                transition={{ duration: 0.6, delay: 1.5 }}
-                style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  fontSize: '2rem',
-                  color: '#50AC8E',
-                  fontWeight: 'bold',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '12.5%',
-                  height: '12.5%',
-                  zIndex: 2,
-                  filter: 'drop-shadow(0 0 8px rgba(80, 172, 142, 0.7))',
-                  pointerEvents: 'none',
-                }}
-              >
-                ♘
-              </motion.div>
-            </div>
-            
+            {/* Why Choose Us Card */}
             <div style={{
-              marginTop: '2rem',
-              backgroundColor: 'rgba(80, 172, 142, 0.1)',
-              padding: '1.5rem',
-              borderRadius: '10px',
-              border: '1px solid rgba(80, 172, 142, 0.2)',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              padding: isMobile ? '1.5rem' : '1.5rem',
+              borderRadius: '12px',
+              border: '2px solid var(--glass-border)',
+              boxShadow: '0 4px 12px var(--glass-shadow)',
             }}>
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '1rem',
-                marginBottom: '1rem',
+                gap: isMobile ? '0.75rem' : '0.75rem',
+                marginBottom: '0.75rem',
               }}>
                 <div style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(80, 172, 142, 0.2)',
+                  width: isMobile ? '40px' : '44px',
+                  height: isMobile ? '40px' : '44px',
+                  borderRadius: '12px',
+                  backgroundColor: 'var(--color-primary-light)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '1.5rem',
-                  color: '#50AC8E',
+                  color: 'var(--color-primary)',
                 }}>
-                  ♘
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{ width: isMobile ? 20 : 22, height: isMobile ? 20 : 22, strokeWidth: 2 }}>
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
                 </div>
-                <h4 style={{ 
-                  color: '#fff', 
-                  margin: 0, 
-                  fontSize: '1.2rem',
-                  fontWeight: 'bold',
+                <h4 style={{
+                  color: 'var(--text-on-light)',
+                  margin: 0,
+                  fontSize: isMobile ? '1.05rem' : '1.15rem',
+                  fontWeight: 700,
+                  fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                 }}>
-                  Strategic Approach
+                  Why Cypentra.dev?
                 </h4>
               </div>
-              <p style={{ color: '#aaa', margin: 0, fontSize: '0.9rem' }}>
-                Just like in chess, our solutions combine strategic foresight with
-                technical expertise to tackle your business challenges effectively.
+              <p style={{
+                color: 'var(--text-on-light-muted)',
+                margin: 0,
+                fontSize: isMobile ? '0.85rem' : '0.9rem',
+                lineHeight: 1.5,
+                fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+              }}>
+                We combine deep technical expertise with strategic thinking to deliver solutions that drive real business value. Our focus is on quality, security, and long-term maintainability.
               </p>
             </div>
+
+            {/* Quick Stats */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '1rem',
+            }}>
+              <div style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                padding: isMobile ? '1.25rem' : '1.25rem',
+                borderRadius: '12px',
+                border: '2px solid var(--glass-border)',
+                boxShadow: '0 4px 12px var(--glass-shadow)',
+              }}>
+                <h5 style={{
+                  color: 'var(--color-primary)',
+                  fontSize: isMobile ? '1.75rem' : '1.75rem',
+                  fontWeight: 700,
+                  margin: '0 0 0.4rem 0',
+                  fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                }}>
+                  24/7
+                </h5>
+                <p style={{
+                  color: 'var(--text-on-light-muted)',
+                  margin: 0,
+                  fontSize: isMobile ? '0.8rem' : '0.85rem',
+                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                }}>
+                  Support Available
+                </p>
+              </div>
+
+              <div style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                padding: isMobile ? '1.25rem' : '1.25rem',
+                borderRadius: '12px',
+                border: '2px solid var(--glass-border)',
+                boxShadow: '0 4px 12px var(--glass-shadow)',
+              }}>
+                <h5 style={{
+                  color: 'var(--color-secondary)',
+                  fontSize: isMobile ? '1.75rem' : '1.75rem',
+                  fontWeight: 700,
+                  margin: '0 0 0.4rem 0',
+                  fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                }}>
+                  100%
+                </h5>
+                <p style={{
+                  color: 'var(--text-on-light-muted)',
+                  margin: 0,
+                  fontSize: isMobile ? '0.8rem' : '0.85rem',
+                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                }}>
+                  Client Satisfaction
+                </p>
+              </div>
+            </div>
+
+            {/* Services Overview */}
+            <div style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              padding: isMobile ? '1.5rem' : '1.5rem',
+              borderRadius: '12px',
+              border: '2px solid var(--glass-border)',
+              boxShadow: '0 4px 12px var(--glass-shadow)',
+            }}>
+              <h4 style={{
+                color: 'var(--text-on-light)',
+                margin: '0 0 0.75rem 0',
+                fontSize: isMobile ? '1rem' : '1.05rem',
+                fontWeight: 700,
+                fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+              }}>
+                Our Core Services
+              </h4>
+              <ul style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.6rem',
+              }}>
+                {['Full-Stack Development', 'DevOps & Cloud', 'AI & Machine Learning', 'Security & Compliance'].map((service, idx) => (
+                  <li key={idx} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    color: 'var(--text-on-light-muted)',
+                    fontSize: isMobile ? '0.85rem' : '0.9rem',
+                    fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                  }}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke={idx % 2 === 0 ? 'var(--color-primary)' : 'var(--color-secondary)'} style={{ width: 16, height: 16, strokeWidth: 2, flexShrink: 0 }}>
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    {service}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              style={{
+                padding: isMobile ? '1.5rem' : '1.5rem',
+                borderRadius: '12px',
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                border: '2px solid var(--glass-border)',
+                boxShadow: '0 4px 12px var(--glass-shadow)',
+              }}
+            >
+              <h4 style={{
+                color: 'var(--text-on-light)',
+                margin: '0 0 0.6rem 0',
+                fontSize: isMobile ? '1rem' : '1.05rem',
+                fontWeight: 700,
+                fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+              }}>
+                Still have questions?
+              </h4>
+              <p style={{
+                color: 'var(--text-on-light-muted)',
+                margin: '0 0 1rem 0',
+                fontSize: isMobile ? '0.85rem' : '0.875rem',
+                fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                lineHeight: 1.5,
+              }}>
+                Our team is ready to help you with any specific questions or requirements.
+              </p>
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                style={{
+                  padding: isMobile ? '0.7rem 1.25rem' : '0.75rem 1.5rem',
+                  backgroundColor: 'var(--color-secondary)',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: isMobile ? '0.85rem' : '0.9rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  transition: 'all 0.3s ease',
+                  fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
+                  textDecoration: 'none',
+                }}
+              >
+                Contact Us
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </motion.a>
+            </motion.div>
           </motion.div>
-          
-          {/* FAQ Accordion */}
-          <motion.div 
+
+          {/* FAQ Accordion - Right Side */}
+          <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             style={{
-              flex: '1 1 500px',
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
             <div className="faq-accordion">
@@ -459,30 +483,32 @@ const ChessFaqAccordion = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="faq-item"
                   style={{
-                    marginBottom: '1rem',
+                    marginBottom: isMobile ? '1rem' : '0.8rem',
                     borderRadius: '12px',
                     overflow: 'hidden',
-                    backgroundColor: activeIndex === index 
-                      ? `rgba(${hexToRgb(item.color)}, 0.1)` 
-                      : 'rgba(255, 255, 255, 0.03)',
-                    border: `1px solid ${activeIndex === index 
+                    backgroundColor: activeIndex === index
+                      ? `rgba(${hexToRgb(item.color)}, 0.08)`
+                      : 'rgba(255, 255, 255, 0.8)',
+                    border: `2px solid ${activeIndex === index
                       ? item.color
-                      : 'rgba(255, 255, 255, 0.1)'
-                    }`,
+                      : 'var(--glass-border)'
+                      }`,
                     transition: 'all 0.3s ease',
+                    boxShadow: activeIndex === index ? '0 4px 12px var(--glass-shadow)' : '0 2px 8px rgba(0, 0, 0, 0.04)',
                   }}
                 >
                   {/* Question header */}
                   <motion.div
                     className="faq-question"
                     onClick={() => toggleItem(index)}
-                    whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+                    whileHover={{ backgroundColor: 'rgba(30, 64, 175, 0.03)' }}
                     style={{
-                      padding: '1.5rem',
+                      padding: isMobile ? '1.25rem' : '1.25rem',
                       cursor: 'pointer',
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
+                      gap: '1rem',
                     }}
                   >
                     <div style={{
@@ -491,36 +517,37 @@ const ChessFaqAccordion = () => {
                       gap: '1rem',
                     }}>
                       <div style={{
-                        width: '32px',
-                        height: '32px',
-                        borderRadius: '50%',
-                        backgroundColor: `${item.color}20`,
+                        width: isMobile ? '32px' : '36px',
+                        height: isMobile ? '32px' : '36px',
+                        borderRadius: '8px',
+                        backgroundColor: activeIndex === index ? item.color : 'var(--glass-block-1)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '1.2rem',
-                        color: item.color,
+                        color: activeIndex === index ? '#ffffff' : item.color,
                         flexShrink: 0,
+                        transition: 'all 0.3s ease',
                       }}>
-                        {item.piece}
+                        {getIcon(item.icon, isMobile ? 18 : 20)}
                       </div>
-                      <h3 style={{ 
-                        margin: 0, 
-                        fontSize: '1.1rem',
-                        fontWeight: activeIndex === index ? 'bold' : 'normal',
-                        color: activeIndex === index ? '#fff' : '#ddd',
+                      <h3 style={{
+                        margin: 0,
+                        fontSize: isMobile ? '0.95rem' : '1.025rem',
+                        fontWeight: activeIndex === index ? 700 : 600,
+                        color: 'var(--text-on-light)',
+                        fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                       }}>
                         {item.question}
                       </h3>
                     </div>
-                    
+
                     {/* Toggle icon */}
                     <motion.div
                       animate={{ rotate: activeIndex === index ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
                       style={{
                         flexShrink: 0,
-                        color: activeIndex === index ? item.color : '#aaa',
+                        color: activeIndex === index ? item.color : 'var(--text-on-light-muted)',
                       }}
                     >
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -528,22 +555,22 @@ const ChessFaqAccordion = () => {
                       </svg>
                     </motion.div>
                   </motion.div>
-                  
+
                   {/* Answer content */}
                   <AnimatePresence>
                     {activeIndex === index && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
-                        animate={{ 
-                          height: 'auto', 
+                        animate={{
+                          height: 'auto',
                           opacity: 1,
                           transition: {
                             height: { duration: 0.3 },
                             opacity: { duration: 0.3, delay: 0.1 }
                           }
                         }}
-                        exit={{ 
-                          height: 0, 
+                        exit={{
+                          height: 0,
                           opacity: 0,
                           transition: {
                             height: { duration: 0.3 },
@@ -552,51 +579,24 @@ const ChessFaqAccordion = () => {
                         }}
                         style={{ overflow: 'hidden' }}
                       >
-                        <div 
+                        <div
                           className="faq-answer"
                           style={{
-                            padding: '0 1.5rem 1.5rem 1.5rem',
-                            color: '#aaa',
-                            lineHeight: 1.6,
-                            borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+                            padding: isMobile ? '0 1.25rem 1.25rem 1.25rem' : '0 1.25rem 1.25rem 1.25rem',
+                            color: 'var(--text-on-light-muted)',
+                            lineHeight: 1.5,
+                            borderTop: '1px solid var(--glass-border)',
                             marginTop: '0.5rem',
-                            paddingTop: '1rem',
+                            paddingTop: '0.875rem',
                           }}
                         >
-                          <p style={{ margin: 0 }}>
+                          <p style={{
+                            margin: 0,
+                            fontSize: isMobile ? '0.875rem' : '0.925rem',
+                            fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif"
+                          }}>
                             {item.answer}
                           </p>
-                          
-                          {/* Strategic visual element */}
-                          <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.2, duration: 0.3 }}
-                            style={{
-                              marginTop: '1rem',
-                              padding: '1rem',
-                              borderRadius: '8px',
-                              backgroundColor: `${item.color}10`,
-                              border: `1px solid ${item.color}30`,
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '0.75rem',
-                            }}
-                          >
-                            <div style={{ 
-                              fontSize: '1.5rem',
-                              color: item.color,
-                            }}>
-                              {getRelevantIcon(index)}
-                            </div>
-                            <p style={{ 
-                              margin: 0,
-                              fontSize: '0.9rem',
-                              color: '#ccc',
-                            }}>
-                              {getStrategicTip(index)}
-                            </p>
-                          </motion.div>
                         </div>
                       </motion.div>
                     )}
@@ -604,110 +604,34 @@ const ChessFaqAccordion = () => {
                 </motion.div>
               ))}
             </div>
-            
-            {/* Contact CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              style={{
-                marginTop: '3rem',
-                padding: '2rem',
-                borderRadius: '12px',
-                backgroundColor: 'rgba(229, 162, 68, 0.1)',
-                border: '1px solid rgba(229, 162, 68, 0.2)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
-              }}
-            >
-              <h3 style={{ 
-                color: '#fff', 
-                margin: '0 0 1rem 0',
-                fontSize: '1.5rem',
-              }}>
-                Still have questions?
-              </h3>
-              <p style={{ 
-                color: '#aaa',
-                margin: '0 0 1.5rem 0',
-                maxWidth: '500px',
-              }}>
-                Our team is ready to help you with any specific questions or 
-                requirements for your project.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05, backgroundColor: '#E5A244' }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  padding: '0.8rem 2rem',
-                  backgroundColor: 'transparent',
-                  color: '#E5A244',
-                  border: '2px solid #E5A244',
-                  borderRadius: '50px',
-                  fontSize: '1rem',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                Contact Us
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </motion.button>
-            </motion.div>
           </motion.div>
         </div>
       </div>
-      
-      {/* Mobile styles */}
+
       <style jsx>{`
-        @media (max-width: 1024px) {
-          .chess-board-container {
-            display: none;
-          }
-        }
+        /* Custom styles if needed */
       `}</style>
     </section>
   );
 };
 
-// Helper functions
+// Helper function
 function hexToRgb(hex) {
+  // Handle CSS variables
+  if (hex.startsWith('var(')) {
+    // For CSS variables, return a default value
+    return '30, 64, 175'; // Default to primary color
+  }
+
   // Remove the # if present
   hex = hex.replace('#', '');
-  
+
   // Parse the hex values
   const r = parseInt(hex.substring(0, 2), 16);
   const g = parseInt(hex.substring(2, 4), 16);
   const b = parseInt(hex.substring(4, 6), 16);
-  
+
   return `${r}, ${g}, ${b}`;
-}
-
-function getRelevantIcon(index) {
-  const icons = ['👑', '⚙️', '💻', '⏱️', '🔄', '🔒', '🛠️'];
-  return icons[index] || '♟️';
-}
-
-function getStrategicTip(index) {
-  const tips = [
-    "Strategic partnerships lead to successful digital transformations.",
-    "Our development process adapts to changing requirements like a grandmaster adjusts to opponent moves.",
-    "We combine cutting-edge technologies to create solutions that are both powerful and elegant.",
-    "Clear communication and transparent timelines are the foundation of successful projects.",
-    "Our unique approach focuses on long-term strategic value rather than short-term fixes.",
-    "Security by design ensures your application is protected at every layer.",
-    "Continuous maintenance and optimization keep your digital assets performing at their best."
-  ];
-  
-  return tips[index] || "Our strategic approach ensures the best outcomes for your project.";
 }
 
 export default ChessFaqAccordion;

@@ -159,25 +159,18 @@ const Header = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
               >
-                <span
+                <img
+                  src="/logo.png"
+                  alt="Cypentra.dev"
                   style={{
-                    fontSize: '1.625rem',
-                    fontWeight: '700',
-                    color: 'var(--text-on-dark)',
-                    letterSpacing: '-0.02em',
-                    fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+                    height: isScrolled ? '48px' : '56px',
+                    width: 'auto',
+                    objectFit: 'contain',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    mixBlendMode: 'screen',
+                    filter: 'brightness(1.1) contrast(1.05)',
                   }}
-                >
-                  Cypentra
-                  <motion.span
-                    style={{ color: 'var(--color-secondary)' }}
-                    animate={{ opacity: [0.7, 1, 0.7] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    .
-                  </motion.span>
-                  dev
-                </span>
+                />
               </motion.div>
             </motion.div>
           </Link>
@@ -194,7 +187,7 @@ const Header = () => {
                 >
                   <Link href={item.path}>
                     <motion.div
-                      whileHover={{ 
+                      whileHover={{
                         color: 'var(--text-on-dark)',
                       }}
                       style={{
@@ -527,7 +520,7 @@ const Header = () => {
                               transition: 'all 0.2s ease',
                             }}
                           >
-                            <motion.span 
+                            <motion.span
                               whileHover={{ color: 'var(--text-on-dark)' }}
                               style={{ color: 'var(--text-on-dark-muted)', fontSize: '1.1rem', fontWeight: 'bold' }}
                             >

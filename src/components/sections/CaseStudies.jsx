@@ -272,13 +272,29 @@ const CaseStudies = () => {
       className="chess-case-studies"
       style={{
         padding: isMobile ? '3rem 0' : '100px 0',
-        background: '#ffffff',
+        backgroundImage: 'url(/formbg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#ffffff',
         color: 'var(--text-on-light)',
         position: 'relative',
         overflow: 'hidden',
         marginTop: '-1px',
       }}
     >
+      {/* Background overlay for lower intensity */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        zIndex: 0,
+        pointerEvents: 'none',
+      }} />
+
       <div className="container" style={{
         maxWidth: '1200px',
         margin: '0 auto',
@@ -287,24 +303,28 @@ const CaseStudies = () => {
         <div className="case-study-header" style={{
           textAlign: 'center',
           marginBottom: isMobile ? '2rem' : '5rem',
+          position: 'relative',
+          zIndex: 2,
         }}>
           <h6 style={{
             fontSize: isMobile ? '0.875rem' : '1rem',
-            fontWeight: 'bold',
-            color: 'var(--color-secondary)',
+            fontWeight: 700,
+            color: 'var(--color-primary)',
             textTransform: 'uppercase',
             letterSpacing: '2px',
             marginBottom: '1rem',
             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+            textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
           }}>
             Case Studies
           </h6>
           <h2 style={{
             fontSize: isMobile ? '1.75rem' : '2.8rem',
-            fontWeight: 'bold',
+            fontWeight: 700,
             marginBottom: '1.5rem',
-            color: 'var(--text-on-light)',
+            color: '#0F172A',
             fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
+            textShadow: '0 2px 4px rgba(255, 255, 255, 0.5)',
           }}>
             Success Stories
           </h2>
@@ -312,10 +332,12 @@ const CaseStudies = () => {
             fontSize: isMobile ? '1rem' : '1.2rem',
             maxWidth: '700px',
             margin: '0 auto',
-            color: 'var(--text-on-light-muted)',
+            color: '#1A202C',
             lineHeight: 1.6,
             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
             padding: isMobile ? '0 1rem' : '0',
+            fontWeight: 500,
+            textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
           }}>
             Discover how we've helped businesses transform their technology infrastructure
             and achieve remarkable results through innovative software solutions.

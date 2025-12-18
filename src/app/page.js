@@ -14,13 +14,13 @@ import ChessFooter from '@/components/layout/ChessFooter';
 export default function Home() {
   // State for loading screen or other page-level state if needed
   const [isLoading, setIsLoading] = useState(true);
-  
+
   // Simulate loading effect
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -28,7 +28,25 @@ export default function Home() {
     <>
       {isLoading ? (
         <div className="loading-screen">
-          <div className="chess-loader">♔</div>
+          <div className="skeleton-container">
+            {/* Header skeleton */}
+            <div className="skeleton-header"></div>
+
+            {/* Hero section skeleton */}
+            <div className="skeleton-hero">
+              <div className="skeleton-line skeleton-line-lg"></div>
+              <div className="skeleton-line skeleton-line-lg"></div>
+              <div className="skeleton-line skeleton-line-md"></div>
+              <div className="skeleton-button"></div>
+            </div>
+
+            {/* Content blocks */}
+            <div className="skeleton-content">
+              <div className="skeleton-card"></div>
+              <div className="skeleton-card"></div>
+              <div className="skeleton-card"></div>
+            </div>
+          </div>
         </div>
       ) : (
         <>
@@ -46,7 +64,7 @@ export default function Home() {
           <ChessFooter />
         </>
       )}
-      
+
       <style jsx>{`
         .loading-screen {
           position: fixed;
@@ -54,23 +72,127 @@ export default function Home() {
           left: 0;
           width: 100%;
           height: 100vh;
-          background-color: #0F172A;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          background-color: #ffffff;
+          background-image: url(/formbg.png);
+          background-size: auto;
+          background-position: center;
+          background-repeat: repeat;
           z-index: 9999;
+          overflow: hidden;
+        }
+
+        .loading-screen::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.75);
+          z-index: 1;
         }
         
-        .chess-loader {
-          font-size: 4rem;
-          color: #E5A244;
-          animation: pulse 1.5s infinite;
+        .skeleton-container {
+          position: relative;
+          z-index: 2;
+          width: 100%;
+          height: 100%;
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 20px;
         }
         
-        @keyframes pulse {
-          0% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.2); opacity: 0.7; }
-          100% { transform: scale(1); opacity: 1; }
+        .skeleton-header {
+          width: 100%;
+          height: 80px;
+          background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+          border-radius: 8px;
+          margin-bottom: 40px;
+        }
+        
+        .skeleton-hero {
+          max-width: 800px;
+          margin: 80px auto;
+          text-align: center;
+        }
+        
+        .skeleton-line {
+          height: 24px;
+          background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+          border-radius: 4px;
+          margin-bottom: 16px;
+        }
+        
+        .skeleton-line-lg {
+          height: 48px;
+        }
+        
+        .skeleton-line-md {
+          width: 60%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        
+        .skeleton-button {
+          width: 180px;
+          height: 48px;
+          background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+          border-radius: 8px;
+          margin: 32px auto 0;
+        }
+        
+        .skeleton-content {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 24px;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 40px 20px;
+        }
+        
+        .skeleton-card {
+          height: 250px;
+          background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+          border-radius: 12px;
+        }
+        
+        .skeleton-card:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+        
+        .skeleton-card:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+        
+        @keyframes shimmer {
+          0% {
+            background-position: 200% 0;
+          }
+          100% {
+            background-position: -200% 0;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .skeleton-container {
+            padding: 16px;
+          }
+          
+          .skeleton-hero {
+            margin: 40px auto;
+          }
+          
+          .skeleton-content {
+            grid-template-columns: 1fr;
+          }
         }
       `}</style>
     </>
