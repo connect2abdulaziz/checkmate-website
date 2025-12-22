@@ -10,7 +10,7 @@ export default function SuccessStoriesPage() {
   const [activeStory, setActiveStory] = useState(0);
   const [hoveredCard, setHoveredCard] = useState(null);
   const containerRef = useRef(null);
-  
+
   const { scrollYProgress } = useScroll();
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
@@ -139,65 +139,65 @@ export default function SuccessStoriesPage() {
   const Icons = {
     rocket: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-        <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
-        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+        <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
       </svg>
     ),
     energy: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
       </svg>
     ),
     healthcare: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
       </svg>
     ),
     cart: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="9" cy="21" r="1"/>
-        <circle cx="20" cy="21" r="1"/>
-        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        <circle cx="9" cy="21" r="1" />
+        <circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
       </svg>
     ),
     security: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
       </svg>
     ),
     education: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+        <path d="M6 12v5c3 3 9 3 12 0v-5" />
       </svg>
     ),
     projects: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-        <line x1="12" y1="22.08" x2="12" y2="12"/>
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+        <line x1="12" y1="22.08" x2="12" y2="12" />
       </svg>
     ),
     clients: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
     ),
     satisfaction: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
       </svg>
     ),
     experience: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="7"/>
-        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+        <circle cx="12" cy="8" r="7" />
+        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
       </svg>
     ),
   };
@@ -234,7 +234,7 @@ export default function SuccessStoriesPage() {
     <>
       <Header />
       <main style={{ backgroundColor: '#ffffff', minHeight: '100vh', overflow: 'hidden' }} ref={containerRef}>
-        
+
         {/* Hero Section - Modern Split Design */}
         <section
           style={{
@@ -259,7 +259,7 @@ export default function SuccessStoriesPage() {
 
           {/* Floating Elements */}
           <motion.div
-            animate={{ 
+            animate={{
               y: [0, -20, 0],
               rotate: [0, 5, 0]
             }}
@@ -277,7 +277,7 @@ export default function SuccessStoriesPage() {
             }}
           />
           <motion.div
-            animate={{ 
+            animate={{
               y: [0, 20, 0],
               rotate: [0, -5, 0]
             }}
@@ -331,7 +331,7 @@ export default function SuccessStoriesPage() {
                 }}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="2">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                 </svg>
                 <span style={{
                   fontSize: '0.8rem',
@@ -360,7 +360,7 @@ export default function SuccessStoriesPage() {
               >
                 <span style={{ color: 'var(--text-on-light)' }}>Real Results from</span>
                 <br />
-                <span style={{ 
+                <span style={{
                   background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -385,7 +385,7 @@ export default function SuccessStoriesPage() {
                   fontFamily: "var(--font-syne), sans-serif",
                 }}
               >
-                Discover how we've helped businesses achieve their goals through 
+                Discover how we've helped businesses achieve their goals through
                 innovative technology solutions and strategic partnerships.
               </motion.p>
 
@@ -422,7 +422,7 @@ export default function SuccessStoriesPage() {
                 >
                   View Case Studies
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
                   </svg>
                 </motion.a>
                 <motion.a
@@ -447,56 +447,34 @@ export default function SuccessStoriesPage() {
             </motion.div>
           </div>
 
-          {/* Scroll Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            style={{
-              position: 'absolute',
-              bottom: '2rem',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              zIndex: 10,
-            }}
-          >
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              style={{
-                width: '28px',
-                height: '44px',
-                border: '2px solid rgba(0,0,0,0.2)',
-                borderRadius: '14px',
-                display: 'flex',
-                justifyContent: 'center',
-                paddingTop: '8px',
-              }}
-            >
-              <motion.div
-                animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                style={{
-                  width: '4px',
-                  height: '8px',
-                  background: 'var(--color-primary)',
-                  borderRadius: '2px',
-                }}
-              />
-            </motion.div>
-          </motion.div>
+
         </section>
 
         {/* Stats Section - Modern Cards */}
         <section style={{
-          padding: isMobile ? '4rem 0' : '6rem 0',
-          background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)',
           position: 'relative',
+          padding: isMobile ? '4rem 0' : '6rem 0',
+          backgroundImage: 'url(/formbg.png)',
+          backgroundSize: 'auto',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'repeat',
         }}>
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(228, 228, 228, 0.76)',
+            zIndex: 0,
+            pointerEvents: 'none',
+          }} />
           <div style={{
             maxWidth: '1200px',
             margin: '0 auto',
             padding: isMobile ? '0 1.5rem' : '0 2rem',
+            position: 'relative',
+            zIndex: 1,
           }}>
             <div style={{
               display: 'grid',
@@ -562,13 +540,29 @@ export default function SuccessStoriesPage() {
 
         {/* Featured Story - Full Width Showcase */}
         <section id="stories" style={{
+          position: 'relative',
           padding: isMobile ? '4rem 0' : '6rem 0',
-          background: '#ffffff',
+          backgroundImage: 'url(/formbg.png)',
+          backgroundSize: 'auto',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'repeat',
         }}>
           <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(228, 228, 228, 0.76)',
+            zIndex: 0,
+            pointerEvents: 'none',
+          }} />
+          <div style={{
+            position: 'relative',
             maxWidth: '1400px',
             margin: '0 auto',
             padding: isMobile ? '0 1.5rem' : '0 2rem',
+            zIndex: 1,
           }}>
             {/* Section Header */}
             <motion.div
@@ -634,8 +628,8 @@ export default function SuccessStoriesPage() {
                       background: '#ffffff',
                       borderRadius: '24px',
                       padding: isLarge ? '2.5rem' : '2rem',
-                      boxShadow: hoveredCard === story.id 
-                        ? '0 20px 60px rgba(0,0,0,0.12)' 
+                      boxShadow: hoveredCard === story.id
+                        ? '0 20px 60px rgba(0,0,0,0.12)'
                         : '0 4px 24px rgba(0,0,0,0.06)',
                       border: '1px solid rgba(0,0,0,0.06)',
                       position: 'relative',
@@ -736,7 +730,7 @@ export default function SuccessStoriesPage() {
 
                         {/* Arrow */}
                         <motion.div
-                          animate={{ 
+                          animate={{
                             x: hoveredCard === story.id ? 0 : -5,
                             opacity: hoveredCard === story.id ? 1 : 0.5,
                           }}
@@ -754,7 +748,7 @@ export default function SuccessStoriesPage() {
                           }}
                         >
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
-                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            <path d="M7 17L17 7M17 7H7M17 7V17" />
                           </svg>
                         </motion.div>
                       </div>
@@ -924,27 +918,27 @@ export default function SuccessStoriesPage() {
           >
             {[...Array(3)].map((_, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '4rem' }}>
-                    {['Innovation', 'Excellence', 'Partnership', 'Growth', 'Success', 'Impact'].map((word, idx) => (
-                      <React.Fragment key={idx}>
-                        <span style={{
-                          fontSize: isMobile ? '1.5rem' : '2.5rem',
-                          fontWeight: 700,
-                          color: '#ffffff',
-                          fontFamily: "var(--font-sora), sans-serif",
-                        }}>
-                          {word}
-                        </span>
-                        <svg 
-                          width={isMobile ? "20" : "28"} 
-                          height={isMobile ? "20" : "28"} 
-                          viewBox="0 0 24 24" 
-                          fill="rgba(255,255,255,0.4)" 
-                          style={{ flexShrink: 0 }}
-                        >
-                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                        </svg>
-                      </React.Fragment>
-                    ))}
+                {['Innovation', 'Excellence', 'Partnership', 'Growth', 'Success', 'Impact'].map((word, idx) => (
+                  <React.Fragment key={idx}>
+                    <span style={{
+                      fontSize: isMobile ? '1.5rem' : '2.5rem',
+                      fontWeight: 700,
+                      color: '#ffffff',
+                      fontFamily: "var(--font-sora), sans-serif",
+                    }}>
+                      {word}
+                    </span>
+                    <svg
+                      width={isMobile ? "20" : "28"}
+                      height={isMobile ? "20" : "28"}
+                      viewBox="0 0 24 24"
+                      fill="rgba(255,255,255,0.4)"
+                      style={{ flexShrink: 0 }}
+                    >
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                  </React.Fragment>
+                ))}
               </div>
             ))}
           </motion.div>
@@ -964,7 +958,7 @@ export default function SuccessStoriesPage() {
             inset: 0,
             backgroundColor: 'rgba(255, 255, 255, 0.9)',
           }} />
-          
+
           <div style={{
             maxWidth: '900px',
             margin: '0 auto',
@@ -994,7 +988,7 @@ export default function SuccessStoriesPage() {
               }}>
                 Let's Work Together
               </span>
-              
+
               <h2 style={{
                 fontSize: isMobile ? '2.5rem' : '3.5rem',
                 fontWeight: 800,
@@ -1013,7 +1007,7 @@ export default function SuccessStoriesPage() {
                   Your Success Story?
                 </span>
               </h2>
-              
+
               <p style={{
                 fontSize: isMobile ? '1rem' : '1.2rem',
                 color: 'var(--text-on-light-muted)',
@@ -1025,7 +1019,7 @@ export default function SuccessStoriesPage() {
               }}>
                 Join the ranks of industry leaders who've transformed their businesses with our innovative solutions.
               </p>
-              
+
               <div style={{
                 display: 'flex',
                 gap: '1rem',
@@ -1053,10 +1047,10 @@ export default function SuccessStoriesPage() {
                 >
                   Start Your Journey
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                    <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </motion.a>
-                
+
                 <motion.a
                   href="/services"
                   whileHover={{ scale: 1.05, y: -3 }}

@@ -160,7 +160,6 @@ export default function CaseStudiesPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(255, 255, 255, 0.70)',
             zIndex: 0,
             pointerEvents: 'none',
           }} />
@@ -316,7 +315,6 @@ export default function CaseStudiesPage() {
           backgroundPosition: 'center',
           backgroundRepeat: 'repeat',
           zIndex: 40,
-          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
         }}>
           <div style={{
             position: 'absolute',
@@ -324,8 +322,7 @@ export default function CaseStudiesPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(255, 255, 255, 0.8)',
-            backdropFilter: 'blur(20px)',
+            backgroundColor: 'rgba(228, 228, 228, 0.76)',
             zIndex: 0,
             pointerEvents: 'none',
           }} />
@@ -389,9 +386,23 @@ export default function CaseStudiesPage() {
         {/* Featured Case Study - Large */}
         {filteredStudies.length > 0 && (
           <section style={{
+            position: 'relative',
             padding: isMobile ? '3rem 0' : '5rem 0',
-            backgroundColor: '#ffffff',
+            backgroundImage: 'url(/formbg.png)',
+            backgroundSize: 'auto',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'repeat',
           }}>
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(228, 228, 228, 0.76)',
+              zIndex: 0,
+              pointerEvents: 'none',
+            }} />
             <div style={{
               maxWidth: '1200px',
               margin: '0 auto',
@@ -474,9 +485,23 @@ export default function CaseStudiesPage() {
         {/* Bento Grid Section */}
         {filteredStudies.length > 1 && (
           <section style={{
+            position: 'relative',
             padding: isMobile ? '2rem 0 8rem' : '2.5rem 0 8rem',
-            backgroundColor: '#ffffff',
+            backgroundImage: 'url(/formbg.png)',
+            backgroundSize: 'auto',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'repeat',
           }}>
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(228, 228, 228, 0.76)',
+              zIndex: 0,
+              pointerEvents: 'none',
+            }} />
             <div style={{
               maxWidth: '1200px',
               margin: '0 auto',
@@ -662,7 +687,7 @@ export default function CaseStudiesPage() {
                     style={{
                       fontSize: isMobile ? '2rem' : '3rem',
                       fontWeight: 900,
-                      color: text === '●' ? 'rgba(255, 255, 255, 0.3)' : '#ffffff',
+                      color: text === '●' ? 'var(--text-on-light-muted)' : '#ffffff',
                       fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                     }}
                   >
