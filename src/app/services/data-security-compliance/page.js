@@ -105,7 +105,7 @@ export default function DataSecurityCompliancePage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Compliance/secuirity-assesment.jpg"
                     alt="Security Assessment"
                     style={{
                       width: '100%',
@@ -137,36 +137,6 @@ export default function DataSecurityCompliancePage() {
                 >
                   Comprehensive security audits and vulnerability assessments to identify risks and weaknesses in your infrastructure. We evaluate your systems, networks, and applications to ensure robust protection against threats.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Compliance Management Column */}
@@ -192,7 +162,7 @@ export default function DataSecurityCompliancePage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Compliance/compliance-managment.avif"
                     alt="Compliance Management"
                     style={{
                       width: '100%',
@@ -224,36 +194,6 @@ export default function DataSecurityCompliancePage() {
                 >
                   Ensure adherence to GDPR, HIPAA, SOC 2, ISO 27001, and other regulatory standards. We help you implement compliance frameworks, conduct audits, and maintain ongoing compliance with industry regulations.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Data Encryption Column */}
@@ -279,7 +219,7 @@ export default function DataSecurityCompliancePage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Compliance/data-encryption.jpeg"
                     alt="Data Encryption"
                     style={{
                       width: '100%',
@@ -311,36 +251,6 @@ export default function DataSecurityCompliancePage() {
                 >
                   Implement end-to-end encryption for data at rest and in transit. Protect sensitive information with advanced encryption technologies and key management solutions that meet industry standards.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Access Control Column */}
@@ -366,7 +276,7 @@ export default function DataSecurityCompliancePage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Compliance/access-control.jpg"
                     alt="Access Control"
                     style={{
                       width: '100%',
@@ -398,36 +308,6 @@ export default function DataSecurityCompliancePage() {
                 >
                   Implement robust access control and identity management systems. Multi-factor authentication, role-based access control, and privileged access management to secure your digital assets.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
             </div>
           </div>

@@ -197,36 +197,6 @@ export default function FullStackDevelopmentPage() {
                 >
                   Deliver next-level web experiences for users on any device with our front-end development services. We design and implement UI/UX for your web solution that is accessible, responsive, and user-centric, no matter which browser or device your users prefer.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Backend Column */}
@@ -285,36 +255,6 @@ export default function FullStackDevelopmentPage() {
                 >
                   Ensure your solution's longevity, success, and cost-efficiency with our backend architecture services. We'll pinpoint the most suitable architecture for your business objectives and user needs to drive engagement, maximize performance, and facilitate maintenance and scaling.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Database Column */}
@@ -373,36 +313,6 @@ export default function FullStackDevelopmentPage() {
                 >
                   Optimized database architecture with PostgreSQL, MongoDB, MySQL, and more. Efficient data modeling, query optimization, and scalable database solutions that ensure your application's data layer performs flawlessly.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* API Integration Column */}
@@ -461,36 +371,6 @@ export default function FullStackDevelopmentPage() {
                 >
                   RESTful APIs, GraphQL endpoints, and third-party integrations. Seamless connectivity between services and platforms to create unified, efficient systems that communicate flawlessly.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
             </div>
           </div>

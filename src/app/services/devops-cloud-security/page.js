@@ -105,7 +105,7 @@ export default function DevOpsCloudSecurityPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Deveops/cloud-infrastructure.webp"
                     alt="Cloud Infrastructure"
                     style={{
                       width: '100%',
@@ -137,36 +137,6 @@ export default function DevOpsCloudSecurityPage() {
                 >
                   Design and deploy scalable cloud infrastructure on AWS, Azure, and GCP. Optimize costs while ensuring high availability and performance for your applications and services.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* CI/CD Pipelines Column */}
@@ -192,7 +162,7 @@ export default function DevOpsCloudSecurityPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Deveops/CI-CD.jpg"
                     alt="CI/CD Pipelines"
                     style={{
                       width: '100%',
@@ -224,36 +194,6 @@ export default function DevOpsCloudSecurityPage() {
                 >
                   Automate your deployment process with continuous integration and delivery pipelines. Reduce deployment time, minimize errors, and ensure consistent releases across all environments.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Container Orchestration Column */}
@@ -279,7 +219,7 @@ export default function DevOpsCloudSecurityPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Deveops/container-orchestration.jpg"
                     alt="Container Orchestration"
                     style={{
                       width: '100%',
@@ -311,36 +251,6 @@ export default function DevOpsCloudSecurityPage() {
                 >
                   Manage containerized applications with Kubernetes and Docker. Scale applications seamlessly and ensure reliable deployments with automated orchestration and management.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Security & Monitoring Column */}
@@ -366,7 +276,7 @@ export default function DevOpsCloudSecurityPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Deveops/Security-Monitoring.jpg"
                     alt="Security & Monitoring"
                     style={{
                       width: '100%',
@@ -398,36 +308,6 @@ export default function DevOpsCloudSecurityPage() {
                 >
                   Implement comprehensive security measures and monitoring solutions. Protect your infrastructure and applications with real-time alerts, automated security scans, and compliance monitoring.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
             </div>
           </div>

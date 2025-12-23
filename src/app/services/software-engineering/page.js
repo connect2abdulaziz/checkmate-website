@@ -105,7 +105,7 @@ export default function SoftwareEngineeringPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Software-Engineering/system-artitecture.webp"
                     alt="System Architecture"
                     style={{
                       width: '100%',
@@ -137,36 +137,6 @@ export default function SoftwareEngineeringPage() {
                 >
                   Design scalable, maintainable software architectures that support growth and adapt to changing requirements. We create clean code principles and SOLID design patterns to ensure your solution's longevity and success.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Code Quality Column */}
@@ -192,7 +162,7 @@ export default function SoftwareEngineeringPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Software-Engineering/code-quality.png"
                     alt="Code Quality"
                     style={{
                       width: '100%',
@@ -224,36 +194,6 @@ export default function SoftwareEngineeringPage() {
                 >
                   Maintain high code quality standards with comprehensive testing, code reviews, and documentation. We ensure your codebase is clean, readable, and maintainable for long-term success.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Performance Optimization Column */}
@@ -279,7 +219,7 @@ export default function SoftwareEngineeringPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Software-Engineering/Performance-Optimization.webp"
                     alt="Performance Optimization"
                     style={{
                       width: '100%',
@@ -311,36 +251,6 @@ export default function SoftwareEngineeringPage() {
                 >
                   Optimize application performance through profiling, caching strategies, and efficient algorithms. Deliver fast, responsive software that meets user expectations and scales with your business.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Agile Development Column */}
@@ -366,7 +276,7 @@ export default function SoftwareEngineeringPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Software-Engineering/Agile.webp"
                     alt="Agile Development"
                     style={{
                       width: '100%',
@@ -398,36 +308,6 @@ export default function SoftwareEngineeringPage() {
                 >
                   Follow agile methodologies with iterative development, continuous integration, and regular releases. Collaborate effectively with stakeholders throughout the process to deliver value incrementally.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
             </div>
           </div>

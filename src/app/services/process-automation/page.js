@@ -105,7 +105,7 @@ export default function ProcessAutomationPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/process-automation/work-flow-automation.avif"
                     alt="Workflow Automation"
                     style={{
                       width: '100%',
@@ -137,36 +137,6 @@ export default function ProcessAutomationPage() {
                 >
                   Automate complex business workflows and processes. Reduce manual tasks, eliminate errors, and improve efficiency across your organization with intelligent automation solutions.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* RPA Solutions Column */}
@@ -192,7 +162,7 @@ export default function ProcessAutomationPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/process-automation/RPA.webp"
                     alt="RPA Solutions"
                     style={{
                       width: '100%',
@@ -224,36 +194,6 @@ export default function ProcessAutomationPage() {
                 >
                   Implement Robotic Process Automation to handle repetitive tasks. Bots that work 24/7, never make mistakes, and free your team for strategic work that drives business value.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Business Process Integration Column */}
@@ -279,7 +219,7 @@ export default function ProcessAutomationPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/process-automation/BPI.jpg"
                     alt="Business Process Integration"
                     style={{
                       width: '100%',
@@ -311,36 +251,6 @@ export default function ProcessAutomationPage() {
                 >
                   Connect disparate systems and applications seamlessly. Enable data flow between platforms and create unified business processes that eliminate silos and improve collaboration.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
 
               {/* Task Scheduling Column */}
@@ -366,7 +276,7 @@ export default function ProcessAutomationPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/process-automation/sceduling.webp"
                     alt="Task Scheduling"
                     style={{
                       width: '100%',
@@ -398,36 +308,6 @@ export default function ProcessAutomationPage() {
                 >
                   Automate scheduled tasks and jobs. Run processes at optimal times, handle batch operations, and ensure critical tasks never get missed with intelligent scheduling systems.
                 </p>
-                <motion.a
-                  href="#"
-                  whileHover={{ x: 5 }}
-                  style={{
-                    color: '#0F172A',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    textDecoration: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                    transition: 'all 0.3s ease',
-                  }}
-                >
-                  LEARN MORE
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </motion.a>
               </motion.div>
             </div>
           </div>
@@ -877,7 +757,7 @@ export default function ProcessAutomationPage() {
                 Get Started Today
               </motion.a>
             </motion.div>
-          </div>
+        </div>
         </section>
       </main>
       <ChessFooter />

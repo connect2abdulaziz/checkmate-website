@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 const DevOpsCloudHero = () => {
-  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <section
@@ -215,8 +214,6 @@ const DevOpsCloudHero = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             style={{
               position: 'relative',
               height: '600px',
@@ -225,58 +222,16 @@ const DevOpsCloudHero = () => {
               boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
             }}
           >
-            {/* Animated Border Elements */}
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '4px',
-                background: '#FF6B35',
-                transform: isHovered ? 'scaleX(1)' : 'scaleX(0)',
-                transformOrigin: 'left center',
-                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                zIndex: 20,
-                pointerEvents: 'none',
-              }}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '4px',
-                height: '100%',
-                background: '#FF6B35',
-                transform: isHovered ? 'scaleY(1)' : 'scaleY(0)',
-                transformOrigin: 'top center',
-                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s',
-                zIndex: 20,
-                pointerEvents: 'none',
-              }}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                width: '4px',
-                height: '100%',
-                background: '#FF6B35',
-                transform: isHovered ? 'scaleY(1)' : 'scaleY(0)',
-                transformOrigin: 'top center',
-                transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s',
-                zIndex: 20,
-                pointerEvents: 'none',
-              }}
-            />
             {/* Image Container */}
             <div
               style={{
                 width: '100%',
                 height: '100%',
-                background: '#0F172A',
+                backgroundImage: 'url(/images/Services/Deveops/cloud-devops.png)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundColor: '#0F172A',
                 position: 'relative',
                 display: 'flex',
                 alignItems: 'center',
@@ -285,132 +240,15 @@ const DevOpsCloudHero = () => {
                 overflow: 'hidden',
               }}
             >
-              {/* Code Pattern Overlay */}
+              {/* Subtle dark overlay for contrast */}
               <div
                 style={{
                   position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  backgroundImage: `
-                    repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 2px, rgba(255,255,255,0.03) 3px),
-                    repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 2px, rgba(255,255,255,0.03) 3px)
-                  `,
-                  backgroundSize: '40px 40px',
+                  inset: 0,
+                  background: 'linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%)',
+                  zIndex: 1,
                 }}
               />
-
-              {/* Decorative Code Lines */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '20%',
-                  left: '10%',
-                  color: 'rgba(255, 255, 255, 0.1)',
-                  fontFamily: 'monospace',
-                  fontSize: '0.875rem',
-                  lineHeight: '1.8',
-                }}
-              >
-                <div>{'docker-compose up'}</div>
-                <div>{'kubectl apply -f'}</div>
-                <div>{'terraform plan'}</div>
-                <div>{'CI/CD pipeline'}</div>
-              </div>
-
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: '25%',
-                  right: '15%',
-                  color: 'rgba(255, 255, 255, 0.1)',
-                  fontFamily: 'monospace',
-                  fontSize: '0.875rem',
-                  lineHeight: '1.8',
-                }}
-              >
-                <div>{'aws s3 sync'}</div>
-                <div>{'azure deploy'}</div>
-                <div>{'gcloud run'}</div>
-              </div>
-
-              {/* Overlay Text Bar */}
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '40px',
-                  left: 0,
-                  right: 0,
-                  background: 'rgba(0, 0, 0, 0.6)',
-                  backdropFilter: 'blur(10px)',
-                  padding: '1.5rem 2rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div
-                  style={{
-                    color: '#ffffff',
-                    fontSize: '1.5rem',
-                    fontWeight: '700',
-                    fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-                  }}
-                >
-                  DevOps
-                </div>
-                <div
-                  style={{
-                    color: '#ffffff',
-                    fontSize: '1.5rem',
-                    fontWeight: '700',
-                    fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-                  }}
-                >
-                  & Cloud
-                </div>
-              </div>
-
-              {/* Center Icon/Visual */}
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '2rem',
-                  zIndex: 2,
-                }}
-              >
-                <div
-                  style={{
-                    width: '120px',
-                    height: '120px',
-                    borderRadius: '20px',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    backdropFilter: 'blur(10px)',
-                    border: '2px solid rgba(255, 255, 255, 0.2)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <svg
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="rgba(255, 255, 255, 0.9)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                    <path d="M2 17l10 5 10-5" />
-                    <path d="M2 12l10 5 10-5" />
-                  </svg>
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>
