@@ -165,7 +165,7 @@ export default function FullStackDevelopmentPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Full-stack-service/frontrnd-dev.jpeg"
                     alt="Frontend Development"
                     style={{
                       width: '100%',
@@ -253,7 +253,7 @@ export default function FullStackDevelopmentPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Full-stack-service/backend-dev.png"
                     alt="Backend Development"
                     style={{
                       width: '100%',
@@ -341,7 +341,7 @@ export default function FullStackDevelopmentPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Full-stack-service/database.jpg"
                     alt="Database Design"
                     style={{
                       width: '100%',
@@ -429,7 +429,7 @@ export default function FullStackDevelopmentPage() {
                   }}
                 >
                   <img
-                    src="/images/Services/Full-stack-service/frontend.png"
+                    src="/images/Services/Full-stack-service/api-integration.jpg"
                     alt="API Integration"
                     style={{
                       width: '100%',
