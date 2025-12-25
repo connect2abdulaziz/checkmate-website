@@ -67,7 +67,7 @@ const CaseStudies = () => {
       title: 'SimplyFlow - Workflow Automation Platform',
       category: 'Process Automation',
       icon: AutomationIcon,
-      iconColor: 'var(--color-secondary)',
+      iconColor: 'var(--color-accent)',
       description: 'Developed a comprehensive workflow automation platform that streamlines business processes, integrates with multiple tools, and enables teams to automate complex workflows with ease.',
       results: [
         'Automated 85% of manual workflows',
@@ -84,7 +84,7 @@ const CaseStudies = () => {
       title: 'GuardXP - Security Management Platform',
       category: 'Data Security & Compliance',
       icon: SecurityIcon,
-      iconColor: 'var(--color-secondary)',
+      iconColor: 'var(--color-accent)',
       description: 'Built a robust security management platform with advanced threat detection, compliance monitoring, and real-time security analytics for enterprise clients.',
       results: [
         'Reduced security incidents by 92%',
@@ -101,7 +101,7 @@ const CaseStudies = () => {
       title: 'Entrepedia - Entrepreneurship Education Platform',
       category: 'Full-Stack Development',
       icon: CodeIcon,
-      iconColor: 'var(--color-secondary)',
+      iconColor: 'var(--color-accent)',
       description: 'Created an interactive learning platform for entrepreneurs with courses, mentorship matching, and community features, supporting thousands of users worldwide.',
       results: [
         'Increased user engagement by 65%',
@@ -118,7 +118,7 @@ const CaseStudies = () => {
       title: 'SafeStreet - Community Safety Platform',
       category: 'Software Engineering',
       icon: EngineeringIcon,
-      iconColor: 'var(--color-secondary)',
+      iconColor: 'var(--color-accent)',
       description: 'Developed a community safety platform connecting residents, local authorities, and security services with real-time alerts, incident reporting, and neighborhood watch features.',
       results: [
         'Connected 200+ neighborhoods',
@@ -135,7 +135,7 @@ const CaseStudies = () => {
       title: 'Qobrix - Canadian Real Estate Management Platform',
       category: 'DevOps & Cloud',
       icon: CloudIcon,
-      iconColor: 'var(--color-secondary)',
+      iconColor: 'var(--color-accent)',
       description: 'Migrated and optimized a Canadian real estate management platform to cloud infrastructure, implementing CI/CD pipelines, automated scaling, and high-availability architecture.',
       results: [
         'Reduced infrastructure costs by 45%',
@@ -152,7 +152,7 @@ const CaseStudies = () => {
       title: 'Terzo.ai - AI-Powered Business Intelligence Platform',
       category: 'AI & Machine Learning',
       icon: AIIcon,
-      iconColor: 'var(--color-secondary)',
+      iconColor: 'var(--color-accent)',
       description: 'Built an AI-powered platform that provides intelligent business intelligence solutions, automated recommendations, and predictive analytics to help businesses optimize their operations and make data-driven decisions.',
       results: [
         'Improved solution accuracy by 78%',
@@ -272,25 +272,21 @@ const CaseStudies = () => {
       className="chess-case-studies"
       style={{
         padding: isMobile ? '3rem 0' : '100px 0',
-        backgroundImage: 'url(/formbg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: '#ffffff',
-        color: 'var(--text-on-light)',
+        backgroundColor: 'var(--color-bg)',
+        color: 'var(--color-text)',
         position: 'relative',
         overflow: 'hidden',
         marginTop: '-1px',
       }}
     >
-      {/* Background overlay for lower intensity */}
+      {/* Background overlay */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        backgroundColor: 'var(--color-bg-medium)',
         zIndex: 0,
         pointerEvents: 'none',
       }} />
@@ -306,38 +302,49 @@ const CaseStudies = () => {
           position: 'relative',
           zIndex: 2,
         }}>
-          <h6 style={{
-            fontSize: isMobile ? '0.875rem' : '1rem',
-            fontWeight: 700,
-            color: 'var(--color-primary)',
+          <span style={{
+            display: 'inline-block',
+            padding: '0.5rem 1.25rem',
+            background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.7))',
+            color: 'var(--color-text)',
+            fontSize: isMobile ? '0.75rem' : '0.85rem',
+            fontWeight: 600,
+            borderRadius: '50px',
             textTransform: 'uppercase',
-            letterSpacing: '2px',
-            marginBottom: '1rem',
+            letterSpacing: '1.5px',
+            marginBottom: '1.5rem',
             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-            textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
+            boxShadow: 'var(--glow-accent-sm)',
           }}>
             Case Studies
-          </h6>
+          </span>
           <h2 style={{
-            fontSize: isMobile ? '1.75rem' : '2.8rem',
+            fontSize: isMobile ? 'clamp(2rem, 5vw, 2.5rem)' : 'clamp(2.5rem, 5vw, 3.5rem)',
             fontWeight: 700,
             marginBottom: '1.5rem',
-            color: '#0F172A',
+            color: 'var(--color-text)',
             fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-            textShadow: '0 2px 4px rgba(255, 255, 255, 0.5)',
+            lineHeight: 1.2,
           }}>
-            Success Stories
+            Success{' '}
+            <span style={{
+              background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.8))',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
+              Stories
+            </span>
           </h2>
           <p style={{
             fontSize: isMobile ? '1rem' : '1.2rem',
             maxWidth: '700px',
             margin: '0 auto',
-            color: '#1A202C',
+            color: 'var(--color-text-muted)',
             lineHeight: 1.6,
             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
             padding: isMobile ? '0 1rem' : '0',
             fontWeight: 500,
-            textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
           }}>
             Discover how we've helped businesses transform their technology infrastructure
             and achieve remarkable results through innovative software solutions.
@@ -372,8 +379,8 @@ const CaseStudies = () => {
                   height: isMobile ? '70px' : '100px',
                   borderRadius: '12px',
                   backgroundColor: activeCase === index
-                    ? 'var(--color-secondary)'
-                    : 'rgba(15, 23, 42, 0.05)',
+                    ? 'var(--color-accent)'
+                    : 'var(--overlay-subtle)',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -381,11 +388,11 @@ const CaseStudies = () => {
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   border: `2px solid ${activeCase === index
-                    ? 'var(--color-secondary)'
-                    : 'rgba(15, 23, 42, 0.1)'}`,
+                    ? 'var(--color-accent)'
+                    : 'var(--border-light)'}`,
                   boxShadow: activeCase === index
-                    ? '0 0 20px rgba(15, 23, 42, 0.2)'
-                    : '0 2px 8px rgba(0, 0, 0, 0.05)',
+                    ? 'var(--glow-accent-sm)'
+                    : 'var(--shadow-sm)',
                 }}
               >
                 <div style={{
@@ -393,17 +400,17 @@ const CaseStudies = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: activeCase === index ? 'white' : 'var(--color-secondary)',
+                  color: activeCase === index ? 'var(--color-text)' : 'var(--color-accent)',
                 }}>
                   {React.createElement(caseStudy.icon, {
                     size: isMobile ? 28 : 40,
-                    color: activeCase === index ? 'white' : 'var(--color-secondary)'
+                    color: activeCase === index ? 'var(--color-text)' : 'var(--color-accent)'
                   })}
                 </div>
                 <span style={{
                   fontSize: isMobile ? '0.6rem' : '0.7rem',
                   fontWeight: 'bold',
-                  color: activeCase === index ? 'white' : 'var(--text-on-light-muted)',
+                  color: activeCase === index ? 'var(--color-text)' : 'var(--color-text-muted)',
                   textAlign: 'center',
                   padding: '0 0.25rem',
                 }}>
@@ -434,10 +441,12 @@ const CaseStudies = () => {
               <div style={{
                 flex: isMobile ? '1 1 100%' : '1 1 450px',
                 padding: isMobile ? '1.5rem' : '3rem',
-                backgroundColor: '#ffffff',
+                backgroundColor: 'var(--glass-bg)',
                 borderRadius: isMobile ? '16px' : '20px',
-                border: '1px solid rgba(15, 23, 42, 0.08)',
-                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)',
+                border: `1px solid var(--border-light)`,
+                boxShadow: 'var(--shadow-md)',
+                backdropFilter: 'var(--glass-blur)',
+                WebkitBackdropFilter: 'var(--glass-blur)',
                 display: 'flex',
                 flexDirection: 'column',
               }}>
@@ -445,7 +454,7 @@ const CaseStudies = () => {
                   fontSize: isMobile ? '1.5rem' : '2.2rem',
                   fontWeight: 'bold',
                   marginBottom: '1.5rem',
-                  color: 'var(--text-on-light)',
+                  color: 'var(--color-text)',
                   fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                   lineHeight: 1.2,
                 }}>
@@ -454,7 +463,7 @@ const CaseStudies = () => {
 
                 <p style={{
                   fontSize: isMobile ? '0.9375rem' : '1.125rem',
-                  color: 'var(--text-on-light-muted)',
+                  color: 'var(--color-text-muted)',
                   lineHeight: 1.7,
                   marginBottom: '2rem',
                   fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
@@ -470,7 +479,7 @@ const CaseStudies = () => {
                     fontSize: isMobile ? '1rem' : '1.2rem',
                     fontWeight: 'bold',
                     marginBottom: '1.2rem',
-                    color: 'var(--color-secondary)',
+                    color: 'var(--color-accent)',
                     fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                   }}>
                     Key Results
@@ -498,7 +507,7 @@ const CaseStudies = () => {
                           width: isMobile ? '20px' : '24px',
                           height: isMobile ? '20px' : '24px',
                           borderRadius: '50%',
-                          backgroundColor: 'rgba(15, 23, 42, 0.3)',
+                          backgroundColor: 'var(--color-accent-light)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -509,11 +518,11 @@ const CaseStudies = () => {
                             width: isMobile ? '8px' : '10px',
                             height: isMobile ? '8px' : '10px',
                             borderRadius: '50%',
-                            backgroundColor: 'var(--color-secondary)',
+                            backgroundColor: 'var(--color-accent)',
                           }} />
                         </div>
                         <span style={{
-                          color: 'var(--text-on-light-muted)',
+                          color: 'var(--color-text-muted)',
                           fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                           fontSize: isMobile ? '0.875rem' : '1rem',
                         }}>{result}</span>
@@ -523,7 +532,7 @@ const CaseStudies = () => {
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.05, backgroundColor: 'var(--color-secondary)', color: 'white' }}
+                  whileHover={{ scale: 1.05, backgroundColor: 'var(--color-accent)', color: 'var(--color-text)' }}
                   whileTap={{ scale: 0.95 }}
                   style={{
                     display: 'inline-flex',
@@ -531,9 +540,9 @@ const CaseStudies = () => {
                     padding: isMobile ? '0.75rem 1.5rem' : '1rem 2rem',
                     marginTop: 'auto',
                     backgroundColor: 'transparent',
-                    border: '2px solid var(--color-secondary)',
+                    border: `2px solid var(--color-accent)`,
                     borderRadius: '50px',
-                    color: 'var(--color-secondary)',
+                    color: 'var(--color-accent)',
                     fontWeight: 'bold',
                     cursor: 'pointer',
                     fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
@@ -590,11 +599,11 @@ const CaseStudies = () => {
                       width: '100%',
                       paddingTop: isMobile ? '62%' : '68%', // Adjusted height for better balance
                       position: 'relative',
-                      backgroundColor: '#0a0a0a',
+                      backgroundColor: 'var(--color-accent-dark)',
                       borderRadius: isMobile ? '6px 6px 0 0' : '8px 8px 0 0',
-                      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+                      boxShadow: 'var(--shadow-xl)',
                       overflow: 'hidden',
-                      border: isMobile ? '2px solid #1a1a1a' : '3px solid #1a1a1a',
+                      border: isMobile ? `2px solid var(--color-accent)` : `3px solid var(--color-accent)`,
                     }}>
                       {/* Screen Bezel */}
                       <div style={{
@@ -603,7 +612,7 @@ const CaseStudies = () => {
                         left: isMobile ? '2px' : '3px',
                         right: isMobile ? '2px' : '3px',
                         bottom: isMobile ? '2px' : '3px',
-                        backgroundColor: '#000000',
+                        backgroundColor: 'var(--color-accent-dark)',
                         borderRadius: isMobile ? '4px 4px 0 0' : '5px 5px 0 0',
                         overflow: 'hidden',
                       }}>
@@ -618,7 +627,7 @@ const CaseStudies = () => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          backgroundColor: '#ffffff',
+                          backgroundColor: 'var(--color-bg)',
                         }}>
                           <img
                             src={caseStudies[activeCase].image || '/bg.jpg'}
@@ -638,7 +647,7 @@ const CaseStudies = () => {
                             left: 0,
                             right: 0,
                             bottom: 0,
-                            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 30%)',
+                            background: `linear-gradient(180deg, rgba(var(--color-text-rgb), 0.03) 0%, transparent 30%)`,
                             pointerEvents: 'none',
                           }} />
                         </div>
@@ -652,7 +661,7 @@ const CaseStudies = () => {
                         transform: 'translateX(-50%)',
                         width: isMobile ? '40px' : '50px',
                         height: isMobile ? '3px' : '4px',
-                        backgroundColor: '#0a0a0a',
+                        backgroundColor: 'var(--color-accent-dark)',
                         borderRadius: '0 0 6px 6px',
                         zIndex: 10,
                       }} />
@@ -662,10 +671,10 @@ const CaseStudies = () => {
                     <div style={{
                       width: '100%',
                       height: isMobile ? '8px' : '12px',
-                      backgroundColor: '#1a1a1a',
+                      backgroundColor: 'var(--color-accent)',
                       borderRadius: isMobile ? '0 0 12px 12px' : '0 0 16px 16px',
                       marginTop: '-1px',
-                      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)',
+                      boxShadow: 'var(--shadow-lg)',
                       position: 'relative',
                     }}>
                       {/* Trackpad indicator */}
@@ -676,7 +685,7 @@ const CaseStudies = () => {
                         transform: 'translateX(-50%)',
                         width: isMobile ? '60px' : '100px',
                         height: '2px',
-                        backgroundColor: '#2a2a2a',
+                        backgroundColor: 'var(--color-accent-dark)',
                         borderRadius: '2px',
                       }} />
                     </div>
@@ -688,11 +697,11 @@ const CaseStudies = () => {
                       right: isMobile ? '12px' : '20px',
                       padding: isMobile ? '0.375rem 0.75rem' : '0.5rem 1rem',
                       borderRadius: '50px',
-                      backgroundColor: 'var(--color-secondary)',
-                      color: 'white',
+                      backgroundColor: 'var(--color-accent)',
+                      color: 'var(--color-text)',
                       fontWeight: 'bold',
                       fontSize: isMobile ? '0.7rem' : '0.8rem',
-                      boxShadow: '0 4px 15px rgba(15, 23, 42, 0.4)',
+                      boxShadow: 'var(--glow-accent-sm)',
                       zIndex: 10,
                     }}>
                       {caseStudies[activeCase].category}
@@ -704,15 +713,15 @@ const CaseStudies = () => {
                 <div style={{
                   padding: isMobile ? '1.25rem' : '1.5rem',
                   borderRadius: isMobile ? '12px' : '16px',
-                  backgroundColor: 'rgba(15, 23, 42, 0.03)',
-                  borderLeft: '4px solid var(--color-secondary)',
+                  backgroundColor: 'var(--overlay-subtle)',
+                  borderLeft: `4px solid var(--color-accent)`,
                   position: 'relative',
                 }}>
                   <span style={{
                     position: 'absolute',
                     top: '10px',
                     left: '15px',
-                    color: 'rgba(15, 23, 42, 0.2)',
+                    color: 'var(--color-text-subtle)',
                     fontSize: isMobile ? '2.5rem' : '3rem',
                     fontFamily: 'serif',
                     lineHeight: 1,
@@ -723,7 +732,7 @@ const CaseStudies = () => {
                   <p style={{
                     fontSize: isMobile ? '0.875rem' : '1rem',
                     fontStyle: 'italic',
-                    color: 'var(--text-on-light-muted)',
+                    color: 'var(--color-text-muted)',
                     marginBottom: '1rem',
                     position: 'relative',
                     zIndex: 1,
@@ -741,11 +750,11 @@ const CaseStudies = () => {
                       width: isMobile ? '36px' : '40px',
                       height: isMobile ? '36px' : '40px',
                       borderRadius: '50%',
-                      backgroundColor: 'var(--color-secondary)',
+                      backgroundColor: 'var(--color-accent)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: 'white',
+                      color: 'var(--color-text)',
                       fontWeight: 'bold',
                       marginRight: '1rem',
                       fontSize: isMobile ? '0.875rem' : '1rem',
@@ -757,7 +766,7 @@ const CaseStudies = () => {
                       <h5 style={{
                         fontSize: isMobile ? '0.875rem' : '1rem',
                         fontWeight: 'bold',
-                        color: 'var(--text-on-light)',
+                        color: 'var(--color-text)',
                         margin: 0,
                         fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                       }}>
@@ -765,7 +774,7 @@ const CaseStudies = () => {
                       </h5>
                       <span style={{
                         fontSize: isMobile ? '0.8rem' : '0.9rem',
-                        color: 'var(--text-on-light-muted)',
+                        color: 'var(--color-text-muted)',
                         fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                       }}>
                         {caseStudies[activeCase].position}
@@ -793,8 +802,8 @@ const CaseStudies = () => {
                   height: isMobile ? '10px' : '12px',
                   borderRadius: '50%',
                   backgroundColor: activeCase === index
-                    ? 'var(--color-secondary)'
-                    : 'rgba(15, 23, 42, 0.2)',
+                    ? 'var(--color-accent)'
+                    : 'var(--overlay-medium)',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                 }}

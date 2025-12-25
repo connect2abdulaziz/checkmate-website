@@ -32,7 +32,7 @@ const Timeline = ({ hideHeader = false }) => {
     const iconStyle = {
       width: size,
       height: size,
-      filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))',
+      filter: 'drop-shadow(0 4px 8px rgba(var(--color-bg-rgb), 0.3))',
     };
 
     const gradientId1 = `gradient-${iconType}-1`;
@@ -388,7 +388,7 @@ const Timeline = ({ hideHeader = false }) => {
       title: 'Discovery & Planning',
       date: 'Stage 1',
       iconType: 'discovery',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       content: 'We start by understanding your business requirements, technical constraints, and project goals to create a comprehensive development roadmap.',
       image: '/images/discovery-planning.png'
     },
@@ -397,7 +397,7 @@ const Timeline = ({ hideHeader = false }) => {
       title: 'Architecture & Design',
       date: 'Stage 2',
       iconType: 'architecture',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       content: 'Our expert engineers design scalable architecture, select optimal tech stack, and create detailed system specifications for your solution.',
       image: '/images/architecture-design.jpg'
     },
@@ -406,7 +406,7 @@ const Timeline = ({ hideHeader = false }) => {
       title: 'Development & Implementation',
       date: 'Stage 3',
       iconType: 'development',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       content: 'We build your application using modern frameworks, best practices, and secure coding standards, ensuring clean and maintainable code.',
       image: '/images/development-implementation.webp'
     },
@@ -415,7 +415,7 @@ const Timeline = ({ hideHeader = false }) => {
       title: 'Testing & Quality Assurance',
       date: 'Stage 4',
       iconType: 'testing',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       content: 'Rigorous testing ensures reliability, performance, and security. We conduct automated tests, security audits, and performance optimization.',
       image: '/images/testing-qa.jpg'
     },
@@ -424,7 +424,7 @@ const Timeline = ({ hideHeader = false }) => {
       title: 'Deployment & Launch',
       date: 'Stage 5',
       iconType: 'deployment',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       content: 'We deploy your application to production with CI/CD pipelines, monitoring systems, and cloud infrastructure configured for scalability.',
       image: '/images/deployment-launch.jpg'
     },
@@ -433,7 +433,7 @@ const Timeline = ({ hideHeader = false }) => {
       title: 'Support & Optimization',
       date: 'Ongoing',
       iconType: 'support',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       content: 'Continuous monitoring, updates, and optimization ensure your application performs at peak efficiency. We provide ongoing support and maintenance.',
       image: '/images/support-optimization.jpg'
     }
@@ -500,23 +500,19 @@ const Timeline = ({ hideHeader = false }) => {
         padding: hideHeader
           ? (isMobile ? '0 0 3rem' : '0 0 100px')
           : (isMobile ? '3rem 0' : '100px 0'),
-        backgroundColor: '#ffffff',
-        backgroundImage: 'url(/formbg.png)',
-        backgroundSize: 'auto',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'repeat',
+        backgroundColor: 'var(--color-bg)',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* White overlay for subtle background effect */}
+      {/* Background overlay */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        backgroundColor: 'var(--color-bg-medium)',
         zIndex: 1,
         pointerEvents: 'none',
       }} />
@@ -533,39 +529,49 @@ const Timeline = ({ hideHeader = false }) => {
             textAlign: 'center',
             marginBottom: isMobile ? '2.5rem' : '5rem',
           }}>
-            <h6 style={{
-              fontSize: isMobile ? '0.875rem' : '1rem',
-              fontWeight: 700,
-              color: 'var(--color-primary)',
+            <span style={{
+              display: 'inline-block',
+              padding: '0.5rem 1.25rem',
+              background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.7))',
+              color: 'var(--color-text)',
+              fontSize: isMobile ? '0.75rem' : '0.85rem',
+              fontWeight: 600,
+              borderRadius: '50px',
               textTransform: 'uppercase',
-              letterSpacing: '2px',
-              marginBottom: '1rem',
+              letterSpacing: '1.5px',
+              marginBottom: '1.5rem',
               fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-              textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
+              boxShadow: 'var(--glow-accent-sm)',
             }}>
               Our Process
-            </h6>
+            </span>
             <h2 style={{
-              fontSize: isMobile ? '1.75rem' : '2.8rem',
+              fontSize: isMobile ? 'clamp(2rem, 5vw, 2.5rem)' : 'clamp(2.5rem, 5vw, 3.5rem)',
               fontWeight: 700,
               marginBottom: '1.5rem',
-              color: '#0F172A',
+              color: 'var(--color-text)',
               lineHeight: 1.2,
               fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-              textShadow: '0 2px 4px rgba(255, 255, 255, 0.5)',
             }}>
-              From Concept to Deployment
+              From Concept to{' '}
+              <span style={{
+                background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.8))',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
+                Deployment
+              </span>
             </h2>
             <p style={{
               fontSize: isMobile ? '1rem' : '1.2rem',
               maxWidth: '700px',
               margin: '0 auto',
-              color: '#1A202C',
+              color: 'var(--color-text-muted)',
               lineHeight: 1.6,
               padding: isMobile ? '0 0.5rem' : '0',
               fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
               fontWeight: 500,
-              textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
             }}>
               Our proven development process ensures your project is delivered on time,
               within budget, and built to scale with your business needs.
@@ -588,7 +594,7 @@ const Timeline = ({ hideHeader = false }) => {
               top: 0,
               bottom: 0,
               width: isMobile ? '2px' : '4px',
-              backgroundColor: '#e0e0e0',
+              backgroundColor: 'var(--border-light)',
               transform: isMobile ? 'none' : 'translateX(-50%)',
               opacity: progressOpacity,
             }}
@@ -601,7 +607,7 @@ const Timeline = ({ hideHeader = false }) => {
                 left: 0,
                 width: '100%',
                 height: '0%',
-                backgroundColor: 'var(--color-secondary)',
+                backgroundColor: 'var(--color-accent)',
               }}
             />
           </motion.div>
@@ -669,8 +675,8 @@ const TimelineItem = ({ item, index, isEven, isActive, setActiveItem, total, Tim
           display: 'inline-block',
           padding: isMobile ? '0.25rem 0.7rem' : '0.3rem 0.8rem',
           borderRadius: '50px',
-          backgroundColor: 'var(--color-secondary-light)',
-          color: 'var(--color-secondary)',
+          backgroundColor: 'var(--color-accent-light)',
+          color: 'var(--color-accent)',
           marginBottom: '1rem',
           fontSize: isMobile ? '0.75rem' : '0.9rem',
           fontWeight: 'bold',
@@ -683,7 +689,7 @@ const TimelineItem = ({ item, index, isEven, isActive, setActiveItem, total, Tim
           fontSize: isMobile ? '1.25rem' : '1.8rem',
           fontWeight: 'bold',
           marginBottom: '1rem',
-          color: '#333',
+          color: 'var(--color-text)',
           lineHeight: 1.3,
           fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
         }}>
@@ -692,7 +698,7 @@ const TimelineItem = ({ item, index, isEven, isActive, setActiveItem, total, Tim
 
         <p style={{
           fontSize: isMobile ? '0.9rem' : '1rem',
-          color: '#666',
+          color: 'var(--color-text-muted)',
           lineHeight: 1.6,
           marginBottom: '1.5rem',
           fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
@@ -708,9 +714,9 @@ const TimelineItem = ({ item, index, isEven, isActive, setActiveItem, total, Tim
             alignItems: 'center',
             padding: isMobile ? '0.6rem 1rem' : '0.7rem 1.2rem',
             background: 'transparent',
-            border: '2px solid var(--color-secondary)',
+            border: `2px solid var(--color-accent)`,
             borderRadius: '50px',
-            color: 'var(--color-secondary)',
+            color: 'var(--color-accent)',
             fontWeight: 'bold',
             cursor: 'pointer',
             fontSize: isMobile ? '0.8rem' : '0.9rem',
@@ -748,14 +754,14 @@ const TimelineItem = ({ item, index, isEven, isActive, setActiveItem, total, Tim
           width: isMobile ? '50px' : '80px',
           height: isMobile ? '50px' : '80px',
           borderRadius: '50%',
-          backgroundColor: isActive ? 'var(--color-secondary)' : '#f0f0f0',
+          backgroundColor: isActive ? 'var(--color-accent)' : 'var(--overlay-medium)',
           boxShadow: isActive
-            ? `0 0 0 ${isMobile ? '3px' : '5px'} var(--color-secondary-light), 0 5px 20px rgba(0,0,0,0.15)`
-            : '0 5px 15px rgba(0,0,0,0.1)',
+            ? `0 0 0 ${isMobile ? '3px' : '5px'} var(--color-accent-light), var(--shadow-md)`
+            : 'var(--shadow-sm)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: isActive ? 'white' : '#aaa',
+          color: isActive ? 'var(--color-text)' : 'var(--color-text-subtle)',
           zIndex: 2,
           transition: 'all 0.3s ease',
           position: 'absolute',
@@ -764,7 +770,7 @@ const TimelineItem = ({ item, index, isEven, isActive, setActiveItem, total, Tim
           transform: isMobile ? 'translateY(-50%)' : 'translate(-50%, -50%)',
         }}
       >
-        <TimelineIcon iconType={item.iconType} size={isMobile ? 24 : 40} color={isActive ? 'white' : '#aaa'} />
+        <TimelineIcon iconType={item.iconType} size={isMobile ? 24 : 40} color={isActive ? 'var(--color-text)' : 'var(--color-text-subtle)'} />
 
         {/* Progress indicator for first and last items */}
         {index === 0 && (
@@ -775,7 +781,7 @@ const TimelineItem = ({ item, index, isEven, isActive, setActiveItem, total, Tim
             transform: 'translateX(-50%)',
             fontSize: isMobile ? '0.7rem' : '0.8rem',
             fontWeight: 'bold',
-            color: '#666',
+            color: 'var(--color-text-muted)',
             whiteSpace: 'nowrap',
             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
           }}>
@@ -791,7 +797,7 @@ const TimelineItem = ({ item, index, isEven, isActive, setActiveItem, total, Tim
             transform: 'translateX(-50%)',
             fontSize: isMobile ? '0.7rem' : '0.8rem',
             fontWeight: 'bold',
-            color: '#666',
+            color: 'var(--color-text-muted)',
             whiteSpace: 'nowrap',
             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
           }}>
@@ -807,12 +813,11 @@ const TimelineItem = ({ item, index, isEven, isActive, setActiveItem, total, Tim
           animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: isEven ? 50 : -50 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           style={{
-            flex: 1,
-            maxWidth: '400px',
-            height: '250px',
+            width: '400px',
+            height: '300px',
             borderRadius: '12px',
             overflow: 'hidden',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+            boxShadow: 'var(--shadow-lg)',
             marginLeft: isEven ? 'auto' : 0,
             marginRight: isEven ? 0 : 'auto',
             position: 'relative',
@@ -820,37 +825,20 @@ const TimelineItem = ({ item, index, isEven, isActive, setActiveItem, total, Tim
         >
           {/* Actual image background */}
           <div style={{
-            width: '100%',
-            height: '100%',
+            width: '400px',
+            height: '300px',
             backgroundImage: `url(${item.image})`,
-            backgroundSize: 'contain',
+            backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            backgroundColor: '#f8f9fa',
+            backgroundColor: 'var(--color-bg-light)',
             position: 'relative',
           }}>
             {/* Subtle overlay for better text visibility */}
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'linear-gradient(to top, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.1))',
-            }} />
+
           </div>
 
-          {/* Image overlay with gradient */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'linear-gradient(to top, var(--color-secondary-medium), transparent)',
-            opacity: isActive ? 0.5 : 0,
-            transition: 'opacity 0.3s ease',
-          }} />
+
         </motion.div>
       )}
     </div>

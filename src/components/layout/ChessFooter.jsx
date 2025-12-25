@@ -90,12 +90,9 @@ const ChessFooter = () => {
       className="footer"
       style={{
         position: 'relative',
-        backgroundImage: 'url(/formbg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: '#0F172A',
-        color: 'var(--text-on-dark)',
+        
+        backgroundColor: 'var(--color-bg)',
+        color: 'var(--color-text)',
         overflow: 'hidden',
       }}
     >
@@ -120,16 +117,18 @@ const ChessFooter = () => {
         >
           <path
             d="M0,50 C360,90 720,10 1080,50 C1260,70 1380,40 1440,50 L1440,100 L0,100 Z"
-            fill="#0F172A"
+            fill="var(--color-bg)"
           />
         </svg>
       </div>
 
-      {/* Dark overlay to maintain color theme */}
+      {/* Dark glass overlay */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        backgroundColor: 'rgba(15, 23, 42, 0.88)',
+        backgroundColor: 'var(--glass-bg-dark)',
+        backdropFilter: 'var(--glass-blur)',
+        WebkitBackdropFilter: 'var(--glass-blur)',
         zIndex: 0,
       }} />
 
@@ -137,11 +136,13 @@ const ChessFooter = () => {
       <div style={{
         position: 'absolute',
         inset: 0,
-        backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(148, 163, 184, 0.05) 1px, transparent 0)',
+        backgroundImage: 'radial-gradient(circle at 2px 2px, var(--color-text-faint) 1px, transparent 0)',
         backgroundSize: '50px 50px',
-        opacity: 0.5,
+        opacity: 0.3,
         zIndex: 1,
       }} />
+
+      
 
       {/* Main footer content */}
       <div className="footer-main" style={{
@@ -184,7 +185,6 @@ const ChessFooter = () => {
                       height: '56px',
                       width: 'auto',
                       objectFit: 'contain',
-                      mixBlendMode: 'screen',
                       filter: 'brightness(1.1) contrast(1.05)',
                     }}
                   />
@@ -193,7 +193,7 @@ const ChessFooter = () => {
 
               <p
                 style={{
-                  color: 'var(--text-on-dark-muted)',
+                  color: 'var(--color-text-muted)',
                   lineHeight: 1.6,
                   marginBottom: '1.5rem',
                   maxWidth: '320px',
@@ -222,20 +222,21 @@ const ChessFooter = () => {
                     aria-label={social.ariaLabel}
                     whileHover={{
                       y: -3,
-                      backgroundColor: 'var(--color-primary)',
-                      borderColor: 'var(--color-primary)',
+                      backgroundColor: 'var(--color-accent)',
+                      borderColor: 'var(--color-accent)',
+                      boxShadow: 'var(--glow-accent-sm)',
                     }}
                     style={{
                       width: '44px',
                       height: '44px',
-                      borderRadius: '10px',
-                      backgroundColor: 'rgba(255,255,255,0.05)',
+                      borderRadius: 'var(--radius-md)',
+                      backgroundColor: 'var(--overlay-light)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: 'var(--text-on-dark-muted)',
-                      border: '1px solid var(--color-secondary-medium)',
-                      transition: 'all 0.3s ease',
+                      color: 'var(--color-text-muted)',
+                      border: '1px solid var(--border-light)',
+                      transition: 'var(--transition-normal)',
                     }}
                   >
                     <SocialIcon icon={social.icon} />
@@ -257,22 +258,22 @@ const ChessFooter = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.75rem',
-                    color: 'var(--text-on-dark-muted)',
+                    color: 'var(--color-text-muted)',
                     textDecoration: 'none',
                     fontSize: '0.875rem',
                     fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
-                    transition: 'color 0.2s ease',
+                    transition: 'var(--transition-fast)',
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-on-dark)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-on-dark-muted)'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-text)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
                 >
                   <div
                     style={{
                       width: '36px',
                       height: '36px',
-                      borderRadius: '8px',
-                      backgroundColor: 'rgba(255,255,255,0.05)',
-                      border: '1px solid var(--color-secondary-medium)',
+                      borderRadius: 'var(--radius-sm)',
+                      backgroundColor: 'var(--overlay-light)',
+                      border: '1px solid var(--border-light)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -297,7 +298,7 @@ const ChessFooter = () => {
                     fontSize: '1.125rem',
                     fontWeight: '700',
                     marginBottom: '1.25rem',
-                    color: 'var(--text-on-dark)',
+                    color: 'var(--color-text)',
                     fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                   }}
                 >
@@ -318,13 +319,13 @@ const ChessFooter = () => {
                     <li key={`footer-link-${colIndex}-${linkIndex}`}>
                       <Link href={link.url}>
                         <motion.div
-                          whileHover={{ x: 3, color: 'var(--text-on-dark)' }}
+                          whileHover={{ x: 3, color: 'var(--color-text)' }}
                           style={{
-                            color: 'var(--text-on-dark-muted)',
+                            color: 'var(--color-text-muted)',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.5rem',
-                            transition: 'all 0.2s ease',
+                            transition: 'var(--transition-fast)',
                             fontSize: '0.9375rem',
                             fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                           }}
@@ -335,7 +336,7 @@ const ChessFooter = () => {
                               width: '4px',
                               height: '4px',
                               borderRadius: '50%',
-                              backgroundColor: 'var(--color-primary)',
+                              backgroundColor: 'var(--color-accent)',
                               flexShrink: 0,
                               opacity: 0.6,
                             }}
@@ -357,9 +358,10 @@ const ChessFooter = () => {
         className="footer-bottom"
         style={{
           padding: '1.5rem 0',
-          borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          backdropFilter: 'blur(10px)',
+          borderTop: '1px solid var(--border-subtle)',
+          backgroundColor: 'var(--color-bg-dark)',
+          backdropFilter: 'var(--glass-blur)',
+          WebkitBackdropFilter: 'var(--glass-blur)',
           position: 'relative',
           zIndex: 2,
         }}
@@ -378,7 +380,7 @@ const ChessFooter = () => {
           }}
         >
           <p style={{
-            color: 'var(--text-on-dark-muted)',
+            color: 'var(--color-text-muted)',
             fontSize: '0.875rem',
             margin: 0,
             fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -395,12 +397,12 @@ const ChessFooter = () => {
           >
             <Link href="/privacy">
               <motion.span
-                whileHover={{ color: 'var(--color-primary)' }}
+                whileHover={{ color: 'var(--color-accent)' }}
                 style={{
-                  color: 'var(--text-on-dark-muted)',
+                  color: 'var(--color-text-muted)',
                   fontSize: '0.875rem',
                   cursor: 'pointer',
-                  transition: 'color 0.2s ease',
+                  transition: 'var(--transition-fast)',
                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                 }}
               >
@@ -410,12 +412,12 @@ const ChessFooter = () => {
 
             <Link href="/terms">
               <motion.span
-                whileHover={{ color: 'var(--color-primary)' }}
+                whileHover={{ color: 'var(--color-accent)' }}
                 style={{
-                  color: 'var(--text-on-dark-muted)',
+                  color: 'var(--color-text-muted)',
                   fontSize: '0.875rem',
                   cursor: 'pointer',
-                  transition: 'color 0.2s ease',
+                  transition: 'var(--transition-fast)',
                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                 }}
               >
@@ -425,12 +427,12 @@ const ChessFooter = () => {
 
             <Link href="/sitemap">
               <motion.span
-                whileHover={{ color: 'var(--color-primary)' }}
+                whileHover={{ color: 'var(--color-accent)' }}
                 style={{
-                  color: 'var(--text-on-dark-muted)',
+                  color: 'var(--color-text-muted)',
                   fontSize: '0.875rem',
                   cursor: 'pointer',
-                  transition: 'color 0.2s ease',
+                  transition: 'var(--transition-fast)',
                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                 }}
               >

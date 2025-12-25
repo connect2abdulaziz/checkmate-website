@@ -15,47 +15,7 @@ const EnhancedAIStrategyAnalyzer = () => {
   const analyzerRef = useRef(null);
   const progressRef = useRef(null);
 
-  // Professional SVG Icons Component
-  const QuestionIcon = ({ type }) => {
-    const icons = {
-      service: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-          <line x1="8" y1="21" x2="16" y2="21"></line>
-          <line x1="12" y1="17" x2="12" y2="21"></line>
-        </svg>
-      ),
-      size: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
-      ),
-      goal: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <circle cx="12" cy="12" r="6"></circle>
-          <circle cx="12" cy="12" r="2"></circle>
-        </svg>
-      ),
-      challenge: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-          <path d="M2 17l10 5 10-5"></path>
-          <path d="M2 12l10 5 10-5"></path>
-        </svg>
-      ),
-      timeframe: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 6 12 12 16 14"></polyline>
-        </svg>
-      )
-    };
-    return icons[type] || icons.service;
-  };
+
 
   // Define questions for technology needs analysis
   const questions = [
@@ -63,7 +23,7 @@ const EnhancedAIStrategyAnalyzer = () => {
       id: 'service',
       question: 'What service do you need most?',
       iconType: 'service',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       options: [
         { value: 'fullstack', label: 'Full-Stack Development' },
         { value: 'software', label: 'Software Engineering' },
@@ -77,7 +37,7 @@ const EnhancedAIStrategyAnalyzer = () => {
       id: 'size',
       question: 'What is the size of your organization?',
       iconType: 'size',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       options: [
         { value: 'startup', label: 'Startup (1-10 employees)' },
         { value: 'small', label: 'Small Business (11-50 employees)' },
@@ -89,7 +49,7 @@ const EnhancedAIStrategyAnalyzer = () => {
       id: 'goal',
       question: 'What is your primary goal?',
       iconType: 'goal',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       options: [
         { value: 'launch', label: 'Launch New Product/Service' },
         { value: 'scale', label: 'Scale Existing Platform' },
@@ -102,7 +62,7 @@ const EnhancedAIStrategyAnalyzer = () => {
       id: 'challenge',
       question: 'What is your biggest technical challenge?',
       iconType: 'challenge',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       options: [
         { value: 'performance', label: 'Performance & Scalability' },
         { value: 'security', label: 'Security Vulnerabilities' },
@@ -116,7 +76,7 @@ const EnhancedAIStrategyAnalyzer = () => {
       id: 'timeframe',
       question: 'What is your project timeframe?',
       iconType: 'timeframe',
-      color: 'var(--color-secondary)',
+      color: 'var(--color-accent)',
       options: [
         { value: 'urgent', label: 'Urgent (0-3 months)' },
         { value: 'short', label: 'Short-term (3-6 months)' },
@@ -139,7 +99,7 @@ const EnhancedAIStrategyAnalyzer = () => {
   const defaultStrategy = {
     name: "Comprehensive Development Package",
     icon: <ResultIcon />,
-    color: "var(--color-secondary)",
+    color: "var(--color-accent)",
     description: "A balanced approach combining full-stack development with cloud infrastructure and security best practices.",
     moves: [
       "Assess current technology stack and infrastructure",
@@ -159,7 +119,7 @@ const EnhancedAIStrategyAnalyzer = () => {
         launch: {
           name: "Starter Build Package",
           icon: <ResultIcon />,
-          color: "var(--color-secondary)",
+          color: "var(--color-accent)",
           description: "Perfect for MVPs and small SaaS applications. Get your product to market quickly with a solid foundation.",
           moves: [
             "Build responsive frontend with React/Next.js",
@@ -174,7 +134,7 @@ const EnhancedAIStrategyAnalyzer = () => {
         scale: {
           name: "Professional App Package",
           icon: <ResultIcon />,
-          color: "var(--color-secondary)",
+          color: "var(--color-accent)",
           description: "Scalable architecture for growing applications. Built to handle increased traffic and complexity.",
           moves: [
             "Design scalable microservices architecture",
@@ -191,7 +151,7 @@ const EnhancedAIStrategyAnalyzer = () => {
         launch: {
           name: "Professional App Package",
           icon: <ResultIcon />,
-          color: "var(--color-secondary)",
+          color: "var(--color-accent)",
           description: "Custom UI/UX with secure authentication and robust backend systems.",
           moves: [
             "Custom UI/UX design and implementation",
@@ -210,7 +170,7 @@ const EnhancedAIStrategyAnalyzer = () => {
         migrate: {
           name: "Cloud Essentials Package",
           icon: <ResultIcon />,
-          color: "var(--color-secondary)",
+          color: "var(--color-accent)",
           description: "Perfect for startups getting started with cloud infrastructure.",
           moves: [
             "AWS/GCP cloud setup and configuration",
@@ -227,7 +187,7 @@ const EnhancedAIStrategyAnalyzer = () => {
         scale: {
           name: "Managed Cloud Ops Package",
           icon: "☁️",
-          color: "var(--color-secondary)",
+          color: "var(--color-accent)",
           description: "24/7 monitoring and management for growing companies.",
           moves: [
             "24/7 monitoring and alerting",
@@ -246,7 +206,7 @@ const EnhancedAIStrategyAnalyzer = () => {
         security: {
           name: "Basic Security Maintenance",
           icon: "🔒",
-          color: "var(--color-secondary)",
+          color: "var(--color-accent)",
           description: "Essential security services for small businesses.",
           moves: [
             "Monthly vulnerability scanning",
@@ -263,7 +223,7 @@ const EnhancedAIStrategyAnalyzer = () => {
         compliance: {
           name: "Compliance Suite",
           icon: "🔒",
-          color: "var(--color-secondary)",
+          color: "var(--color-accent)",
           description: "Full compliance support for SOC 2 and GDPR requirements.",
           moves: [
             "SOC 2/GDPR readiness assessment",
@@ -439,14 +399,14 @@ const EnhancedAIStrategyAnalyzer = () => {
     }),
     hover: {
       scale: 1.03,
-      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)'
+      boxShadow: 'var(--shadow-md)'
     },
     tap: {
       scale: 0.98
     },
     selected: {
       scale: 1.03,
-      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)'
+      boxShadow: 'var(--shadow-md)'
     }
   };
 
@@ -512,24 +472,20 @@ const EnhancedAIStrategyAnalyzer = () => {
       style={{
         padding: '80px 0',
         position: 'relative',
-        backgroundImage: 'url(/formbg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: '#ffffff',
-        color: 'var(--text-on-light)',
+        background: 'var(--color-bg)',
+        color: 'var(--color-text)',
         overflow: 'hidden',
         marginTop: '-1px',
       }}
     >
-      {/* Background overlay for lower intensity */}
+      {/* Background overlay */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        backgroundColor: 'var(--color-bg-medium)',
         zIndex: 0,
         pointerEvents: 'none',
       }} />
@@ -586,7 +542,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                     style={{
                       width: `${lineWidthPercent}%`,
                       height: '1.5px',
-                      background: `linear-gradient(90deg, transparent 0%, rgba(15, 23, 42, ${lineOpacity * 0.5}) 30%, rgba(15, 23, 42, ${lineOpacity}) 70%, rgba(15, 23, 42, ${lineOpacity * 1.2}) 100%)`,
+                      background: `linear-gradient(90deg, transparent 0%, rgba(var(--color-text-rgb), ${lineOpacity * 0.5}) 30%, rgba(var(--color-text-rgb), ${lineOpacity}) 70%, rgba(var(--color-text-rgb), ${lineOpacity * 1.2}) 100%)`,
                       borderRadius: '2px',
                       transform: `translateX(${offset}px)`,
                       opacity: 0.7 + depth * 0.1,
@@ -601,7 +557,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                     style={{
                       width: `${lineWidthPercent}%`,
                       height: '1.5px',
-                      background: `linear-gradient(90deg, rgba(15, 23, 42, ${lineOpacity * 1.2}) 0%, rgba(15, 23, 42, ${lineOpacity}) 30%, rgba(15, 23, 42, ${lineOpacity * 0.5}) 70%, transparent 100%)`,
+                      background: `linear-gradient(90deg, rgba(var(--color-text-rgb), ${lineOpacity * 1.2}) 0%, rgba(var(--color-text-rgb), ${lineOpacity}) 30%, rgba(var(--color-text-rgb), ${lineOpacity * 0.5}) 70%, transparent 100%)`,
                       borderRadius: '2px',
                       transform: `translateX(${-offset}px)`,
                       opacity: 0.7 + depth * 0.1,
@@ -658,7 +614,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                     style={{
                       width: `${lineWidthPercent}%`,
                       height: '1px',
-                      background: `linear-gradient(90deg, transparent 0%, rgba(15, 23, 42, ${lineOpacity}) 50%, rgba(15, 23, 42, ${lineOpacity * 1.5}) 100%)`,
+                      background: `linear-gradient(90deg, transparent 0%, rgba(var(--color-text-rgb), ${lineOpacity}) 50%, rgba(var(--color-text-rgb), ${lineOpacity * 1.5}) 100%)`,
                       borderRadius: '1px',
                     }}
                   />
@@ -671,7 +627,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                     style={{
                       width: `${lineWidthPercent}%`,
                       height: '1px',
-                      background: `linear-gradient(90deg, rgba(15, 23, 42, ${lineOpacity * 1.5}) 0%, rgba(15, 23, 42, ${lineOpacity}) 50%, transparent 100%)`,
+                      background: `linear-gradient(90deg, rgba(var(--color-text-rgb), ${lineOpacity * 1.5}) 0%, rgba(var(--color-text-rgb), ${lineOpacity}) 50%, transparent 100%)`,
                       borderRadius: '1px',
                     }}
                   />
@@ -694,46 +650,50 @@ const EnhancedAIStrategyAnalyzer = () => {
             textAlign: 'center',
             marginBottom: '3rem',
           }}>
-            <motion.div
+            <motion.span
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '0.5rem 1rem',
-                background: 'var(--color-secondary-light)',
-                borderRadius: '8px',
+                display: 'inline-block',
+                padding: '0.5rem 1.25rem',
+                background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.7))',
+                color: 'var(--color-text)',
+                fontSize: isMobile ? '0.75rem' : '0.85rem',
+                fontWeight: 600,
+                borderRadius: '50px',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
                 marginBottom: '1.5rem',
+                fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                boxShadow: 'var(--glow-accent-sm)',
               }}
             >
-              <span style={{
-                color: 'var(--color-secondary)',
-                fontWeight: '600',
-                fontSize: '0.875rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-              }}>
-                Service Recommendation Tool
-              </span>
-            </motion.div>
+              Service Recommendation Tool
+            </motion.span>
 
             <motion.h2
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               style={{
-                fontSize: isMobile ? '2rem' : '3rem',
+                fontSize: isMobile ? 'clamp(2rem, 5vw, 2.5rem)' : 'clamp(2.5rem, 5vw, 3.5rem)',
                 fontWeight: '700',
                 marginBottom: '1rem',
-                color: 'var(--text-on-light)',
+                color: 'var(--color-text)',
                 fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                 lineHeight: 1.2,
               }}
             >
-              Find Your Perfect Service Package
+              Find Your Perfect{' '}
+              <span style={{
+                background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.8))',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
+                Service Package
+              </span>
             </motion.h2>
 
             <motion.p
@@ -742,7 +702,7 @@ const EnhancedAIStrategyAnalyzer = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               style={{
                 fontSize: isMobile ? '1rem' : '1.25rem',
-                color: 'var(--text-on-light-muted)',
+                color: 'var(--color-text-muted)',
                 maxWidth: '700px',
                 margin: '0 auto',
                 lineHeight: 1.7,
@@ -795,21 +755,21 @@ const EnhancedAIStrategyAnalyzer = () => {
                       width: '40px',
                       height: '40px',
                       borderRadius: '12px',
-                      background: 'var(--color-secondary)',
+                      background: 'var(--color-accent)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: 'white',
+                      color: 'var(--color-text)',
                       fontWeight: '700',
                       fontSize: '0.875rem',
-                      boxShadow: '0 4px 12px rgba(15, 23, 42, 0.25)',
+                      boxShadow: 'var(--glow-accent-sm)',
                     }}>
                       {currentQuestion + 1}
                     </div>
                     <div>
                       <div style={{
                         fontSize: '0.875rem',
-                        color: 'var(--text-on-light-muted)',
+                        color: 'var(--color-text-muted)',
                         fontWeight: '500',
                         marginBottom: '0.125rem',
                         fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
@@ -818,7 +778,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                       </div>
                       <div style={{
                         fontSize: '0.75rem',
-                        color: 'var(--text-on-light-muted)',
+                        color: 'var(--color-text-muted)',
                         opacity: 0.7,
                         fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                       }}>
@@ -829,7 +789,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                   <div style={{
                     fontSize: '1.125rem',
                     fontWeight: '700',
-                    color: 'var(--color-secondary)',
+                    color: 'var(--color-accent)',
                     fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                   }}>
                     {Math.round((Object.keys(answers).length / questions.length) * 100)}%
@@ -840,10 +800,10 @@ const EnhancedAIStrategyAnalyzer = () => {
                 <div style={{
                   position: 'relative',
                   height: '8px',
-                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  backgroundColor: 'var(--overlay-medium)',
                   borderRadius: '100px',
                   overflow: 'hidden',
-                  boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.05)',
+                  boxShadow: 'inset 0 1px 2px var(--overlay-medium)',
                 }}>
                   {/* Animated background shimmer */}
                   <motion.div
@@ -861,7 +821,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%)',
+                      background: `linear-gradient(90deg, transparent 0%, rgba(var(--color-text-rgb), 0.1) 50%, transparent 100%)`,
                       backgroundSize: '200% 100%',
                       opacity: 0.5,
                     }}
@@ -876,9 +836,9 @@ const EnhancedAIStrategyAnalyzer = () => {
                       left: 0,
                       height: '100%',
                       width: '0%',
-                      background: 'linear-gradient(90deg, var(--color-secondary) 0%, var(--color-secondary) 100%)',
+                      background: 'linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-dark) 100%)',
                       borderRadius: '100px',
-                      boxShadow: '0 0 12px rgba(15, 23, 42, 0.4)',
+                      boxShadow: 'var(--glow-accent-sm)',
                       position: 'relative',
                       overflow: 'hidden',
                     }}
@@ -900,7 +860,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%)',
+                        background: `linear-gradient(90deg, transparent 0%, rgba(var(--color-text-rgb), 0.2) 50%, transparent 100%)`,
                         width: '50%',
                       }}
                     />
@@ -928,10 +888,10 @@ const EnhancedAIStrategyAnalyzer = () => {
                             height: '4px',
                             borderRadius: '50%',
                             backgroundColor: isAnswered
-                              ? 'rgba(255, 255, 255, 0.8)'
-                              : 'rgba(0, 0, 0, 0.1)',
+                              ? 'var(--color-accent)'
+                              : 'var(--overlay-medium)',
                             boxShadow: isAnswered
-                              ? '0 0 4px rgba(255, 255, 255, 0.6)'
+                              ? 'var(--glow-accent-sm)'
                               : 'none',
                           }}
                         />
@@ -974,26 +934,14 @@ const EnhancedAIStrategyAnalyzer = () => {
                           textAlign: 'center',
                         }}
                       >
-                        <div style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          width: '48px',
-                          height: '48px',
-                          borderRadius: '10px',
-                          backgroundColor: 'var(--color-secondary-light)',
-                          color: 'var(--color-secondary)',
-                          marginBottom: '1.5rem',
-                        }}>
-                          <QuestionIcon type={questions[currentQuestion].iconType} />
-                        </div>
+
 
                         <motion.h3
                           variants={itemVariants}
                           style={{
                             fontSize: isMobile ? '1.5rem' : '2rem',
                             fontWeight: '700',
-                            color: 'var(--text-on-light)',
+                            color: 'var(--color-text)',
                             fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                             lineHeight: 1.3,
                             marginBottom: '0.75rem',
@@ -1030,16 +978,16 @@ const EnhancedAIStrategyAnalyzer = () => {
                               style={{
                                 padding: '1.25rem 1.5rem',
                                 background: isSelected
-                                  ? 'var(--color-secondary)'
-                                  : 'white',
+                                  ? 'var(--color-accent)'
+                                  : 'var(--glass-bg)',
                                 border: `2px solid ${isSelected
-                                  ? 'var(--color-secondary)'
-                                  : 'rgba(0, 0, 0, 0.08)'
+                                  ? 'var(--color-accent)'
+                                  : 'var(--border-light)'
                                   }`,
                                 borderRadius: '12px',
                                 color: isSelected
-                                  ? 'white'
-                                  : 'var(--text-on-light)',
+                                  ? 'var(--color-text)'
+                                  : 'var(--color-text)',
                                 textAlign: 'left',
                                 fontWeight: isSelected ? '600' : '500',
                                 cursor: 'pointer',
@@ -1051,8 +999,8 @@ const EnhancedAIStrategyAnalyzer = () => {
                                 alignItems: 'center',
                                 gap: '1rem',
                                 boxShadow: isSelected
-                                  ? '0 4px 12px rgba(15, 23, 42, 0.2)'
-                                  : '0 2px 4px rgba(0, 0, 0, 0.04)',
+                                  ? 'var(--glow-accent-sm)'
+                                  : 'var(--shadow-sm)',
                                 fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                               }}
                             >
@@ -1066,14 +1014,14 @@ const EnhancedAIStrategyAnalyzer = () => {
                                   height: '20px',
                                   borderRadius: '50%',
                                   border: `2px solid ${isSelected
-                                    ? 'white'
-                                    : 'var(--text-on-light-muted)'
+                                    ? 'var(--color-text)'
+                                    : 'var(--color-text-muted)'
                                     }`,
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
                                   flexShrink: 0,
-                                  backgroundColor: isSelected ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                                  backgroundColor: isSelected ? 'var(--color-accent-medium)' : 'transparent',
                                 }}
                               >
                                 {isSelected && (
@@ -1084,7 +1032,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                                       width: '8px',
                                       height: '8px',
                                       borderRadius: '50%',
-                                      backgroundColor: 'white',
+                                      backgroundColor: 'var(--color-text)',
                                     }}
                                   />
                                 )}
@@ -1100,7 +1048,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                                   height="20"
                                   viewBox="0 0 24 24"
                                   fill="none"
-                                  stroke="white"
+                                  stroke="var(--color-text)"
                                   strokeWidth="2.5"
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -1121,7 +1069,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                       alignItems: 'center',
                       marginTop: '2.5rem',
                       paddingTop: '2rem',
-                      borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+                      borderTop: `1px solid var(--border-light)`,
                     }}>
                       <motion.button
                         whileHover={{ opacity: currentQuestion === 0 ? 0.5 : 0.8 }}
@@ -1133,7 +1081,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                           background: 'transparent',
                           border: 'none',
                           borderRadius: '8px',
-                          color: 'var(--text-on-light-muted)',
+                          color: 'var(--color-text-muted)',
                           cursor: currentQuestion === 0 ? 'not-allowed' : 'pointer',
                           opacity: currentQuestion === 0 ? 0.3 : 1,
                           display: 'flex',
@@ -1164,7 +1112,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                         <motion.button
                           whileHover={isCurrentQuestionAnswered() ? {
                             scale: 1.02,
-                            boxShadow: '0 4px 12px rgba(15, 23, 42, 0.25)'
+                            boxShadow: 'var(--glow-accent-md)'
                           } : {}}
                           whileTap={isCurrentQuestionAnswered() ? { scale: 0.98 } : {}}
                           onClick={analyzeStrategy}
@@ -1172,9 +1120,9 @@ const EnhancedAIStrategyAnalyzer = () => {
                           style={{
                             padding: isMobile ? '0.625rem 1.25rem' : '0.75rem 1.75rem',
                             background: isCurrentQuestionAnswered()
-                              ? 'var(--color-secondary)'
-                              : 'rgba(0, 0, 0, 0.05)',
-                            color: isCurrentQuestionAnswered() ? 'white' : 'var(--text-on-light-muted)',
+                              ? 'var(--color-accent)'
+                              : 'var(--overlay-medium)',
+                            color: isCurrentQuestionAnswered() ? 'var(--color-text)' : 'var(--color-text-muted)',
                             border: 'none',
                             borderRadius: '8px',
                             fontWeight: '600',
@@ -1184,7 +1132,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                             alignItems: 'center',
                             gap: '0.5rem',
                             boxShadow: isCurrentQuestionAnswered()
-                              ? '0 2px 8px rgba(15, 23, 42, 0.2)'
+                              ? 'var(--glow-accent-sm)'
                               : 'none',
                             transition: 'all 0.2s ease',
                             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
@@ -1208,7 +1156,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                         <motion.button
                           whileHover={isCurrentQuestionAnswered() ? {
                             scale: 1.02,
-                            boxShadow: '0 4px 12px rgba(15, 23, 42, 0.25)'
+                            boxShadow: 'var(--glow-accent-md)'
                           } : {}}
                           whileTap={isCurrentQuestionAnswered() ? { scale: 0.98 } : {}}
                           onClick={() => isCurrentQuestionAnswered() && setCurrentQuestion(currentQuestion + 1)}
@@ -1216,9 +1164,9 @@ const EnhancedAIStrategyAnalyzer = () => {
                           style={{
                             padding: '0.75rem 1.75rem',
                             background: isCurrentQuestionAnswered()
-                              ? 'var(--color-secondary)'
-                              : 'rgba(0, 0, 0, 0.05)',
-                            color: isCurrentQuestionAnswered() ? 'white' : 'var(--text-on-light-muted)',
+                              ? 'var(--color-accent)'
+                              : 'var(--overlay-medium)',
+                            color: isCurrentQuestionAnswered() ? 'var(--color-text)' : 'var(--color-text-muted)',
                             border: 'none',
                             borderRadius: '8px',
                             fontWeight: '600',
@@ -1228,7 +1176,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                             alignItems: 'center',
                             gap: '0.5rem',
                             boxShadow: isCurrentQuestionAnswered()
-                              ? '0 2px 8px rgba(15, 23, 42, 0.2)'
+                              ? 'var(--glow-accent-sm)'
                               : 'none',
                             transition: 'all 0.2s ease',
                             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
@@ -1262,9 +1210,11 @@ const EnhancedAIStrategyAnalyzer = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: 'rgba(15, 23, 42, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  boxShadow: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+                  background: 'var(--glass-bg-dark)',
+                  border: `1px solid var(--glass-border)`,
+                  boxShadow: 'var(--shadow-lg)',
+                  backdropFilter: 'var(--glass-blur)',
+                  WebkitBackdropFilter: 'var(--glass-blur)',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -1299,7 +1249,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                           width: '180px',
                           height: '180px',
                           borderRadius: '50%',
-                          border: '2px dashed rgba(255, 255, 255, 0.2)',
+                          border: `2px dashed var(--border-light)`,
                           transform: 'translate(-50%, -50%)',
                         }}
                       />
@@ -1317,7 +1267,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                           width: '120px',
                           height: '120px',
                           borderRadius: '50%',
-                          border: '2px dashed rgba(255, 255, 255, 0.15)',
+                          border: `2px dashed var(--border-subtle)`,
                           transform: 'translate(-50%, -50%)',
                         }}
                       />
@@ -1335,7 +1285,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                           width: '70px',
                           height: '70px',
                           borderRadius: '50%',
-                          border: '2px dashed rgba(255, 255, 255, 0.2)',
+                          border: `2px dashed var(--border-light)`,
                           transform: 'translate(-50%, -50%)',
                         }}
                       />
@@ -1346,9 +1296,9 @@ const EnhancedAIStrategyAnalyzer = () => {
                           scale: [1, 1.2, 1],
                           opacity: [0.7, 1, 0.7],
                           boxShadow: [
-                            '0 0 20px rgba(15, 23, 42, 0.5)',
-                            '0 0 40px rgba(15, 23, 42, 0.8)',
-                            '0 0 20px rgba(15, 23, 42, 0.5)'
+                            'var(--glow-accent-sm)',
+                            'var(--glow-accent-md)',
+                            'var(--glow-accent-sm)'
                           ]
                         }}
                         transition={{
@@ -1363,7 +1313,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                           width: '30px',
                           height: '30px',
                           borderRadius: '50%',
-                          backgroundColor: 'var(--color-secondary)',
+                          backgroundColor: 'var(--color-accent)',
                           transform: 'translate(-50%, -50%)',
                           zIndex: 1,
                         }}
@@ -1398,7 +1348,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                               width: '6px',
                               height: '6px',
                               borderRadius: '50%',
-                              backgroundColor: 'var(--color-secondary)',
+                              backgroundColor: 'var(--color-accent)',
                               opacity: i % 2 === 0 ? 1 : 0.6,
                               transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
                             }}
@@ -1421,7 +1371,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                         fontWeight: 'bold',
                         marginBottom: '1rem',
                         textAlign: 'center',
-                        color: 'var(--text-on-dark)',
+                        color: 'var(--color-text)',
                         fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                       }}
                     >
@@ -1431,7 +1381,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                     <p style={{
                       fontSize: '1rem',
                       textAlign: 'center',
-                      color: 'var(--text-on-dark-muted)',
+                      color: 'var(--color-text-muted)',
                       marginBottom: '2rem',
                       lineHeight: 1.6,
                       fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
@@ -1480,12 +1430,12 @@ const EnhancedAIStrategyAnalyzer = () => {
                               width: '8px',
                               height: '8px',
                               borderRadius: '50%',
-                              backgroundColor: 'var(--color-secondary)',
+                              backgroundColor: 'var(--color-accent)',
                               marginRight: '1rem',
                             }}
                           />
                           <span style={{
-                            color: 'var(--text-on-dark)',
+                            color: 'var(--color-text)',
                             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                           }}>
                             {stage.text}
@@ -1554,8 +1504,8 @@ const EnhancedAIStrategyAnalyzer = () => {
                           width: `${lineWidthPercent}%`,
                           height: lineHeight,
                           background: isMobile
-                            ? `linear-gradient(90deg, transparent 0%, rgba(15, 23, 42, ${lineOpacity}) 50%, rgba(15, 23, 42, ${lineOpacity * 1.5}) 100%)`
-                            : `linear-gradient(90deg, transparent 0%, rgba(15, 23, 42, ${lineOpacity * 0.5}) 30%, rgba(15, 23, 42, ${lineOpacity}) 70%, rgba(15, 23, 42, ${lineOpacity * 1.2}) 100%)`,
+                            ? `linear-gradient(90deg, transparent 0%, rgba(var(--color-text-rgb), ${lineOpacity}) 50%, rgba(var(--color-text-rgb), ${lineOpacity * 1.5}) 100%)`
+                            : `linear-gradient(90deg, transparent 0%, rgba(var(--color-text-rgb), ${lineOpacity * 0.5}) 30%, rgba(var(--color-text-rgb), ${lineOpacity}) 70%, rgba(var(--color-text-rgb), ${lineOpacity * 1.2}) 100%)`,
                           borderRadius: isMobile ? '1px' : '2px',
                           transform: offset !== 0 ? `translateX(${offset}px)` : 'none',
                           opacity: isMobile ? 1 : (0.7 + depth * 0.1),
@@ -1567,8 +1517,8 @@ const EnhancedAIStrategyAnalyzer = () => {
                           width: `${lineWidthPercent}%`,
                           height: lineHeight,
                           background: isMobile
-                            ? `linear-gradient(90deg, rgba(15, 23, 42, ${lineOpacity * 1.5}) 0%, rgba(15, 23, 42, ${lineOpacity}) 50%, transparent 100%)`
-                            : `linear-gradient(90deg, rgba(15, 23, 42, ${lineOpacity * 1.2}) 0%, rgba(15, 23, 42, ${lineOpacity}) 30%, rgba(15, 23, 42, ${lineOpacity * 0.5}) 70%, transparent 100%)`,
+                            ? `linear-gradient(90deg, rgba(var(--color-text-rgb), ${lineOpacity * 1.5}) 0%, rgba(var(--color-text-rgb), ${lineOpacity}) 50%, transparent 100%)`
+                            : `linear-gradient(90deg, rgba(var(--color-text-rgb), ${lineOpacity * 1.2}) 0%, rgba(var(--color-text-rgb), ${lineOpacity}) 30%, rgba(var(--color-text-rgb), ${lineOpacity * 0.5}) 70%, transparent 100%)`,
                           borderRadius: isMobile ? '1px' : '2px',
                           transform: offset !== 0 ? `translateX(${-offset}px)` : 'none',
                           opacity: isMobile ? 1 : (0.7 + depth * 0.1),
@@ -1606,42 +1556,61 @@ const EnhancedAIStrategyAnalyzer = () => {
                           textAlign: 'center',
                           marginBottom: '4rem',
                           paddingBottom: '3rem',
-                          borderBottom: '2px solid rgba(0, 0, 0, 0.06)',
+                          borderBottom: `2px solid var(--border-light)`,
                         }}
                       >
-                        <div style={{
+                        <span style={{
                           display: 'inline-block',
                           padding: '0.5rem 1.25rem',
-                          backgroundColor: 'var(--color-secondary-light)',
-                          borderRadius: '20px',
+                          background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.7))',
+                          color: 'var(--color-text)',
+                          fontSize: isMobile ? '0.75rem' : '0.85rem',
+                          fontWeight: 600,
+                          borderRadius: '50px',
+                          textTransform: 'uppercase',
+                          letterSpacing: '1.5px',
                           marginBottom: '1.5rem',
+                          fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
+                          boxShadow: 'var(--glow-accent-sm)',
                         }}>
-                          <span style={{
-                            fontSize: '0.8125rem',
-                            fontWeight: '600',
-                            color: 'var(--color-secondary)',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.1em',
-                            fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-                          }}>
-                            Recommended Package
-                          </span>
-                        </div>
+                          Recommended Package
+                        </span>
 
                         <h2 style={{
-                          fontSize: isMobile ? '2rem' : '3rem',
+                          fontSize: isMobile ? 'clamp(2rem, 5vw, 2.5rem)' : 'clamp(2.5rem, 5vw, 3.5rem)',
                           fontWeight: '700',
                           marginBottom: '1.25rem',
-                          color: 'var(--text-on-light)',
+                          color: 'var(--color-text)',
                           fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                           lineHeight: 1.2,
                         }}>
-                          {safeResult?.name || 'Service Package'}
+                          {(() => {
+                            const title = safeResult?.name || 'Service Package';
+                            const words = title.split(' ');
+                            // Split at the last 2 words for compound phrases, or last word for simple ones
+                            const splitIndex = words.length > 3 ? words.length - 2 : words.length - 1;
+                            const firstPart = words.slice(0, splitIndex).join(' ');
+                            const highlightPart = words.slice(splitIndex).join(' ');
+                            
+                            return (
+                              <>
+                                {firstPart}{' '}
+                                <span style={{
+                                  background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.8))',
+                                  WebkitBackgroundClip: 'text',
+                                  WebkitTextFillColor: 'transparent',
+                                  backgroundClip: 'text',
+                                }}>
+                                  {highlightPart}
+                                </span>
+                              </>
+                            );
+                          })()}
                         </h2>
 
                         <p style={{
                           fontSize: isMobile ? '1.125rem' : '1.375rem',
-                          color: 'var(--text-on-light-muted)',
+                          color: 'var(--color-text-muted)',
                           lineHeight: 1.7,
                           maxWidth: '750px',
                           margin: '0 auto',
@@ -1669,10 +1638,10 @@ const EnhancedAIStrategyAnalyzer = () => {
                             fontSize: '1.5rem',
                             fontWeight: '700',
                             marginBottom: '2rem',
-                            color: 'var(--text-on-light)',
+                            color: 'var(--color-text)',
                             fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                             paddingBottom: '1rem',
-                            borderBottom: '2px solid var(--color-secondary)',
+                            borderBottom: `2px solid var(--color-accent)`,
                             display: 'inline-block',
                           }}>
                             Project Overview
@@ -1695,14 +1664,15 @@ const EnhancedAIStrategyAnalyzer = () => {
                                   display: 'flex',
                                   flexDirection: 'column',
                                   gap: '0.5rem',
-                                  padding: '1.25rem',
+                                  padding: '1.5rem',
                                   borderRadius: '12px',
-                                  backgroundColor: 'var(--color-secondary-light)',
+                                  backgroundColor: 'var(--overlay-subtle)',
+                                  borderLeft: `4px solid var(--color-text-muted)`,
                                 }}
                               >
                                 <span style={{
                                   fontSize: '0.8125rem',
-                                  color: 'var(--text-on-light-muted)',
+                                  color: 'var(--color-text-muted)',
                                   fontWeight: '500',
                                   textTransform: 'uppercase',
                                   letterSpacing: '0.05em',
@@ -1713,7 +1683,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                                 <span style={{
                                   fontSize: '1.0625rem',
                                   fontWeight: '600',
-                                  color: 'var(--text-on-light)',
+                                  color: 'var(--color-text)',
                                   fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                                 }}>
                                   {item.value}
@@ -1733,10 +1703,10 @@ const EnhancedAIStrategyAnalyzer = () => {
                             fontSize: '1.5rem',
                             fontWeight: '700',
                             marginBottom: '2rem',
-                            color: 'var(--text-on-light)',
+                            color: 'var(--color-text)',
                             fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                             paddingBottom: '1rem',
-                            borderBottom: '2px solid var(--color-secondary)',
+                            borderBottom: `2px solid var(--color-accent)`,
                             display: 'inline-block',
                           }}>
                             Assessment
@@ -1749,13 +1719,13 @@ const EnhancedAIStrategyAnalyzer = () => {
                             <div style={{
                               padding: '1.5rem',
                               borderRadius: '12px',
-                              backgroundColor: 'var(--color-secondary-light)',
-                              borderLeft: '4px solid var(--color-secondary)',
+                              backgroundColor: 'var(--overlay-subtle)',
+                              borderLeft: `4px solid var(--color-text-muted)`,
                             }}>
                               <h4 style={{
                                 fontSize: '1rem',
                                 fontWeight: '700',
-                                color: 'var(--text-on-light)',
+                                color: 'var(--color-text)',
                                 marginBottom: '0.75rem',
                                 fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                               }}>
@@ -1763,7 +1733,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                               </h4>
                               <p style={{
                                 fontSize: '1rem',
-                                color: 'var(--text-on-light)',
+                                color: 'var(--color-text)',
                                 lineHeight: 1.7,
                                 margin: 0,
                                 fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
@@ -1775,13 +1745,13 @@ const EnhancedAIStrategyAnalyzer = () => {
                             <div style={{
                               padding: '1.5rem',
                               borderRadius: '12px',
-                              backgroundColor: 'rgba(0, 0, 0, 0.02)',
-                              borderLeft: '4px solid var(--text-on-light-muted)',
+                              backgroundColor: 'var(--overlay-subtle)',
+                              borderLeft: `4px solid var(--color-text-muted)`,
                             }}>
                               <h4 style={{
                                 fontSize: '1rem',
                                 fontWeight: '700',
-                                color: 'var(--text-on-light)',
+                                color: 'var(--color-text)',
                                 marginBottom: '0.75rem',
                                 fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                               }}>
@@ -1789,7 +1759,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                               </h4>
                               <p style={{
                                 fontSize: '1rem',
-                                color: 'var(--text-on-light)',
+                                color: 'var(--color-text)',
                                 lineHeight: 1.7,
                                 margin: 0,
                                 fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
@@ -1814,10 +1784,10 @@ const EnhancedAIStrategyAnalyzer = () => {
                           fontSize: '1.5rem',
                           fontWeight: '700',
                           marginBottom: '2rem',
-                          color: 'var(--text-on-light)',
+                          color: 'var(--color-text)',
                           fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
                           paddingBottom: '1rem',
-                          borderBottom: '2px solid var(--color-secondary)',
+                          borderBottom: `2px solid var(--color-accent)`,
                           display: 'inline-block',
                         }}>
                           Implementation Steps
@@ -1833,19 +1803,18 @@ const EnhancedAIStrategyAnalyzer = () => {
                               style={{
                                 padding: '1.5rem',
                                 borderRadius: '12px',
-                                backgroundColor: 'white',
-                                border: '1px solid rgba(0, 0, 0, 0.08)',
-                                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                                backgroundColor: 'var(--overlay-subtle)',
+                                borderLeft: `4px solid var(--color-text-muted)`,
                                 position: 'relative',
                                 transition: 'all 0.2s ease',
                               }}
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.transform = 'translateY(-2px)';
-                                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
                               }}
                               onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
+                                e.currentTarget.style.boxShadow = 'none';
                               }}
                             >
                               <div style={{
@@ -1857,8 +1826,8 @@ const EnhancedAIStrategyAnalyzer = () => {
                                   width: '32px',
                                   height: '32px',
                                   borderRadius: '8px',
-                                  backgroundColor: 'var(--color-secondary)',
-                                  color: 'white',
+                                  backgroundColor: 'var(--color-accent)',
+                                  color: 'var(--color-text)',
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
@@ -1870,7 +1839,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                                 </div>
                                 <p style={{
                                   fontSize: '1rem',
-                                  color: 'var(--text-on-light)',
+                                  color: 'var(--color-text)',
                                   lineHeight: 1.6,
                                   margin: 0,
                                   flex: 1,
@@ -1896,7 +1865,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                           justifyContent: 'center',
                           flexWrap: 'wrap',
                           paddingTop: '2rem',
-                          borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+                          borderTop: `1px solid var(--border-light)`,
                         }}
                       >
                         <motion.button
@@ -1906,9 +1875,9 @@ const EnhancedAIStrategyAnalyzer = () => {
                           style={{
                             padding: '0.875rem 1.5rem',
                             background: 'transparent',
-                            border: '1px solid rgba(0, 0, 0, 0.1)',
+                            border: `1px solid var(--border-light)`,
                             borderRadius: '8px',
-                            color: 'var(--text-on-light)',
+                            color: 'var(--color-text)',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
@@ -1927,12 +1896,12 @@ const EnhancedAIStrategyAnalyzer = () => {
                         </motion.button>
 
                         <motion.button
-                          whileHover={{ scale: 1.02, boxShadow: '0 4px 12px rgba(15, 23, 42, 0.25)' }}
+                          whileHover={{ scale: 1.02, boxShadow: 'var(--glow-accent-md)' }}
                           whileTap={{ scale: 0.98 }}
                           style={{
                             padding: '0.875rem 1.75rem',
-                            background: 'var(--color-secondary)',
-                            color: 'white',
+                            background: 'var(--color-accent)',
+                            color: 'var(--color-text)',
                             border: 'none',
                             borderRadius: '8px',
                             fontWeight: '600',
@@ -1941,7 +1910,7 @@ const EnhancedAIStrategyAnalyzer = () => {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '0.5rem',
-                            boxShadow: '0 2px 8px rgba(15, 23, 42, 0.2)',
+                            boxShadow: 'var(--glow-accent-sm)',
                             transition: 'all 0.2s ease',
                             fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                           }}

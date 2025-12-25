@@ -4,6 +4,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Color scheme
+const colors = {
+  bg: '#0e0918',
+  bgLight: 'rgba(14, 9, 24, 0.85)',
+  bgDark: 'rgba(14, 9, 24, 0.95)',
+  text: '#e8e7e9',
+  textMuted: 'rgba(232, 231, 233, 0.7)',
+  textSubtle: 'rgba(232, 231, 233, 0.5)',
+  accent: '#f46b27',
+  accentGlow: 'rgba(244, 107, 39, 0.3)',
+  accentHover: 'rgba(244, 107, 39, 0.15)',
+  border: 'rgba(232, 231, 233, 0.1)',
+  borderLight: 'rgba(232, 231, 233, 0.15)',
+};
+
 // Icon component factory
 const Icon = ({ children, ...props }) => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -69,7 +84,7 @@ const Header = () => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     const handleResize = () => setIsMobile(window.innerWidth <= 1024);
 
-    handleResize(); // Set initial state
+    handleResize();
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
 
@@ -98,32 +113,33 @@ const Header = () => {
     maxWidth: '1280px',
     margin: '0 auto',
     width: '100%',
-    backgroundColor: isScrolled ? 'var(--color-secondary-dark)' : 'var(--color-secondary)',
+    backgroundColor: isScrolled ? colors.bgDark : colors.bgLight,
     backdropFilter: isScrolled ? 'blur(24px) saturate(180%)' : 'blur(16px) saturate(180%)',
+    WebkitBackdropFilter: isScrolled ? 'blur(24px) saturate(180%)' : 'blur(16px) saturate(180%)',
     boxShadow: isScrolled
-      ? '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--color-secondary-medium)'
-      : '0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--color-secondary-light)',
+      ? `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px ${colors.border}`
+      : `0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px ${colors.border}`,
     borderRadius: '16px',
-    border: '1px solid var(--color-secondary-medium)',
+    border: `1px solid ${colors.border}`,
     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
     pointerEvents: 'auto',
   };
 
   const buttonStyles = {
     padding: '0.75rem 1.5rem',
-    background: 'var(--color-secondary)',
+    background: `linear-gradient(135deg, ${colors.accent} 0%, rgba(244, 107, 39, 0.8) 100%)`,
     backdropFilter: 'blur(20px) saturate(180%)',
-    color: 'var(--text-on-dark)',
-    border: '1px solid var(--color-secondary-medium)',
+    color: colors.text,
+    border: `1px solid ${colors.accent}`,
     borderRadius: '10px',
     fontSize: '0.9375rem',
-    fontWeight: '500',
+    fontWeight: '600',
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     gap: '0.625rem',
     transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+    boxShadow: `0 4px 15px ${colors.accentGlow}`,
     position: 'relative',
     fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
     letterSpacing: '-0.01em',
@@ -167,7 +183,6 @@ const Header = () => {
                     width: 'auto',
                     objectFit: 'contain',
                     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                    mixBlendMode: 'screen',
                     filter: 'brightness(1.1) contrast(1.05)',
                   }}
                 />
@@ -188,13 +203,13 @@ const Header = () => {
                   <Link href={item.path}>
                     <motion.div
                       whileHover={{
-                        color: 'var(--text-on-dark)',
+                        color: colors.text,
                       }}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.375rem',
-                        color: activeDropdown === index ? 'var(--text-on-dark)' : 'var(--text-on-dark-muted)',
+                        color: activeDropdown === index ? colors.text : colors.textMuted,
                         fontSize: '0.9375rem',
                         fontWeight: '500',
                         padding: '0.625rem 1rem',
@@ -210,10 +225,10 @@ const Header = () => {
                         style={{
                           position: 'absolute',
                           inset: 0,
-                          backgroundColor: activeDropdown === index ? 'rgba(59, 130, 246, 0.2)' : 'transparent',
+                          backgroundColor: activeDropdown === index ? colors.accentHover : 'transparent',
                           borderRadius: '8px',
                         }}
-                        whileHover={{ backgroundColor: 'rgba(59, 130, 246, 0.2)' }}
+                        whileHover={{ backgroundColor: colors.accentHover }}
                         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                       />
                       <span style={{ position: 'relative', zIndex: 1 }}>{item.label}</span>
@@ -252,12 +267,13 @@ const Header = () => {
                             left: '50%',
                             transform: 'translateX(-50%)',
                             minWidth: '260px',
-                            backgroundColor: 'var(--color-secondary-dark)',
+                            backgroundColor: colors.bgDark,
                             backdropFilter: 'blur(24px) saturate(180%)',
+                            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
                             borderRadius: '12px',
                             padding: '0.5rem',
-                            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--color-secondary-medium)',
-                            border: '1px solid var(--color-secondary-medium)',
+                            boxShadow: `0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px ${colors.border}`,
+                            border: `1px solid ${colors.border}`,
                             zIndex: 10,
                             overflow: 'hidden',
                           }}
@@ -269,7 +285,7 @@ const Header = () => {
                               left: 0,
                               right: 0,
                               height: '2px',
-                              background: 'linear-gradient(90deg, transparent, var(--color-secondary-medium), transparent)',
+                              background: `linear-gradient(90deg, transparent, ${colors.accent}, transparent)`,
                               opacity: 0.6,
                             }}
                           />
@@ -283,11 +299,11 @@ const Header = () => {
                                       initial={{ opacity: 0, x: -8 }}
                                       animate={{ opacity: 1, x: 0 }}
                                       transition={{ delay: dropIndex * 0.04, duration: 0.2 }}
-                                      whileHover={{ backgroundColor: 'rgba(59, 130, 246, 0.15)', color: 'var(--text-on-dark)', x: 4 }}
+                                      whileHover={{ backgroundColor: colors.accentHover, color: colors.text, x: 4 }}
                                       style={{
                                         padding: '0.875rem 1rem',
                                         borderRadius: '8px',
-                                        color: 'var(--text-on-dark-subtle)',
+                                        color: colors.textSubtle,
                                         fontSize: '0.875rem',
                                         fontWeight: '500',
                                         transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -303,14 +319,14 @@ const Header = () => {
                                           width: '36px',
                                           height: '36px',
                                           borderRadius: '8px',
-                                          backgroundColor: 'rgba(15, 23, 42, 0.08)',
+                                          backgroundColor: colors.accentHover,
                                           display: 'flex',
                                           alignItems: 'center',
                                           justifyContent: 'center',
-                                          color: '#ffffff',
+                                          color: colors.accent,
                                           flexShrink: 0,
                                         }}
-                                        whileHover={{ backgroundColor: 'rgba(15, 23, 42, 0.2)', scale: 1.05 }}
+                                        whileHover={{ backgroundColor: colors.accentGlow, scale: 1.05 }}
                                         transition={{ duration: 0.2 }}
                                       >
                                         {IconComponent && <IconComponent />}
@@ -350,14 +366,14 @@ const Header = () => {
             <Link href="/contact">
               <motion.button
                 whileHover={{
-                  backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                  borderColor: 'rgba(59, 130, 246, 0.4)',
-                  boxShadow: '0 4px 12px rgba(59, 130, 246, 0.15)',
+                  backgroundColor: colors.accent,
+                  boxShadow: `0 6px 25px ${colors.accentGlow}`,
+                  scale: 1.02,
                 }}
                 whileTap={{ scale: 0.98 }}
                 style={buttonStyles}
               >
-                <span style={{ color: 'var(--text-on-dark)' }}>Get Started</span>
+                <span style={{ color: colors.text }}>Get Started</span>
                 <motion.svg
                   width="14"
                   height="14"
@@ -367,7 +383,7 @@ const Header = () => {
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  style={{ color: 'var(--text-on-dark)' }}
+                  style={{ color: colors.text }}
                   whileHover={{ x: 3 }}
                   transition={{ duration: 0.2 }}
                 >
@@ -390,16 +406,16 @@ const Header = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: mobileMenuOpen ? 'var(--color-secondary)' : 'var(--overlay-light)',
+                backgroundColor: mobileMenuOpen ? colors.accentHover : 'rgba(232, 231, 233, 0.05)',
                 borderRadius: '6px',
-                border: '1px solid var(--border-light)',
+                border: `1px solid ${colors.border}`,
                 cursor: 'pointer',
                 zIndex: 101,
                 transition: 'all 0.2s ease',
                 pointerEvents: 'auto',
               }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-on-dark)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={colors.text} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 {mobileMenuOpen ? (
                   <g>
                     <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -433,8 +449,9 @@ const Header = () => {
                 left: 0,
                 width: '100%',
                 height: '100vh',
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                backdropFilter: 'blur(3px)',
+                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                backdropFilter: 'blur(5px)',
+                WebkitBackdropFilter: 'blur(5px)',
                 zIndex: 99,
                 pointerEvents: 'auto',
               }}
@@ -453,16 +470,29 @@ const Header = () => {
                 right: 0,
                 width: '300px',
                 height: '100vh',
-                backgroundColor: 'var(--color-secondary-dark)',
-                backdropFilter: 'blur(10px)',
+                backgroundColor: colors.bgDark,
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
                 padding: '5rem 2rem 2rem',
                 zIndex: 100,
                 overflowY: 'auto',
-                boxShadow: '-10px 0 30px rgba(0, 0, 0, 0.4)',
-                border: '1px solid var(--color-secondary-medium)',
+                boxShadow: `-10px 0 30px rgba(0, 0, 0, 0.5)`,
+                border: `1px solid ${colors.border}`,
                 pointerEvents: 'auto',
               }}
             >
+              {/* Accent line at top */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '3px',
+                  background: `linear-gradient(90deg, transparent, ${colors.accent}, transparent)`,
+                }}
+              />
+              
               <nav>
                 <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                   {navItems.map((item, index) => (
@@ -470,7 +500,7 @@ const Header = () => {
                       {item.dropdown ? (
                         <motion.div
                           onClick={() => toggleDropdown(index)}
-                          whileHover={{ backgroundColor: 'rgba(59, 130, 246, 0.2)' }}
+                          whileHover={{ backgroundColor: colors.accentHover }}
                           style={{
                             display: 'flex',
                             justifyContent: 'space-between',
@@ -484,7 +514,7 @@ const Header = () => {
                             transition: 'all 0.2s ease',
                           }}
                         >
-                          <span style={{ color: activeDropdown === index ? 'var(--text-on-dark)' : 'var(--text-on-dark-muted)', fontSize: '1.1rem', fontWeight: 'bold', flex: 1 }}>
+                          <span style={{ color: activeDropdown === index ? colors.text : colors.textMuted, fontSize: '1.1rem', fontWeight: 'bold', flex: 1 }}>
                             {item.label}
                           </span>
                           <motion.svg
@@ -494,7 +524,7 @@ const Header = () => {
                             height="18"
                             viewBox="0 0 24 24"
                             fill="none"
-                            stroke={activeDropdown === index ? 'var(--text-on-dark)' : 'var(--text-on-dark-faint)'}
+                            stroke={activeDropdown === index ? colors.accent : colors.textSubtle}
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -510,7 +540,7 @@ const Header = () => {
                           style={{ display: 'block', textDecoration: 'none', pointerEvents: 'auto' }}
                         >
                           <motion.div
-                            whileHover={{ backgroundColor: 'rgba(59, 130, 246, 0.2)' }}
+                            whileHover={{ backgroundColor: colors.accentHover }}
                             style={{
                               display: 'flex',
                               alignItems: 'center',
@@ -521,8 +551,8 @@ const Header = () => {
                             }}
                           >
                             <motion.span
-                              whileHover={{ color: 'var(--text-on-dark)' }}
-                              style={{ color: 'var(--text-on-dark-muted)', fontSize: '1.1rem', fontWeight: 'bold' }}
+                              whileHover={{ color: colors.text }}
+                              style={{ color: colors.textMuted, fontSize: '1.1rem', fontWeight: 'bold' }}
                             >
                               {item.label}
                             </motion.span>
@@ -548,9 +578,9 @@ const Header = () => {
                                       style={{ textDecoration: 'none', display: 'block', pointerEvents: 'auto' }}
                                     >
                                       <motion.div
-                                        whileHover={{ backgroundColor: 'rgba(59, 130, 246, 0.15)', color: 'var(--text-on-dark)', x: 5 }}
+                                        whileHover={{ backgroundColor: colors.accentHover, color: colors.text, x: 5 }}
                                         style={{
-                                          color: 'var(--text-on-dark-subtle)',
+                                          color: colors.textSubtle,
                                           fontSize: '0.95rem',
                                           padding: '0.5rem 0.75rem',
                                           borderRadius: '8px',
@@ -565,7 +595,7 @@ const Header = () => {
                                             width: '6px',
                                             height: '6px',
                                             borderRadius: '50%',
-                                            backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                                            backgroundColor: colors.accent,
                                             flexShrink: 0,
                                           }}
                                         />
@@ -589,14 +619,13 @@ const Header = () => {
                 <Link href="/contact" onClick={closeMobileMenu} style={{ textDecoration: 'none', display: 'block', pointerEvents: 'auto' }}>
                   <motion.button
                     whileHover={{
-                      backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                      borderColor: 'rgba(59, 130, 246, 0.4)',
-                      boxShadow: '0 4px 12px rgba(59, 130, 246, 0.15)',
+                      backgroundColor: colors.accent,
+                      boxShadow: `0 6px 25px ${colors.accentGlow}`,
                     }}
                     whileTap={{ scale: 0.98 }}
                     style={{ ...buttonStyles, width: '100%', padding: '1rem 1.5rem' }}
                   >
-                    <span style={{ color: 'var(--text-on-dark)' }}>Get Started</span>
+                    <span style={{ color: colors.text }}>Get Started</span>
                     <motion.svg
                       width="14"
                       height="14"
@@ -606,7 +635,7 @@ const Header = () => {
                       strokeWidth="2.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      style={{ color: 'var(--text-on-dark)' }}
+                      style={{ color: colors.text }}
                       whileHover={{ x: 3 }}
                       transition={{ duration: 0.2 }}
                     >
@@ -701,4 +730,3 @@ const Header = () => {
 };
 
 export default Header;
-

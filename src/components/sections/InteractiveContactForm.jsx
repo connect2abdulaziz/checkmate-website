@@ -149,24 +149,20 @@ const InteractiveContactForm = () => {
       style={{
         position: 'relative',
         padding: isMobile ? '2.5rem 0' : '60px 0',
-        backgroundImage: 'url(/formbg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: 'var(--background)',
-        color: 'var(--text-on-light)',
+        backgroundColor: 'var(--color-bg)',
+        color: 'var(--color-text)',
         overflow: 'visible',
         marginTop: '-1px',
       }}
     >
-      {/* Background overlay to reduce intensity */}
+      {/* Background overlay */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.70)',
+        backgroundColor: 'var(--color-bg-medium)',
         zIndex: 1,
         pointerEvents: 'none',
       }} />
@@ -189,22 +185,27 @@ const InteractiveContactForm = () => {
             marginBottom: isMobile ? '1.5rem' : '2.5rem',
           }}
         >
-          <motion.h6
+          <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             style={{
-              fontSize: isMobile ? '0.8rem' : '0.875rem',
-              fontWeight: 700,
-              color: 'var(--color-primary)',
+              display: 'inline-block',
+              padding: '0.5rem 1.25rem',
+              background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.7))',
+              color: 'var(--color-text)',
+              fontSize: isMobile ? '0.75rem' : '0.85rem',
+              fontWeight: 600,
+              borderRadius: '50px',
               textTransform: 'uppercase',
-              letterSpacing: '2px',
-              marginBottom: '0.75rem',
+              letterSpacing: '1.5px',
+              marginBottom: '1.5rem',
               fontFamily: "var(--font-syne), var(--font-bricolage), -apple-system, BlinkMacSystemFont, sans-serif",
+              boxShadow: 'var(--glow-accent-sm)',
             }}
           >
             Get In Touch
-          </motion.h6>
+          </motion.span>
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -212,12 +213,20 @@ const InteractiveContactForm = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="hero-text"
             style={{
-              fontSize: isMobile ? '1.5rem' : '2.2rem',
+              fontSize: isMobile ? 'clamp(1.5rem, 5vw, 2rem)' : 'clamp(2rem, 5vw, 3rem)',
               marginBottom: '1rem',
-              color: 'var(--text-on-light)',
+              color: 'var(--color-text)',
             }}
           >
-            Start Your Project
+            Start Your{' '}
+            <span style={{
+              background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.8))',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
+              Project
+            </span>
           </motion.h2>
 
           <motion.p
@@ -228,7 +237,7 @@ const InteractiveContactForm = () => {
               fontSize: isMobile ? '0.9rem' : '1rem',
               maxWidth: '700px',
               margin: '0 auto',
-              color: 'var(--text-on-light-muted)',
+              color: 'var(--color-text-muted)',
               lineHeight: 1.5,
               fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
             }}
@@ -264,8 +273,10 @@ const InteractiveContactForm = () => {
                   boxShadow: '0 10px 40px var(--glass-shadow)',
                   position: 'relative',
                   overflow: 'hidden',
-                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                  backdropFilter: 'blur(20px)',
+                  backgroundColor: 'var(--glass-bg-dark)',
+                  backdropFilter: 'var(--glass-blur-heavy)',
+                  WebkitBackdropFilter: 'var(--glass-blur-heavy)',
+                  border: `1px solid var(--glass-border)`,
                 }}
               >
                 <div style={{ position: 'relative' }}>
@@ -277,13 +288,13 @@ const InteractiveContactForm = () => {
                       width: isMobile ? '80px' : '100px',
                       height: isMobile ? '80px' : '100px',
                       borderRadius: '50%',
-                      backgroundColor: 'var(--color-secondary-light)',
+                      backgroundColor: 'var(--color-accent-light)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       fontSize: isMobile ? '2rem' : '2.5rem',
                       margin: '0 auto 2rem',
-                      color: 'var(--color-secondary)',
+                      color: 'var(--color-accent)',
                       fontWeight: 700,
                     }}
                   >
@@ -295,14 +306,14 @@ const InteractiveContactForm = () => {
                     style={{
                       fontSize: isMobile ? '1.5rem' : '2rem',
                       marginBottom: '1rem',
-                      color: 'var(--text-on-light)',
+                      color: 'var(--color-text)',
                     }}
                   >
                     Thank You!
                   </h3>
 
                   <p style={{
-                    color: 'var(--text-on-light-muted)',
+                    color: 'var(--color-text-muted)',
                     marginBottom: '0',
                     fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                     fontSize: isMobile ? '0.875rem' : '1rem',
@@ -325,8 +336,10 @@ const InteractiveContactForm = () => {
                   boxShadow: '0 10px 40px var(--glass-shadow)',
                   position: 'relative',
                   overflow: 'hidden',
-                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                  backdropFilter: 'blur(20px)',
+                  backgroundColor: 'var(--glass-bg-dark)',
+                  backdropFilter: 'var(--glass-blur-heavy)',
+                  WebkitBackdropFilter: 'var(--glass-blur-heavy)',
+                  border: `1px solid var(--glass-border)`,
                 }}
               >
                 <div style={{ position: 'relative' }}>
@@ -345,7 +358,7 @@ const InteractiveContactForm = () => {
                       <h3 style={{
                         fontSize: isMobile ? '1rem' : '1.25rem',
                         fontWeight: 700,
-                        color: 'var(--text-on-light)',
+                        color: 'var(--color-text)',
                         fontFamily: "var(--font-syne), var(--font-bricolage), -apple-system, BlinkMacSystemFont, sans-serif",
                         margin: 0,
                         letterSpacing: '-0.01em',
@@ -354,7 +367,7 @@ const InteractiveContactForm = () => {
                       </h3>
                       <span style={{
                         fontSize: isMobile ? '0.8rem' : '0.85rem',
-                        color: 'var(--text-on-light-muted)',
+                        color: 'var(--color-text-muted)',
                         fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                         fontWeight: 600,
                       }}>
@@ -376,8 +389,8 @@ const InteractiveContactForm = () => {
                             height: '6px',
                             borderRadius: '3px',
                             backgroundColor: index <= formStep
-                              ? 'var(--color-secondary)'
-                              : 'var(--color-secondary-light)',
+                              ? 'var(--color-accent)'
+                              : 'var(--color-accent-light)',
                             transition: 'background-color 0.3s ease',
                           }}
                           initial={{ scaleX: 0 }}
@@ -410,7 +423,7 @@ const InteractiveContactForm = () => {
                                 style={{
                                   display: 'block',
                                   marginBottom: '0.4rem',
-                                  color: 'var(--text-on-light)',
+                                  color: 'var(--color-text)',
                                   fontSize: isMobile ? '0.8rem' : '0.85rem',
                                   fontWeight: 600,
                                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -430,15 +443,15 @@ const InteractiveContactForm = () => {
                                   width: '100%',
                                   padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
                                   borderRadius: '8px',
-                                  backgroundColor: 'var(--glass-block-1)',
+                                  backgroundColor: 'var(--glass-bg)',
                                   border: '1px solid var(--glass-border)',
-                                  color: 'var(--text-on-light)',
+                                  color: 'var(--color-text)',
                                   fontSize: isMobile ? '0.85rem' : '0.9rem',
                                   transition: 'all 0.2s ease',
                                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                                   outline: 'none',
                                 }}
-                                onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
+                                onFocus={(e) => e.target.style.borderColor = 'var(--color-accent)'}
                                 onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
                               />
                             </div>
@@ -450,7 +463,7 @@ const InteractiveContactForm = () => {
                                 style={{
                                   display: 'block',
                                   marginBottom: '0.5rem',
-                                  color: 'var(--text-on-light)',
+                                  color: 'var(--color-text)',
                                   fontSize: isMobile ? '0.875rem' : '0.9rem',
                                   fontWeight: '600',
                                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -470,15 +483,15 @@ const InteractiveContactForm = () => {
                                   width: '100%',
                                   padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
                                   borderRadius: '8px',
-                                  backgroundColor: 'var(--glass-block-1)',
+                                  backgroundColor: 'var(--glass-bg)',
                                   border: '1px solid var(--glass-border)',
-                                  color: 'var(--text-on-light)',
+                                  color: 'var(--color-text)',
                                   fontSize: isMobile ? '0.85rem' : '0.9rem',
                                   transition: 'all 0.2s ease',
                                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                                   outline: 'none',
                                 }}
-                                onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
+                                onFocus={(e) => e.target.style.borderColor = 'var(--color-accent)'}
                                 onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
                               />
                             </div>
@@ -490,7 +503,7 @@ const InteractiveContactForm = () => {
                                 style={{
                                   display: 'block',
                                   marginBottom: '0.5rem',
-                                  color: 'var(--text-on-light)',
+                                  color: 'var(--color-text)',
                                   fontSize: isMobile ? '0.875rem' : '0.9rem',
                                   fontWeight: '600',
                                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -509,15 +522,15 @@ const InteractiveContactForm = () => {
                                   width: '100%',
                                   padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
                                   borderRadius: '8px',
-                                  backgroundColor: 'var(--glass-block-1)',
+                                  backgroundColor: 'var(--glass-bg)',
                                   border: '1px solid var(--glass-border)',
-                                  color: 'var(--text-on-light)',
+                                  color: 'var(--color-text)',
                                   fontSize: isMobile ? '0.85rem' : '0.9rem',
                                   transition: 'all 0.2s ease',
                                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                                   outline: 'none',
                                 }}
-                                onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
+                                onFocus={(e) => e.target.style.borderColor = 'var(--color-accent)'}
                                 onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
                               />
                             </div>
@@ -529,7 +542,7 @@ const InteractiveContactForm = () => {
                                 style={{
                                   display: 'block',
                                   marginBottom: '0.5rem',
-                                  color: 'var(--text-on-light)',
+                                  color: 'var(--color-text)',
                                   fontSize: isMobile ? '0.875rem' : '0.9rem',
                                   fontWeight: '600',
                                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -548,15 +561,15 @@ const InteractiveContactForm = () => {
                                   width: '100%',
                                   padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
                                   borderRadius: '8px',
-                                  backgroundColor: 'var(--glass-block-1)',
+                                  backgroundColor: 'var(--glass-bg)',
                                   border: '1px solid var(--glass-border)',
-                                  color: 'var(--text-on-light)',
+                                  color: 'var(--color-text)',
                                   fontSize: isMobile ? '0.85rem' : '0.9rem',
                                   transition: 'all 0.2s ease',
                                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                                   outline: 'none',
                                 }}
-                                onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
+                                onFocus={(e) => e.target.style.borderColor = 'var(--color-accent)'}
                                 onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
                               />
                             </div>
@@ -578,7 +591,7 @@ const InteractiveContactForm = () => {
                               style={{
                                 display: 'block',
                                 marginBottom: '0.75rem',
-                                color: 'var(--text-on-light)',
+                                color: 'var(--color-text)',
                                 fontSize: isMobile ? '0.8rem' : '0.85rem',
                                 fontWeight: 600,
                                 fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -603,14 +616,14 @@ const InteractiveContactForm = () => {
                                     padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
                                     borderRadius: '8px',
                                     backgroundColor: formData.service === service.value
-                                      ? 'var(--color-secondary)'
-                                      : 'var(--background)',
+                                      ? 'var(--color-accent)'
+                                      : 'var(--glass-bg)',
                                     border: `2px solid ${formData.service === service.value
-                                      ? 'var(--color-secondary)'
+                                      ? 'var(--color-accent)'
                                       : 'var(--glass-border)'}`,
                                     color: formData.service === service.value
-                                      ? '#ffffff'
-                                      : 'var(--text-on-light)',
+                                      ? 'var(--color-text)'
+                                      : 'var(--color-text)',
                                     cursor: 'pointer',
                                     textAlign: 'center',
                                     transition: 'all 0.2s ease',
@@ -632,7 +645,7 @@ const InteractiveContactForm = () => {
                               style={{
                                 display: 'block',
                                 marginBottom: '0.75rem',
-                                color: 'var(--text-on-light)',
+                                color: 'var(--color-text)',
                                 fontSize: isMobile ? '0.8rem' : '0.85rem',
                                 fontWeight: 600,
                                 fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -657,14 +670,14 @@ const InteractiveContactForm = () => {
                                     padding: isMobile ? '0.7rem 0.875rem' : '0.8rem 1rem',
                                     borderRadius: '8px',
                                     backgroundColor: formData.budget === budget.value
-                                      ? 'var(--color-secondary)'
-                                      : 'var(--background)',
+                                      ? 'var(--color-accent)'
+                                      : 'var(--glass-bg)',
                                     border: `2px solid ${formData.budget === budget.value
-                                      ? 'var(--color-secondary)'
+                                      ? 'var(--color-accent)'
                                       : 'var(--glass-border)'}`,
                                     color: formData.budget === budget.value
-                                      ? '#ffffff'
-                                      : 'var(--text-on-light)',
+                                      ? 'var(--color-text)'
+                                      : 'var(--color-text)',
                                     cursor: 'pointer',
                                     textAlign: 'center',
                                     transition: 'all 0.2s ease',
@@ -695,7 +708,7 @@ const InteractiveContactForm = () => {
                               style={{
                                 display: 'block',
                                 marginBottom: '0.4rem',
-                                color: 'var(--text-on-light)',
+                                color: 'var(--color-text)',
                                 fontSize: isMobile ? '0.8rem' : '0.85rem',
                                 fontWeight: 600,
                                 fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -717,7 +730,7 @@ const InteractiveContactForm = () => {
                                 borderRadius: '8px',
                                 backgroundColor: 'var(--glass-block-1)',
                                 border: '1px solid var(--glass-border)',
-                                color: 'var(--text-on-light)',
+                                color: 'var(--color-text)',
                                 fontSize: isMobile ? '0.85rem' : '0.9rem',
                                 transition: 'all 0.2s ease',
                                 resize: 'vertical',
@@ -725,7 +738,7 @@ const InteractiveContactForm = () => {
                                 outline: 'none',
                                 lineHeight: 1.5,
                               }}
-                              onFocus={(e) => e.target.style.borderColor = 'var(--color-secondary)'}
+                              onFocus={(e) => e.target.style.borderColor = 'var(--color-accent)'}
                               onBlur={(e) => e.target.style.borderColor = 'var(--glass-border)'}
                             />
                           </div>
@@ -746,14 +759,14 @@ const InteractiveContactForm = () => {
                         <motion.button
                           type="button"
                           onClick={goToPrevStep}
-                          whileHover={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}
+                          whileHover={{ backgroundColor: 'var(--overlay-subtle)' }}
                           whileTap={{ scale: 0.95 }}
                           style={{
                             padding: isMobile ? '0.65rem 1.1rem' : '0.75rem 1.25rem',
                             borderRadius: '8px',
                             backgroundColor: 'transparent',
                             border: '1px solid var(--glass-border)',
-                            color: 'var(--text-on-light-muted)',
+                            color: 'var(--color-text-muted)',
                             cursor: 'pointer',
                             fontSize: isMobile ? '0.8rem' : '0.85rem',
                             fontWeight: 600,
@@ -794,10 +807,10 @@ const InteractiveContactForm = () => {
                             padding: isMobile ? '0.65rem 1.1rem' : '0.75rem 1.25rem',
                             borderRadius: '8px',
                             backgroundColor: canProceed()
-                              ? 'var(--color-secondary)'
-                              : 'var(--color-secondary-light)',
+                              ? 'var(--color-accent)'
+                              : 'var(--color-accent-light)',
                             border: 'none',
-                            color: canProceed() ? '#ffffff' : 'var(--text-on-light-muted)',
+                            color: canProceed() ? 'var(--color-text)' : 'var(--color-text-muted)',
                             cursor: canProceed() ? 'pointer' : 'not-allowed',
                             fontSize: isMobile ? '0.8rem' : '0.85rem',
                             fontWeight: 600,
@@ -833,10 +846,10 @@ const InteractiveContactForm = () => {
                             padding: isMobile ? '0.65rem 1.1rem' : '0.75rem 1.25rem',
                             borderRadius: '8px',
                             backgroundColor: canProceed() && !isSubmitting
-                              ? 'var(--color-secondary)'
-                              : 'var(--color-secondary-light)',
+                              ? 'var(--color-accent)'
+                              : 'var(--color-accent-light)',
                             border: 'none',
-                            color: canProceed() && !isSubmitting ? '#ffffff' : 'var(--text-on-light-muted)',
+                            color: canProceed() && !isSubmitting ? 'var(--color-text)' : 'var(--color-text-muted)',
                             cursor: canProceed() && !isSubmitting ? 'pointer' : 'not-allowed',
                             fontSize: isMobile ? '0.8rem' : '0.85rem',
                             fontWeight: 600,
@@ -925,7 +938,7 @@ const InteractiveContactForm = () => {
 
         /* Success state after animation */
         .submit-btn.sent {
-          background-color: #48BB78 !important;
+          background-color: var(--color-accent) !important;
         }
 
         .submit-btn.sent .btn-text {
@@ -978,7 +991,7 @@ const InteractiveContactForm = () => {
         .loading-dots span {
           width: 5px;
           height: 5px;
-          background-color: white;
+          background-color: var(--color-text);
           border-radius: 50%;
           animation: bounce 1.4s infinite ease-in-out both;
         }
@@ -1032,7 +1045,7 @@ const InteractiveContactForm = () => {
 
         input::placeholder,
         textarea::placeholder {
-          color: var(--text-on-light-muted);
+          color: var(--color-text-muted);
           opacity: 0.5;
         }
 

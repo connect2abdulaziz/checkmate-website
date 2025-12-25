@@ -47,7 +47,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
       id: 1,
       name: "Abdul Aziz",
       position: "CEO & Founder",
-      color: "var(--color-secondary)",
+      color: "var(--color-accent)",
       image: "/images/team/abdulaziz.jpeg",
       description: "Abdul leads our team with vision and strategy. With over 15 years of software development experience, he specializes in architecting scalable solutions and driving innovation.",
       size: "small",
@@ -62,7 +62,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
       id: 2,
       name: "Sarah Queen",
       position: "CTO",
-      color: "var(--color-primary)",
+      color: "var(--color-accent)",
       image: "/images/team/abdulaziz.jpeg",
       description: "Sarah oversees all technical operations and product development. Her versatile skill set allows her to move across departments, solving complex challenges with elegance.",
       size: "medium",
@@ -77,7 +77,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
       id: 3,
       name: "John Smith",
       position: "Senior Developer",
-      color: "var(--color-secondary)",
+      color: "var(--color-accent)",
       image: "/images/team/abdulaziz.jpeg",
       description: "John brings extensive experience in full-stack development. His expertise in modern technologies and best practices ensures our projects are built with excellence and scalability.",
       size: "large",
@@ -92,7 +92,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
       id: 4,
       name: "Alice Doe",
       position: "Creative Director",
-      color: "var(--color-primary)",
+      color: "var(--color-accent)",
       image: "/images/team/abdulaziz.jpeg",
       description: "Alice heads our design team, bringing creative vision to all our projects. Her background ensures our solutions are not only functional but beautiful and user-friendly.",
       size: "medium",
@@ -107,7 +107,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
       id: 5,
       name: "Jim Amis",
       position: "Project Manager",
-      color: "var(--color-secondary)",
+      color: "var(--color-accent)",
       image: "/images/team/abdulaziz.jpeg",
       description: "Jim navigates complex project challenges with creative approaches. His ability to coordinate cross-functional teams ensures our projects are delivered on time and within budget.",
       size: "small",
@@ -306,7 +306,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.1)';
-              e.currentTarget.style.boxShadow = '0 4px 8px rgba(15, 23, 42, 0.2)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-md)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1)';
@@ -326,25 +326,21 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
       className="chess-team-section"
       style={{
         padding: isMobile ? '3rem 0' : isTablet ? '5rem 0' : '120px 0',
-        backgroundImage: 'url(/formbg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: '#ffffff',
+        backgroundColor: 'var(--color-bg)',
         position: 'relative',
         overflow: 'hidden',
         marginTop: '-1px',
         minHeight: isMobile ? 'auto' : '100vh',
       }}
     >
-      {/* Background overlay for lower intensity */}
+      {/* Background overlay */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        backgroundColor: 'var(--color-bg-medium)',
         zIndex: 0,
         pointerEvents: 'none',
       }} />
@@ -366,40 +362,51 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
           marginBottom: isMobile ? '2rem' : isTablet ? '3rem' : '4rem',
           padding: isMobile ? '0 0.5rem' : '0',
         }}>
-          <motion.h6
+          <motion.span
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             style={{
-              fontSize: isMobile ? '0.75rem' : isTablet ? '0.875rem' : '1rem',
-              fontWeight: 700,
-              color: 'var(--color-primary)',
+              display: 'inline-block',
+              padding: '0.5rem 1.25rem',
+              background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.7))',
+              color: 'var(--color-text)',
+              fontSize: isMobile ? '0.75rem' : isTablet ? '0.8rem' : '0.85rem',
+              fontWeight: 600,
+              borderRadius: '50px',
               textTransform: 'uppercase',
-              letterSpacing: '2px',
-              marginBottom: isMobile ? '0.75rem' : '1rem',
+              letterSpacing: '1.5px',
+              marginBottom: isMobile ? '1rem' : '1.5rem',
               fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-              textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
+              boxShadow: 'var(--glow-accent-sm)',
             }}
           >
             Our Team
-          </motion.h6>
+          </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
             style={{
-              fontSize: isMobile ? '2rem' : isTablet ? '2.75rem' : '3.75rem',
+              fontSize: isMobile ? 'clamp(2rem, 5vw, 2.5rem)' : isTablet ? 'clamp(2.5rem, 5vw, 3rem)' : 'clamp(2.5rem, 5vw, 3.5rem)',
               marginBottom: isMobile ? '1rem' : '1.5rem',
-              color: '#0F172A',
+              color: 'var(--color-text)',
               fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
               fontWeight: 700,
               lineHeight: 1.2,
-              textShadow: '0 2px 4px rgba(255, 255, 255, 0.5)',
             }}
           >
-            Meet our team
+            Meet Our{' '}
+            <span style={{
+              background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.8))',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
+              Team
+            </span>
           </motion.h1>
         </div>
         )}
@@ -436,9 +443,9 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
                       height: isMobile ? 200 : 120,
                       borderRadius: '50%',
                       padding: isMobile ? '6px' : '4px',
-                      backgroundColor: '#ffffff',
+                      backgroundColor: 'var(--color-bg-light)',
                       border: `4px solid ${teamMembers[activeMobileIndex].color}`,
-                      boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                      boxShadow: 'var(--shadow-md)',
                       position: 'relative',
                     }}
                   >
@@ -463,7 +470,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
                       width: '100%',
                       height: '100%',
                       borderRadius: '50%',
-                      backgroundColor: 'rgba(15, 23, 42, 0.05)',
+                      backgroundColor: 'var(--overlay-subtle)',
                       display: 'none',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -515,7 +522,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
                 {/* Position */}
                 <p style={{
                   fontSize: '0.875rem',
-                  color: 'var(--text-on-light-muted)',
+                  color: 'var(--color-text-muted)',
                   marginBottom: '1rem',
                   fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                   wordWrap: 'break-word',
@@ -530,7 +537,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
                 {/* Description */}
                 <p style={{
                   fontSize: '0.875rem',
-                  color: 'var(--text-on-light-muted)',
+                  color: 'var(--color-text-muted)',
                   marginTop: '1.5rem',
                   lineHeight: 1.7,
                   textAlign: 'left',
@@ -563,7 +570,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
                     border: 'none',
                     backgroundColor: activeMobileIndex === index
                       ? teamMembers[index].color
-                      : 'rgba(15, 23, 42, 0.2)',
+                      : 'var(--overlay-medium)',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
                     padding: 0,
@@ -632,9 +639,9 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
                           height: sizeConfig.height,
                           borderRadius: '50%',
                           padding: screenSize === 'small-tablet' ? '3px' : '4px',
-                          backgroundColor: '#ffffff',
+                          backgroundColor: 'var(--color-bg-light)',
                           border: `${screenSize === 'small-tablet' ? '3px' : '4px'} solid ${member.color}`,
-                          boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                          boxShadow: 'var(--shadow-md)',
                           position: 'relative',
                         }}
                       >
@@ -659,7 +666,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
                           width: '100%',
                           height: '100%',
                           borderRadius: '50%',
-                          backgroundColor: 'rgba(15, 23, 42, 0.05)',
+                          backgroundColor: 'var(--overlay-subtle)',
                           display: 'none',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -732,7 +739,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
                   {/* Position */}
                   <p style={{
                     fontSize: screenSize === 'small-tablet' ? '0.7rem' : screenSize === 'tablet' ? '0.7rem' : '0.75rem',
-                    color: 'var(--text-on-light-muted)',
+                    color: 'var(--color-text-muted)',
                     marginBottom: '0.5rem',
                     fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
                     wordBreak: 'break-word',
@@ -748,7 +755,7 @@ const ChessGrandmastersTeam = ({ hideHeader = false }) => {
                   {/* Description */}
                   <p style={{
                     fontSize: screenSize === 'small-tablet' ? '0.7rem' : screenSize === 'tablet' ? '0.7rem' : '0.75rem',
-                    color: 'var(--text-on-light-muted)',
+                    color: 'var(--color-text-muted)',
                     marginTop: '1rem',
                     lineHeight: 1.6,
                     textAlign: 'justify',

@@ -24,49 +24,49 @@ const ChessFaqAccordion = () => {
       question: "What services does cypentra.dev offer?",
       answer: "cypentra.dev offers a comprehensive range of software services including Full-Stack Development, Software Engineering, DevOps & Cloud solutions, Security & Compliance, AI & Machine Learning integration, and Process Automation. Our team specializes in creating custom solutions tailored to your specific business needs with modern architecture and security-first implementation.",
       icon: "code",
-      color: "var(--color-primary)"
+      color: "var(--color-accent)"
     },
     {
       id: 2,
       question: "How does your development process work?",
       answer: "Our development process follows a strategic approach: Discovery and planning phase where we understand your requirements, Design and architecture to create the blueprint, Development with continuous testing, and finally Deployment with ongoing support. We involve clients at every step, ensuring transparency and alignment with your vision throughout the project lifecycle.",
       icon: "workflow",
-      color: "var(--color-secondary)"
+      color: "var(--color-accent)"
     },
     {
       id: 3,
       question: "What technologies do you specialize in?",
       answer: "We specialize in modern web technologies including Next.js, React, Node.js, Python, Cloud platforms (AWS, Azure, GCP), Docker, Kubernetes, and more. Our team continuously stays updated with the latest technologies to ensure we deliver cutting-edge solutions that are both performant, scalable, and maintainable.",
       icon: "layers",
-      color: "var(--color-primary)"
+      color: "var(--color-accent)"
     },
     {
       id: 4,
       question: "How do you handle project timelines and deadlines?",
       answer: "We break projects into clear milestones with specific deliverables and timelines. Our team uses agile methodologies to ensure efficient workflow and timely completion. We provide regular updates, conduct sprint reviews, and maintain open communication throughout the development process, adapting quickly to any changes in requirements.",
       icon: "clock",
-      color: "var(--color-secondary)"
+      color: "var(--color-accent)"
     },
     {
       id: 5,
       question: "What makes cypentra.dev different from other agencies?",
       answer: "cypentra.dev combines strategic thinking with deep technical expertise. We focus on quality-driven, secure software with extensive customization and long-term maintainability. Our approach isn't just about coding; it's about creating digital assets that provide real business value, drive growth, and adapt to your evolving needs.",
       icon: "star",
-      color: "var(--color-primary)"
+      color: "var(--color-accent)"
     },
     {
       id: 6,
       question: "How do you ensure application security?",
       answer: "Security is integrated into every step of our development process, not added as an afterthought. We implement industry best practices, conduct regular security audits, follow OWASP guidelines, and use secure coding standards. All our applications undergo thorough testing before deployment, and we provide continuous security monitoring and updates.",
       icon: "shield",
-      color: "var(--color-secondary)"
+      color: "var(--color-accent)"
     },
     {
       id: 7,
       question: "Do you provide ongoing support and maintenance?",
       answer: "Yes, we provide comprehensive maintenance and support packages to ensure your application remains secure, up-to-date, and optimized. Our services include regular updates, bug fixes, security patches, performance optimization, and technical support. We offer flexible plans tailored to your specific requirements and budget.",
       icon: "tool",
-      color: "var(--color-primary)"
+      color: "var(--color-accent)"
     }
   ];
 
@@ -146,24 +146,20 @@ const ChessFaqAccordion = () => {
       className="chess-faq-section"
       style={{
         padding: isMobile ? '3rem 0' : '100px 0',
-        backgroundImage: 'url(/formbg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: '#ffffff',
+        backgroundColor: 'var(--color-bg)',
         position: 'relative',
         overflow: 'hidden',
         marginTop: '-1px',
       }}
     >
-      {/* Background overlay for lower intensity */}
+      {/* Background overlay */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+        backgroundColor: 'var(--color-bg-medium)',
         zIndex: 0,
         pointerEvents: 'none',
       }} />
@@ -179,38 +175,50 @@ const ChessFaqAccordion = () => {
           textAlign: 'center',
           marginBottom: isMobile ? '2.5rem' : '4rem',
         }}>
-          <motion.h6
+          <motion.span
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             style={{
-              fontSize: isMobile ? '0.875rem' : '1rem',
-              fontWeight: 700,
-              color: 'var(--color-primary)',
+              display: 'inline-block',
+              padding: '0.5rem 1.25rem',
+              background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.7))',
+              color: 'var(--color-text)',
+              fontSize: isMobile ? '0.75rem' : '0.85rem',
+              fontWeight: 600,
+              borderRadius: '50px',
               textTransform: 'uppercase',
-              letterSpacing: '2px',
-              marginBottom: '1rem',
+              letterSpacing: '1.5px',
+              marginBottom: '1.5rem',
               fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
-              textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
+              boxShadow: 'var(--glow-accent-sm)',
             }}
           >
             FAQ
-          </motion.h6>
+          </motion.span>
 
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             style={{
-              fontSize: isMobile ? '1.75rem' : '2.8rem',
+              fontSize: isMobile ? 'clamp(1.75rem, 5vw, 2.5rem)' : 'clamp(2.5rem, 5vw, 3.5rem)',
               fontWeight: 700,
               marginBottom: '1.5rem',
-              color: '#0F172A',
+              color: 'var(--color-text)',
               fontFamily: "var(--font-sora), 'Sora', var(--font-dm-sans), 'DM Sans', sans-serif",
-              textShadow: '0 2px 4px rgba(255, 255, 255, 0.5)',
+              lineHeight: 1.2,
             }}
           >
-            Frequently Asked Questions
+            Frequently Asked{' '}
+            <span style={{
+              background: 'linear-gradient(135deg, var(--color-accent), rgba(var(--color-accent-rgb), 0.8))',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
+              Questions
+            </span>
           </motion.h2>
 
           <motion.p
@@ -221,11 +229,10 @@ const ChessFaqAccordion = () => {
               fontSize: isMobile ? '1rem' : '1.2rem',
               maxWidth: '700px',
               margin: '0 auto',
-              color: '#1A202C',
+              color: 'var(--color-text-muted)',
               lineHeight: 1.6,
               fontFamily: "var(--font-syne), 'Syne', var(--font-bricolage), 'Bricolage Grotesque', sans-serif",
               fontWeight: 500,
-              textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
               padding: isMobile ? '0 0.5rem' : '0',
             }}
           >
@@ -254,11 +261,13 @@ const ChessFaqAccordion = () => {
           >
             {/* Why Choose Us Card */}
             <div style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              backgroundColor: 'var(--glass-bg-dark)',
               padding: isMobile ? '1.5rem' : '1.5rem',
               borderRadius: '12px',
-              border: '2px solid var(--glass-border)',
-              boxShadow: '0 4px 12px var(--glass-shadow)',
+              border: `2px solid var(--glass-border)`,
+              boxShadow: 'var(--shadow-md)',
+              backdropFilter: 'var(--glass-blur-heavy)',
+              WebkitBackdropFilter: 'var(--glass-blur-heavy)',
             }}>
               <div style={{
                 display: 'flex',
@@ -270,18 +279,18 @@ const ChessFaqAccordion = () => {
                   width: isMobile ? '40px' : '44px',
                   height: isMobile ? '40px' : '44px',
                   borderRadius: '12px',
-                  backgroundColor: 'var(--color-primary-light)',
+                  backgroundColor: 'var(--color-accent-light)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: 'var(--color-primary)',
+                  color: 'var(--color-accent)',
                 }}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style={{ width: isMobile ? 20 : 22, height: isMobile ? 20 : 22, strokeWidth: 2 }}>
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                   </svg>
                 </div>
                 <h4 style={{
-                  color: 'var(--text-on-light)',
+                  color: 'var(--color-text)',
                   margin: 0,
                   fontSize: isMobile ? '1.05rem' : '1.15rem',
                   fontWeight: 700,
@@ -291,7 +300,7 @@ const ChessFaqAccordion = () => {
                 </h4>
               </div>
               <p style={{
-                color: 'var(--text-on-light-muted)',
+                color: 'var(--color-text-muted)',
                 margin: 0,
                 fontSize: isMobile ? '0.85rem' : '0.9rem',
                 lineHeight: 1.5,
@@ -308,14 +317,16 @@ const ChessFaqAccordion = () => {
               gap: '1rem',
             }}>
               <div style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                backgroundColor: 'var(--glass-bg-dark)',
                 padding: isMobile ? '1.25rem' : '1.25rem',
                 borderRadius: '12px',
-                border: '2px solid var(--glass-border)',
-                boxShadow: '0 4px 12px var(--glass-shadow)',
+                border: `2px solid var(--glass-border)`,
+                boxShadow: 'var(--shadow-md)',
+                backdropFilter: 'var(--glass-blur-heavy)',
+                WebkitBackdropFilter: 'var(--glass-blur-heavy)',
               }}>
                 <h5 style={{
-                  color: 'var(--color-primary)',
+                  color: 'var(--color-accent)',
                   fontSize: isMobile ? '1.75rem' : '1.75rem',
                   fontWeight: 700,
                   margin: '0 0 0.4rem 0',
@@ -324,7 +335,7 @@ const ChessFaqAccordion = () => {
                   24/7
                 </h5>
                 <p style={{
-                  color: 'var(--text-on-light-muted)',
+                  color: 'var(--color-text-muted)',
                   margin: 0,
                   fontSize: isMobile ? '0.8rem' : '0.85rem',
                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -334,14 +345,16 @@ const ChessFaqAccordion = () => {
               </div>
 
               <div style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                backgroundColor: 'var(--glass-bg-dark)',
                 padding: isMobile ? '1.25rem' : '1.25rem',
                 borderRadius: '12px',
-                border: '2px solid var(--glass-border)',
-                boxShadow: '0 4px 12px var(--glass-shadow)',
+                border: `2px solid var(--glass-border)`,
+                boxShadow: 'var(--shadow-md)',
+                backdropFilter: 'var(--glass-blur-heavy)',
+                WebkitBackdropFilter: 'var(--glass-blur-heavy)',
               }}>
                 <h5 style={{
-                  color: 'var(--color-secondary)',
+                  color: 'var(--color-accent)',
                   fontSize: isMobile ? '1.75rem' : '1.75rem',
                   fontWeight: 700,
                   margin: '0 0 0.4rem 0',
@@ -350,7 +363,7 @@ const ChessFaqAccordion = () => {
                   100%
                 </h5>
                 <p style={{
-                  color: 'var(--text-on-light-muted)',
+                  color: 'var(--color-text-muted)',
                   margin: 0,
                   fontSize: isMobile ? '0.8rem' : '0.85rem',
                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -362,14 +375,16 @@ const ChessFaqAccordion = () => {
 
             {/* Services Overview */}
             <div style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              backgroundColor: 'var(--glass-bg-dark)',
               padding: isMobile ? '1.5rem' : '1.5rem',
               borderRadius: '12px',
-              border: '2px solid var(--glass-border)',
-              boxShadow: '0 4px 12px var(--glass-shadow)',
+              border: `2px solid var(--glass-border)`,
+              boxShadow: 'var(--shadow-md)',
+              backdropFilter: 'var(--glass-blur-heavy)',
+              WebkitBackdropFilter: 'var(--glass-blur-heavy)',
             }}>
               <h4 style={{
-                color: 'var(--text-on-light)',
+                color: 'var(--color-text)',
                 margin: '0 0 0.75rem 0',
                 fontSize: isMobile ? '1rem' : '1.05rem',
                 fontWeight: 700,
@@ -390,11 +405,11 @@ const ChessFaqAccordion = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.75rem',
-                    color: 'var(--text-on-light-muted)',
+                    color: 'var(--color-text-muted)',
                     fontSize: isMobile ? '0.85rem' : '0.9rem',
                     fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                   }}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke={idx % 2 === 0 ? 'var(--color-primary)' : 'var(--color-secondary)'} style={{ width: 16, height: 16, strokeWidth: 2, flexShrink: 0 }}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" style={{ width: 16, height: 16, strokeWidth: 2, flexShrink: 0 }}>
                       <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                     {service}
@@ -411,13 +426,15 @@ const ChessFaqAccordion = () => {
               style={{
                 padding: isMobile ? '1.5rem' : '1.5rem',
                 borderRadius: '12px',
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                border: '2px solid var(--glass-border)',
-                boxShadow: '0 4px 12px var(--glass-shadow)',
+                backgroundColor: 'var(--glass-bg-dark)',
+                border: `2px solid var(--glass-border)`,
+                boxShadow: 'var(--shadow-md)',
+                backdropFilter: 'var(--glass-blur-heavy)',
+                WebkitBackdropFilter: 'var(--glass-blur-heavy)',
               }}
             >
               <h4 style={{
-                color: 'var(--text-on-light)',
+                color: 'var(--color-text)',
                 margin: '0 0 0.6rem 0',
                 fontSize: isMobile ? '1rem' : '1.05rem',
                 fontWeight: 700,
@@ -426,7 +443,7 @@ const ChessFaqAccordion = () => {
                 Still have questions?
               </h4>
               <p style={{
-                color: 'var(--text-on-light-muted)',
+                color: 'var(--color-text-muted)',
                 margin: '0 0 1rem 0',
                 fontSize: isMobile ? '0.85rem' : '0.875rem',
                 fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
@@ -440,8 +457,8 @@ const ChessFaqAccordion = () => {
                 whileTap={{ scale: 0.98 }}
                 style={{
                   padding: isMobile ? '0.7rem 1.25rem' : '0.75rem 1.5rem',
-                  backgroundColor: 'var(--color-secondary)',
-                  color: '#ffffff',
+                  backgroundColor: 'var(--color-accent)',
+                  color: 'var(--color-text)',
                   border: 'none',
                   borderRadius: '8px',
                   fontSize: isMobile ? '0.85rem' : '0.9rem',
@@ -453,6 +470,7 @@ const ChessFaqAccordion = () => {
                   transition: 'all 0.3s ease',
                   fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                   textDecoration: 'none',
+                  boxShadow: 'var(--glow-accent-sm)',
                 }}
               >
                 Contact Us
@@ -487,21 +505,23 @@ const ChessFaqAccordion = () => {
                     borderRadius: '12px',
                     overflow: 'hidden',
                     backgroundColor: activeIndex === index
-                      ? `rgba(${hexToRgb(item.color)}, 0.08)`
-                      : 'rgba(255, 255, 255, 0.8)',
+                      ? 'var(--color-accent-light)'
+                      : 'var(--glass-bg)',
                     border: `2px solid ${activeIndex === index
-                      ? item.color
+                      ? 'var(--color-accent)'
                       : 'var(--glass-border)'
                       }`,
                     transition: 'all 0.3s ease',
-                    boxShadow: activeIndex === index ? '0 4px 12px var(--glass-shadow)' : '0 2px 8px rgba(0, 0, 0, 0.04)',
+                    boxShadow: activeIndex === index ? 'var(--shadow-md)' : 'var(--shadow-sm)',
+                    backdropFilter: 'var(--glass-blur)',
+                    WebkitBackdropFilter: 'var(--glass-blur)',
                   }}
                 >
                   {/* Question header */}
                   <motion.div
                     className="faq-question"
                     onClick={() => toggleItem(index)}
-                    whileHover={{ backgroundColor: 'rgba(30, 64, 175, 0.03)' }}
+                    whileHover={{ backgroundColor: 'var(--overlay-subtle)' }}
                     style={{
                       padding: isMobile ? '1.25rem' : '1.25rem',
                       cursor: 'pointer',
@@ -520,11 +540,11 @@ const ChessFaqAccordion = () => {
                         width: isMobile ? '32px' : '36px',
                         height: isMobile ? '32px' : '36px',
                         borderRadius: '8px',
-                        backgroundColor: activeIndex === index ? item.color : 'var(--glass-block-1)',
+                        backgroundColor: activeIndex === index ? 'var(--color-accent)' : 'var(--glass-bg)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: activeIndex === index ? '#ffffff' : item.color,
+                        color: activeIndex === index ? 'var(--color-text)' : 'var(--color-accent)',
                         flexShrink: 0,
                         transition: 'all 0.3s ease',
                       }}>
@@ -534,7 +554,7 @@ const ChessFaqAccordion = () => {
                         margin: 0,
                         fontSize: isMobile ? '0.95rem' : '1.025rem',
                         fontWeight: activeIndex === index ? 700 : 600,
-                        color: 'var(--text-on-light)',
+                        color: 'var(--color-text)',
                         fontFamily: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
                       }}>
                         {item.question}
@@ -547,7 +567,7 @@ const ChessFaqAccordion = () => {
                       transition={{ duration: 0.3 }}
                       style={{
                         flexShrink: 0,
-                        color: activeIndex === index ? item.color : 'var(--text-on-light-muted)',
+                        color: activeIndex === index ? 'var(--color-accent)' : 'var(--color-text-muted)',
                       }}
                     >
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -583,9 +603,9 @@ const ChessFaqAccordion = () => {
                           className="faq-answer"
                           style={{
                             padding: isMobile ? '0 1.25rem 1.25rem 1.25rem' : '0 1.25rem 1.25rem 1.25rem',
-                            color: 'var(--text-on-light-muted)',
+                            color: 'var(--color-text-muted)',
                             lineHeight: 1.5,
-                            borderTop: '1px solid var(--glass-border)',
+                            borderTop: `1px solid var(--glass-border)`,
                             marginTop: '0.5rem',
                             paddingTop: '0.875rem',
                           }}
@@ -617,10 +637,10 @@ const ChessFaqAccordion = () => {
 
 // Helper function
 function hexToRgb(hex) {
-  // Handle CSS variables
+  // Handle CSS variables - return accent color RGB
   if (hex.startsWith('var(')) {
-    // For CSS variables, return a default value
-    return '30, 64, 175'; // Default to primary color
+    // Return accent color RGB from globals.css
+    return '244, 107, 39'; // var(--color-accent-rgb)
   }
 
   // Remove the # if present

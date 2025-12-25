@@ -51,7 +51,7 @@ export default function Home() {
       ) : (
         <>
           <Header />
-          <main style={{ backgroundColor: '#ffffff' }}>
+          <main style={{ backgroundColor: 'var(--color-bg)' }}>
             <Hero />
             <ServicesSection />
             <AIPersonalizedContent />
@@ -72,11 +72,7 @@ export default function Home() {
           left: 0;
           width: 100%;
           height: 100vh;
-          background-color: #ffffff;
-          background-image: url(/formbg.png);
-          background-size: auto;
-          background-position: center;
-          background-repeat: repeat;
+          background-color: var(--color-bg);
           z-index: 9999;
           overflow: hidden;
         }
@@ -88,7 +84,7 @@ export default function Home() {
           left: 0;
           width: 100%;
           height: 100%;
-          background-color: rgba(255, 255, 255, 0.75);
+          background-color: var(--color-bg-medium);
           z-index: 1;
         }
         
@@ -105,7 +101,7 @@ export default function Home() {
         .skeleton-header {
           width: 100%;
           height: 80px;
-          background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+          background: linear-gradient(90deg, var(--overlay-medium) 25%, var(--overlay-light) 50%, var(--overlay-medium) 75%);
           background-size: 200% 100%;
           animation: shimmer 1.5s infinite;
           border-radius: 8px;
@@ -120,7 +116,7 @@ export default function Home() {
         
         .skeleton-line {
           height: 24px;
-          background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+          background: linear-gradient(90deg, var(--overlay-medium) 25%, var(--overlay-light) 50%, var(--overlay-medium) 75%);
           background-size: 200% 100%;
           animation: shimmer 1.5s infinite;
           border-radius: 4px;
@@ -140,7 +136,7 @@ export default function Home() {
         .skeleton-button {
           width: 180px;
           height: 48px;
-          background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+          background: linear-gradient(90deg, var(--color-accent-light) 25%, var(--color-accent-medium) 50%, var(--color-accent-light) 75%);
           background-size: 200% 100%;
           animation: shimmer 1.5s infinite;
           border-radius: 8px;
@@ -158,7 +154,7 @@ export default function Home() {
         
         .skeleton-card {
           height: 250px;
-          background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+          background: linear-gradient(90deg, var(--overlay-medium) 25%, var(--overlay-light) 50%, var(--overlay-medium) 75%);
           background-size: 200% 100%;
           animation: shimmer 1.5s infinite;
           border-radius: 12px;

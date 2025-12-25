@@ -5,7 +5,23 @@ import React, { useState, useEffect } from 'react';
 const ServicesSection = () => {
   const [activeService, setActiveService] = useState(0);
   const [hoveredCard, setHoveredCard] = useState(null);
-  
+
+  // Color scheme
+  const colors = {
+    bg: '#0e0918',
+    bgLight: 'rgba(14, 9, 24, 0.85)',
+    bgCard: 'rgba(14, 9, 24, 0.6)',
+    bgCardSolid: 'rgba(20, 14, 35, 0.95)',
+    text: '#e8e7e9',
+    textMuted: 'rgba(232, 231, 233, 0.7)',
+    textSubtle: 'rgba(232, 231, 233, 0.5)',
+    accent: '#f46b27',
+    accentGlow: 'rgba(244, 107, 39, 0.3)',
+    accentHover: 'rgba(244, 107, 39, 0.15)',
+    border: 'rgba(232, 231, 233, 0.1)',
+    borderLight: 'rgba(232, 231, 233, 0.15)',
+  };
+
   // Initialize with default indices (0 for all services)
   const [imageIndices, setImageIndices] = useState({
     0: 0,
@@ -36,7 +52,7 @@ const ServicesSection = () => {
         '/images/Services/Full-stack-service/api-integration.jpg',
         '/images/Services/Full-stack-service/database.jpg',
       ],
-      accent: '#3B82F6',
+      accent: colors.accent,
       route: '/services/fullstack-development',
     },
     {
@@ -57,7 +73,7 @@ const ServicesSection = () => {
         '/images/Services/Software-Engineering/code-quality.png',
         '/images/Services/Software-Engineering/Performance-Optimization.webp',
       ],
-      accent: '#8B5CF6',
+      accent: colors.accent,
       route: '/services/software-engineering',
     },
     {
@@ -78,7 +94,7 @@ const ServicesSection = () => {
         '/images/Services/Deveops/Security-Monitoring.jpg',
         '/images/Services/Deveops/cloud-devops.png',
       ],
-      accent: '#06B6D4',
+      accent: colors.accent,
       route: '/services/devops-cloud-security',
     },
     {
@@ -99,7 +115,7 @@ const ServicesSection = () => {
         '/images/Services/Compliance/secuirity-assesment.jpg',
         '/images/Services/Compliance/compliance-managment.avif',
       ],
-      accent: '#10B981',
+      accent: colors.accent,
       route: '/services/data-security',
     },
     {
@@ -120,7 +136,7 @@ const ServicesSection = () => {
         '/images/Services/AI-ML/ml-modals.jpg',
         '/images/Services/AI-ML/AI-integrations.jpg',
       ],
-      accent: '#F59E0B',
+      accent: colors.accent,
       route: '/services/ai-machine-learning',
     },
     {
@@ -141,7 +157,7 @@ const ServicesSection = () => {
         '/images/Services/process-automation/BPI.jpg',
         '/images/Services/process-automation/sceduling.webp',
       ],
-      accent: '#EF4444',
+      accent: colors.accent,
       route: '/services/process-automation',
     }
   ];
@@ -164,11 +180,12 @@ const ServicesSection = () => {
 
   return (
     <section className="services-section">
-      {/* Background overlay */}
+      {/* Background overlay with glass effect */}
       <div className="bg-overlay" />
 
-      {/* Animated gradient orb */}
-      <div className="orb orb-3" />
+      {/* Subtle accent glow orb */}
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
 
       <div className="container">
         {/* Section Header */}
@@ -312,39 +329,11 @@ const ServicesSection = () => {
         .services-section {
           position: relative;
           padding: 120px 0;
-          background-image: url(/formbg.png);
-          background-size: auto;
-          background-position: center;
-          background-repeat: repeat;
-          background-color: #ffffff;
+          background-color: ${colors.bg};
           overflow: hidden;
           margin-top: -1px;
         }
 
-        .bg-overlay {
-          position: absolute;
-          inset: 0;
-          background: rgba(255, 255, 255, 0.88);
-          z-index: 0;
-        }
-
-        .orb {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.4;
-          z-index: 0;
-          animation: float 20s ease-in-out infinite;
-        }
-
-        .orb-3 {
-          width: 250px;
-          height: 250px;
-          background: #8B5CF6;
-          top: 50%;
-          right: 20%;
-          animation-delay: -14s;
-        }
 
         @keyframes float {
           0%, 100% { transform: translate(0, 0) scale(1); }
@@ -370,8 +359,8 @@ const ServicesSection = () => {
         .section-badge {
           display: inline-block;
           padding: 0.5rem 1.25rem;
-          background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-          color: white;
+          background: linear-gradient(135deg, ${colors.accent}, rgba(244, 107, 39, 0.7));
+          color: ${colors.text};
           font-size: 0.85rem;
           font-weight: 600;
           border-radius: 50px;
@@ -379,19 +368,20 @@ const ServicesSection = () => {
           letter-spacing: 1.5px;
           margin-bottom: 1.5rem;
           font-family: var(--font-syne), 'Syne', sans-serif;
+          box-shadow: 0 4px 20px ${colors.accentGlow};
         }
 
         .section-title {
           font-size: clamp(2.5rem, 5vw, 3.5rem);
           font-weight: 700;
-          color: #0F172A;
+          color: ${colors.text};
           margin-bottom: 1.5rem;
           font-family: var(--font-sora), 'Sora', sans-serif;
           line-height: 1.2;
         }
 
         .title-highlight {
-          background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+          background: linear-gradient(135deg, ${colors.accent}, rgba(244, 107, 39, 0.8));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -401,7 +391,7 @@ const ServicesSection = () => {
           font-size: 1.15rem;
           max-width: 650px;
           margin: 0 auto;
-          color: #475569;
+          color: ${colors.textMuted};
           line-height: 1.7;
           font-family: var(--font-syne), 'Syne', sans-serif;
         }
@@ -414,7 +404,7 @@ const ServicesSection = () => {
           width: 100%;
           height: 100%;
           overflow: hidden;
-          background: #e2e8f0;
+          background: rgba(14, 9, 24, 0.5);
         }
 
         .carousel-image {
@@ -447,12 +437,12 @@ const ServicesSection = () => {
           width: 6px;
           height: 6px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.5);
+          background: rgba(232, 231, 233, 0.4);
           transition: all 0.3s ease;
         }
 
         .carousel-dots .dot.active {
-          background: white;
+          background: ${colors.accent};
           width: 18px;
           border-radius: 3px;
         }
@@ -467,11 +457,13 @@ const ServicesSection = () => {
         .featured-card {
           display: grid;
           grid-template-columns: 1.2fr 1fr;
-          background: white;
+          background: ${colors.bgCardSolid};
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
           border-radius: 24px;
           overflow: hidden;
-          box-shadow: 0 25px 80px rgba(0, 0, 0, 0.08);
-          border: 1px solid rgba(0, 0, 0, 0.05);
+          box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          border: 1px solid ${colors.border};
         }
 
         .featured-media-wrapper {
@@ -497,9 +489,9 @@ const ServicesSection = () => {
           inset: 0;
           background: linear-gradient(
             135deg,
-            rgba(0, 0, 0, 0.1) 0%,
+            rgba(14, 9, 24, 0.3) 0%,
             transparent 50%,
-            rgba(0, 0, 0, 0.2) 100%
+            rgba(14, 9, 24, 0.4) 100%
           );
           z-index: 2;
           pointer-events: none;
@@ -513,12 +505,14 @@ const ServicesSection = () => {
           align-items: center;
           gap: 0.5rem;
           padding: 0.6rem 1rem;
-          background: rgba(255, 255, 255, 0.95);
+          background: rgba(14, 9, 24, 0.8);
           backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid ${colors.border};
           border-radius: 50px;
           font-size: 0.8rem;
           font-weight: 600;
-          color: #0F172A;
+          color: ${colors.text};
           font-family: var(--font-syne), 'Syne', sans-serif;
           z-index: 5;
         }
@@ -526,9 +520,10 @@ const ServicesSection = () => {
         .badge-dot {
           width: 8px;
           height: 8px;
-          background: var(--accent);
+          background: ${colors.accent};
           border-radius: 50%;
           animation: pulse 2s ease-in-out infinite;
+          box-shadow: 0 0 10px ${colors.accentGlow};
         }
 
         @keyframes pulse {
@@ -546,24 +541,25 @@ const ServicesSection = () => {
         .featured-subtitle {
           font-size: 0.9rem;
           font-weight: 600;
-          color: var(--accent);
+          color: ${colors.accent};
           text-transform: uppercase;
           letter-spacing: 2px;
           margin-bottom: 0.75rem;
           font-family: var(--font-syne), 'Syne', sans-serif;
+          text-shadow: 0 0 20px ${colors.accentGlow};
         }
 
         .featured-title {
           font-size: 2rem;
           font-weight: 700;
-          color: #0F172A;
+          color: ${colors.text};
           margin-bottom: 1rem;
           font-family: var(--font-sora), 'Sora', sans-serif;
         }
 
         .featured-description {
           font-size: 1.05rem;
-          color: #64748B;
+          color: ${colors.textMuted};
           line-height: 1.7;
           margin-bottom: 2rem;
           font-family: var(--font-syne), 'Syne', sans-serif;
@@ -581,12 +577,12 @@ const ServicesSection = () => {
           align-items: center;
           gap: 0.75rem;
           font-size: 0.95rem;
-          color: #334155;
+          color: ${colors.textMuted};
           font-family: var(--font-syne), 'Syne', sans-serif;
         }
 
         .featured-feature svg {
-          color: var(--accent);
+          color: ${colors.accent};
           flex-shrink: 0;
         }
 
@@ -595,8 +591,8 @@ const ServicesSection = () => {
           align-items: center;
           gap: 0.75rem;
           padding: 1rem 2rem;
-          background: var(--accent);
-          color: white;
+          background: linear-gradient(135deg, ${colors.accent}, rgba(244, 107, 39, 0.8));
+          color: ${colors.text};
           font-weight: 600;
           font-size: 1rem;
           border-radius: 12px;
@@ -604,11 +600,12 @@ const ServicesSection = () => {
           transition: all 0.3s ease;
           width: fit-content;
           font-family: var(--font-syne), 'Syne', sans-serif;
+          box-shadow: 0 4px 20px ${colors.accentGlow};
         }
 
         .featured-cta:hover {
           transform: translateY(-2px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 10px 40px ${colors.accentGlow};
         }
 
         .featured-cta svg {
@@ -630,7 +627,9 @@ const ServicesSection = () => {
 
         .service-card {
           position: relative;
-          background: white;
+          background: ${colors.bgCardSolid};
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
           border-radius: 16px;
           overflow: hidden;
           cursor: pointer;
@@ -638,7 +637,8 @@ const ServicesSection = () => {
           animation: fadeInUp 0.6s ease forwards;
           animation-delay: var(--delay);
           opacity: 0;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+          border: 1px solid ${colors.border};
         }
 
         @keyframes fadeInUp {
@@ -655,11 +655,11 @@ const ServicesSection = () => {
         .service-card:hover,
         .service-card.active {
           transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px ${colors.accentGlow};
         }
 
         .service-card.active {
-          outline: 2px solid var(--accent);
+          outline: 2px solid ${colors.accent};
           outline-offset: 2px;
         }
 
@@ -700,7 +700,7 @@ const ServicesSection = () => {
           inset: 0;
           background: linear-gradient(
             to top,
-            rgba(0, 0, 0, 0.5) 0%,
+            rgba(14, 9, 24, 0.7) 0%,
             transparent 60%
           );
           z-index: 2;
@@ -713,7 +713,7 @@ const ServicesSection = () => {
           right: 0.75rem;
           font-size: 0.75rem;
           font-weight: 700;
-          color: white;
+          color: ${colors.text};
           opacity: 0.8;
           font-family: var(--font-sora), 'Sora', sans-serif;
           z-index: 3;
@@ -727,11 +727,14 @@ const ServicesSection = () => {
           align-items: center;
           gap: 0.4rem;
           padding: 0.35rem 0.75rem;
-          background: white;
+          background: rgba(14, 9, 24, 0.9);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid ${colors.border};
           border-radius: 50px;
           font-size: 0.7rem;
           font-weight: 600;
-          color: #0F172A;
+          color: ${colors.text};
           font-family: var(--font-syne), 'Syne', sans-serif;
           z-index: 3;
         }
@@ -739,9 +742,10 @@ const ServicesSection = () => {
         .indicator-dot {
           width: 6px;
           height: 6px;
-          background: var(--accent);
+          background: ${colors.accent};
           border-radius: 50%;
           animation: pulse 2s ease-in-out infinite;
+          box-shadow: 0 0 8px ${colors.accentGlow};
         }
 
         .card-content {
@@ -752,7 +756,7 @@ const ServicesSection = () => {
         .card-title {
           font-size: 0.9rem;
           font-weight: 700;
-          color: #0F172A;
+          color: ${colors.text};
           margin-bottom: 0.25rem;
           font-family: var(--font-sora), 'Sora', sans-serif;
           line-height: 1.3;
@@ -760,7 +764,7 @@ const ServicesSection = () => {
 
         .card-subtitle {
           font-size: 0.75rem;
-          color: #64748B;
+          color: ${colors.textSubtle};
           font-family: var(--font-syne), 'Syne', sans-serif;
         }
 
@@ -773,12 +777,13 @@ const ServicesSection = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: var(--accent);
-          color: white;
+          background: ${colors.accent};
+          color: ${colors.text};
           border-radius: 50%;
           opacity: 0;
           transform: translate(10px, 10px);
           transition: all 0.3s ease;
+          box-shadow: 0 4px 15px ${colors.accentGlow};
         }
 
         .service-card:hover .card-arrow,
@@ -797,7 +802,7 @@ const ServicesSection = () => {
         }
 
         .service-card:hover .card-border {
-          border-color: var(--accent);
+          border-color: ${colors.accent};
         }
 
         /* ==================== */
